@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/img_not_available" />
+
+        <LinearLayout
+            android:id="@+id/linearLoading"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/speech_bubble_nine_patch_agent">
+
+            <include layout="@layout/layout_typing_indicator"
+                android:id="@+id/container_group_channel_list_typing_indicator"
+                android:layout_width="32dp"
+                android:layout_height="16dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+</LinearLayout>

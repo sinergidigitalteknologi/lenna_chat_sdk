@@ -1,15 +1,18 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'io.fabric'
+
 buildscript {
     repositories {
         google()
         mavenCentral()
         jcenter()
-        maven { url 'https://maven.fabric.io/public' }
+//        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'io.fabric.tool' +
-                's:gradle:1.+'
+//        classpath 'io.fabric.tool' +
+//                's:gradle:1.+'
         classpath "com.android.tools.build:gradle:3.5.0"
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.0'
     }
@@ -21,6 +24,7 @@ repositories {
     maven { url "https://jitpack.io" }
     maven { url "http://jcenter.bintray.com" }
     maven { url 'https://maven.google.com/' }
+//    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -42,6 +46,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
     compileOptions {
         sourceCompatibility = '1.8'

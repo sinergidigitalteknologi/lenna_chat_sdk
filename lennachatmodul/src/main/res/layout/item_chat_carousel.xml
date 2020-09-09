@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_solid">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_not_available" />
+
+            <TextView
+                android:id="@+id/text_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:maxLines="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/quicksand_bold"
+                tools:text="as" />
+
+            <TextView
+                android:id="@+id/text_view_description"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="2"
+                android:fontFamily="@font/quicksand_regular"
+                android:text=""
+                android:layout_marginBottom="14dp"
+                android:textColor="@color/tundora"
+                android:textSize="13sp"
+                tools:text="Ini adalah deskripsi dari setiap carousel" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:id="@+id/llButtonAction"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/porcelain"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/textViewButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/quicksand_bold"
+                    tools:text="Lihat lebih"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/textViewButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/quicksand_bold"
+                    tools:text="Lihat lebih"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/textViewButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/quicksand_bold"
+                    tools:text="Lihat lebih"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/textViewButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/quicksand_bold"
+                    tools:text="Lihat lebih"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

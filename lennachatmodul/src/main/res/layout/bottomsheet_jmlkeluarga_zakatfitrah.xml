@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_rounded"
+
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Anggota Keluarga"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageViewClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_bt_close" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:id="@+id/llKeberangkatan1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Nomor KTP/Identitas"
+                    android:textColor="@color/manatee"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:textStyle="bold" />
+
+
+                <EditText
+                    android:id="@+id/et_nik_anggotakeluarga"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_edittext_login"
+                    android:fontFamily="@font/quicksand"
+                    android:inputType="number"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="14dp"
+                    android:visibility="gone"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/black_solid"
+                    android:textColorHint="@color/black_solid"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Email"
+                    android:textColor="@color/manatee"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <EditText
+                    android:id="@+id/et_email_anggotakeluarga"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_edittext_login"
+                    android:fontFamily="@font/quicksand"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/black_solid"
+                    android:textColorHint="@color/black_solid"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Jumlah Anggota keluarga"
+                    android:textColor="@color/manatee"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:background="@drawable/background_edittext_login">
+
+                    <Spinner
+                        android:id="@+id/sp_jmlkeluarga"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:drawSelectorOnTop="true"
+                        android:gravity="center"
+                        android:spinnerMode="dialog"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_profile_upload_id_card">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_lightbulb" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/quicksand_regular"
+                        android:text="Sudah termasuk kepala keluarga"
+                        android:textColor="@color/cerulean"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Data Anggota Keluarga  "
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/manatee"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Nama Kepala Keluarga"
+                    android:textColor="@color/manatee"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <EditText
+                    android:id="@+id/et_nama_kepalakeluarga"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_edittext_login"
+                    android:fontFamily="@font/quicksand"
+                    android:inputType="text"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/black_solid"
+                    android:textColorHint="@color/black_solid"
+                    android:textSize="14sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_profile_upload_id_card">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_lightbulb" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/quicksand_regular"
+                        android:text="Nama harus sesuai dengan KTP"
+                        android:textColor="@color/cerulean"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/tv_nama2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="Nama"
+                            android:layout_marginTop="10dp"
+
+                            android:textColor="@color/manatee"
+                            android:textSize="14sp"
+                            android:visibility="gone"
+
+                            android:textStyle="bold" />
+
+
+                        <EditText
+                            android:id="@+id/et_nama2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/background_edittext_login"
+                            android:fontFamily="@font/quicksand"
+                            android:inputType="text"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="14dp"
+                            android:visibility="gone"
+
+                            android:paddingBottom="10dp"
+                            android:textColor="@color/black_solid"
+                            android:textColorHint="@color/black_solid"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_nama3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="Nama"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"
+
+                            android:textColor="@color/manatee"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                        <EditText
+                            android:id="@+id/et_nama3"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/background_edittext_login"
+                            android:fontFamily="@font/quicksand"
+                            android:inputType="text"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="14dp"
+                            android:paddingBottom="10dp"
+                            android:visibility="gone"
+
+                            android:textColor="@color/black_solid"
+                            android:textColorHint="@color/black_solid"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_nama4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="Nama"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"
+
+                            android:textColor="@color/manatee"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                        <EditText
+                            android:id="@+id/et_nama4"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/background_edittext_login"
+                            android:fontFamily="@font/quicksand"
+                            android:inputType="text"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="14dp"
+                            android:paddingBottom="10dp"
+                            android:visibility="gone"
+
+                            android:textColor="@color/black_solid"
+                            android:textColorHint="@color/black_solid"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_nama5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="Nama"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"
+
+                            android:textColor="@color/manatee"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                        <EditText
+                            android:id="@+id/et_nama5"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/background_edittext_login"
+                            android:fontFamily="@font/quicksand"
+                            android:inputType="text"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="14dp"
+                            android:paddingBottom="10dp"
+                            android:visibility="gone"
+
+                            android:textColor="@color/black_solid"
+                            android:textColorHint="@color/black_solid"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        android:id="@+id/button_batal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/background_button_zakat_gray_rounded"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="Batal"
+                        android:textColor="@color/manatee"
+
+                        android:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/button_kirim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="20dp"
+
+                        android:layout_weight="1"
+
+                        android:layout_marginBottom="10dp"
+
+                        android:background="@drawable/background_button_zakat_primary_rounded"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="Kirim"
+                        android:textColor="@color/white_solid"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+
+    <!-- General palettes -->
+    <color name="lima">#78BE20</color>
+    <color name="monza">#E20015</color>
+    <color name="tundora">#4A4A4A</color>
+    <color name="manatee">#94959A</color>
+    <color name="whisper">#F8F6F9</color>
+    <color name="porcelain">#F6F7F8</color>
+    <color name="ripe_lemon">#f8e71c</color>
+    <color name="qusty_gray">#9b9b9b</color>
+    <color name="bondi_blue">#00A8B0</color>
+    <color name="white_solid">#ffffff</color>
+    <color name="black_solid">#000000</color>
+    <color name="you_tube_red">#A20015</color>
+    <color name="transparent">#00000000</color>
+    <color name="black_transparnt_80">#80000000</color>
+
+    <!-- Palette gray -->
+    <color name="gray_iron">#d4d7da</color>
+    <color name="gray_athens">#EFEFF0</color>
+    <color name="gray_chateau">#a8afb5</color>
+    <color name="gray_transparant">#33d4d7da</color>
+
+    <color name="botPrimary">#7180AC</color>
+    <color name="botSecondary">#2B4570</color>
+    <color name="shimmer_color_for_image">#55efefef</color>
+
+    <!-- Palette Blue-->
+    <color name="oldblue">#005286</color>
+    <color name="cerulean">#019ECD</color>
+    <color name="lochmara">#008ECF</color>
+    <color name="bright_turquoise">#00CAF9</color>
+    <color name="color_input_chat">#e5e5e5</color>
+
+    <!-- Palette Emerald -->
+    <color name="emerald">#60c58e</color>
+    <color name="ocean_green">#489F71</color>
+    <color name="emerald_soft">#56c291</color>
+    <color name="pacific_blue">#01B4C5</color>
+
+    <color name="red_book">#EB3F2C</color>
+    <color name="burnt_sienna">#ED6054</color>
+    <color name="alert_btn_order">#00ff0707</color>
+    <color name="red_notification_list">#e96357</color>
+    <color name="red_notification_profil">#e85b4f</color>
+
+    <!-- Notification or dialog -->
+    <color name="red_notification">#ed5d51</color>
+    <color name="green_notification">#57c392</color>
+    <color name="dialog_header_gagal">@color/burnt_sienna</color>
+    <color name="dialog_header_sukses">@color/emerald_soft</color>
+
+    <!-- Other -->
+    <color name="colorFilm">#0087d3</color>
+    <color name="gray_saldo">#e6e6e6</color>
+    <color name="profilGreen">#58c293</color>
+    <color name="home_survey">#eaeaea</color>
+    <color name="black_sheet">#2c2e30</color>
+    <color name="black_trans">#b3000000</color>
+    <color name="yelow_weather">#ffe700</color>
+    <color name="gray_passenger">#d8d8d8</color>
+    <color name="greyForgotPassword">#94959a</color>
+    <color name="container_send">#efefef</color>
+
+
+</resources>
