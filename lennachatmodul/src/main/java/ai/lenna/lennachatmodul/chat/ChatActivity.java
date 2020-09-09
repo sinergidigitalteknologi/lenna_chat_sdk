@@ -259,7 +259,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        ButterKnife.bind(this);
         ivActionMic = findViewById(R.id.action_mic);
         ivImageViewEnter = findViewById(R.id.imageViewEnter);
         etSendMessage = findViewById(R.id.et_send_message);
