@@ -110,9 +110,6 @@ import ai.lenna.lennachatmodul.util.DialogUtils;
 import ai.lenna.lennachatmodul.util.ShowAllert;
 import ai.lenna.lennachatmodul.util.SpeakToTextUtils;
 import ai.lenna.lennachatmodul.util.TtsUtils;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import im.delight.android.location.SimpleLocation;
 
 public class ChatActivity extends AppCompatActivity implements RecognitionListener, ChatContract.View, LocationListener, ChatAdapter.OnClickListener {
