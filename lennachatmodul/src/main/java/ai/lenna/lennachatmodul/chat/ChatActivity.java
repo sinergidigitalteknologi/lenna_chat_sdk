@@ -20,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -116,10 +117,12 @@ import im.delight.android.location.SimpleLocation;
 
 public class ChatActivity extends AppCompatActivity implements RecognitionListener, ChatContract.View, LocationListener, ChatAdapter.OnClickListener {
     private static final String INPUT = "input";
-    public static final String TAG = "ChatActivity";
     private static final int LOCATION_REQUEST = 1355;
     private static final String tag = "ChatFragment";
     private static final String[] LOCATION_PERMS = {Manifest.permission.ACCESS_FINE_LOCATION};
+
+    public static final String TAG = "ChatActivity";
+    public static int LOGO_TITLE = 0;
 
     LinearLayout llForm;
     ShowAllert showAllert;
@@ -246,7 +249,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     String asalBandara, tujuanBandara, tglBerangkatPesawatVar, tglPulangPesawatVar;
 
 //    @BindView(R.id.action_mic)
-    ImageView ivActionMic;
+    ImageView ivActionMic,img_icon_chat;
 //    @BindView(R.id.imageViewEnter)
     ImageView ivImageViewEnter;
 //    @BindView(R.id.et_send_message)
@@ -260,8 +263,12 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         ivActionMic = findViewById(R.id.action_mic);
         ivImageViewEnter = findViewById(R.id.imageViewEnter);
         etSendMessage = findViewById(R.id.et_send_message);
+        img_icon_chat = findViewById(R.id.img_icon_chat);
+        // click listener
         ivActionMic.setOnClickListener(micClicked);
         ivImageViewEnter.setOnClickListener(imgEnterClicked);
+        //set logo title
+        img_icon_chat.setImageResource(LOGO_TITLE);
 
         activity = this.activity;
 
@@ -381,6 +388,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             }
         };
     }
+
     private boolean appInstalledOrNot(String uri) {
         PackageManager pm = ChatActivity.this.getPackageManager();
         try {
@@ -3030,6 +3038,9 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     @Override
     public void onCarouselClick(String buttonName, String payload) {
+    }
 
+    public void setImageLogo(int resource){
+        img_icon_chat.setImageResource(resource);
     }
 }
