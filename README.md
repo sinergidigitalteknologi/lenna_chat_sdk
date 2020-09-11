@@ -26,7 +26,7 @@ compileOptions {
 }
 </br>
 dependencies {
-    implementation 'com.github.sinergidigitalteknologi:lenna_chat_sdk:1.0.0_beta'
+    implementation 'com.github.sinergidigitalteknologi:lenna_chat_sdk:1.0.0_beta_0'
 }</pre></div>
 </br>
 
@@ -40,13 +40,13 @@ dependencies {
 2. Call and set some configuration on Class Chat
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k"> 
-  Chat.setEmail("...");
-  Chat.setUserId("...");
-  Chat.setBotId("...");
-  Chat.setIcon(...);
-  Chat.setGreetingMessage("...");
-  Chat.setToken("...");
-  Chat.start(this);
+Chat.setAppId("...");
+Chat.setBotId("...");
+Chat.setUserName("...");
+Chat.setIcon(...);
+Chat.setIconBubleChat(...);
+Chat.setGreetingMessage(...);
+Chat.start(this);
 </span></pre></div>
 
 <h2><a id="user-content-gradle-setup" class="anchor" aria-hidden="true" href="#gradle-setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path></path></svg></a> Contributors </h2>
