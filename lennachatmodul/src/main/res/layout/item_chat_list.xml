@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_view_denom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:textColor="@color/black_sheet"
+                android:textSize="16sp"
+                android:maxLines="3"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                tools:text="Indosat Data Freedom Combo XXL 65GB" />
+
+            <TextView
+                android:id="@+id/text_view_denom_rupiah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_light"
+                android:textColor="@color/black_sheet"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                tools:text=" Rp 100.000" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
