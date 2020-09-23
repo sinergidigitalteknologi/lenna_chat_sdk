@@ -57,6 +57,8 @@ public interface ChatContract {
         void showBottomSheetPlanePassengerForm(ChatOutputPlanePassengerForm chatOutputPlanePassengerForm);
         void showBottomSheetDatePickerForm(ChatOutputDatepickerForm chatOutputDatepickerForm);
         void showBottomSheetMultipleDatePicker(ChatOutputMultiDatePicker chatOutputMultiDatePicker);
+        void mainCours(String text);
+
 
 
 

@@ -369,7 +369,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 }
             });
 //            insertToDatabase(req.getQuery());
-            presenter.onEditTextActionDone(req.getQuery());
+            presenter.onEditTextActionDone(req.getQuery()); //viky
             statusLoading = 1;
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -380,6 +380,35 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             }, 1000);
         }
 
+    }
+    @Override
+    public void mainCours(String text) {
+        if (!text.equals("")){
+            final ChatReq req = new ChatReq();
+            req.setUserId(Prefs.getString("USER_ID",""));
+            req.setQuery(text);
+            req.setLat(String.valueOf(latitude));
+            req.setLon(String.valueOf(longitude));
+            req.setChannel("android");
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
+                    chatResponseEntity.setChatHistory(req.getQuery());
+                    mDb.chatResponseDao().insertAll(chatResponseEntity);
+                }
+            });
+//            insertToDatabase(req.getQuery());
+            presenter.onEditTextActionDone(req.getQuery()); //viky
+            statusLoading = 1;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    presenter.requestDataFromServer(req);
+                    statusLoading = 0;
+                }
+            }, 1000);
+        }
     }
 
     private boolean appInstalledOrNot(String uri) {
@@ -395,6 +424,9 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     private void getLonLat() {
         latitude = locationsMap.getLatitude();
         longitude = locationsMap.getLongitude();
+        Constant.LAT = latitude;
+        Constant.LON = longitude;
+
     }
 
     private void updateWithNewLocation(Location location) {
@@ -569,118 +601,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         }
     }
 
-    public class MyTextWatcher implements TextWatcher {
-        private View view;
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void afterTextChanged(Editable editable) {
-            etUangUE.removeTextChangedListener(this);
-            try {
-                String originalString = editable.toString();
-                Long longval;
-                if (originalString.contains(",")) {
-                    originalString = originalString.replaceAll(",", "");
-                }
-                longval = Long.parseLong(originalString);
-                DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-                formatter.applyPattern("#,###,###,###");
-                String formattedString = formatter.format(longval);
-                etUangUE.setText(formattedString);
-                etUangUE.setSelection(etUangUE.getText().length());
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-            etUangUE.addTextChangedListener(this);
-        }
-    }
-
-    public class TextWatcherUang implements TextWatcher {
-        private View view;
-        private TextWatcherUang(View view) {
-            this.view = view;
-        }
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void afterTextChanged(Editable editable) {
-            etUangU.removeTextChangedListener(this);
-            try {
-                String originalString = editable.toString();
-
-                Long longval;
-                if (originalString.contains(",")) {
-                    originalString = originalString.replaceAll(",", "");
-                }
-                longval = Long.parseLong(originalString);
-                DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-                formatter.applyPattern("#,###,###,###");
-                String formattedString = formatter.format(longval);
-                etUangU.setText(formattedString);
-                etUangU.setSelection(etUangU.getText().length());
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-            etUangU.addTextChangedListener(this);
-        }
-    }
-
-    public class TextWatcherEmasE implements TextWatcher {
-        private View view;
-        private TextWatcherEmasE(View view) {
-            this.view = view;
-        }
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void afterTextChanged(Editable editable) {
-            etEmasE.removeTextChangedListener(this);
-            try {
-                String originalString = editable.toString();
-                Long longval;
-                if (originalString.contains(",")) {
-                    originalString = originalString.replaceAll(",", "");
-                }
-                longval = Long.parseLong(originalString);
-                DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-                formatter.applyPattern("#,###,###,###");
-                String formattedString = formatter.format(longval);
-                etEmasE.setText(formattedString);
-                etEmasE.setSelection(etEmasE.getText().length());
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-            etEmasE.addTextChangedListener(this);
-        }
-    }
-
-    public class TextWatcherEmasUE implements TextWatcher {
-        private View view;
-        private TextWatcherEmasUE(View view) {
-            this.view = view;
-        }
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void afterTextChanged(Editable editable) {
-            etEmasUE.removeTextChangedListener(this);
-            try {
-                String originalString = editable.toString();
-                Long longval;
-                if (originalString.contains(",")) {
-                    originalString = originalString.replaceAll(",", "");
-                }
-                longval = Long.parseLong(originalString);
-                DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-                formatter.applyPattern("#,###,###,###");
-                String formattedString = formatter.format(longval);
-                etEmasUE.setText(formattedString);
-                etEmasUE.setSelection(etEmasUE.getText().length());
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-            etEmasUE.addTextChangedListener(this);
-        }
-    }
 
     public void showInputMethod() {
         InputMethodManager imm = (InputMethodManager) ChatActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -2036,6 +1956,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         bottomSheetDialog.setContentView(sheetView);
         bottomSheetDialog.show();
     }
+
+
 
     @Override
     public void actionOpenApp(ChatOutputAction chatOutputAction, String subType) {

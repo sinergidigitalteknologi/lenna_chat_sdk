@@ -1,10 +1,13 @@
 package ai.lenna.lennachatmodul.chat;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pixplicity.easyprefs.library.Prefs;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +66,7 @@ import ai.lenna.lennachatmodul.chat.viewholder.ChatRespOpenAppVH;
 import ai.lenna.lennachatmodul.room.AppDatabase;
 import ai.lenna.lennachatmodul.room.AppExecutors;
 import ai.lenna.lennachatmodul.room.entity.ChatResponseEntity;
+import ai.lenna.lennachatmodul.util.Constant;
 import ai.lenna.lennachatmodul.util.GenericErrorResponseBean;
 
 public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model.OnFinishedListener {
@@ -276,7 +280,11 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                 ChatOutputText outputText =
                         new Gson().fromJson(json,
                                 ChatOutputText.class);
-                chatResponse.setText(outputText.getText());
+                String ori_text_response = outputText.getText();
+                String arr[] = ori_text_response.split(" ", 2);
+
+                String text_response = outputText.getText().replace(Constant.KEY_FALLBACK,"");
+                chatResponse.setText(text_response);
                 chatResponse.setTime(strDate);
 //                chatResponse.setDate(chatResp.getDate());
                 chatObjects.add(chatResponse);
@@ -284,8 +292,12 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                 view.scrollChatDown();
 
                 if (!sourceType.equals("history")){
-                    speakOut(outputText.getSpeech());
+                    speakOut(outputText.getSpeech().replace(Constant.KEY_FALLBACK,""));
+                    if(arr[0].equals(Constant.KEY_FALLBACK)){
+                        mainCours();
+                    }
                 }
+
                 break;
             case TYPE_CROUSEL:
                 ChatResponseCarousel chatResponseCarousel = new ChatResponseCarousel();
@@ -593,6 +605,21 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
             }
         }
 
+    }
+
+    private void mainCours(){
+        final ChatReq req = new ChatReq();
+        req.setUserId(Prefs.getString("USER_ID",""));
+        req.setQuery(Constant.GMESSAGE);
+        req.setLat(String.valueOf(Constant.LAT));
+        req.setLon(String.valueOf(Constant.LON));
+        req.setChannel("android");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                requestDataFromServer(req);
+            }
+        }, 1000);
     }
 
 }

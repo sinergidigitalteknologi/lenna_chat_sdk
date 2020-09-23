@@ -92,4 +92,11 @@ public class Chat {
         Constant.SPEECH_RATE = value;
     }
 
+
+    /**
+     * set key fallback **/
+    public  static  void setKeyFallBack(String value){
+        Constant.KEY_FALLBACK = value;
+    }
+
 }
