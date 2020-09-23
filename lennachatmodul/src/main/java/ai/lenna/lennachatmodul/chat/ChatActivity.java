@@ -150,7 +150,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
 
     //zakat maal
-    EditText etUangUE, etEmasUE, etUangU, etEmasE, etUangEmasNik, etUangEmasNama, etUangEmasEmail, etUangNik, etUangNama, etUangEmail, etEmasNik, etEmasNama, etEmasEmail;
+    EditText etUangUE, etEmasUE, etUangU, etEmasE;
 
 
     //Penumpang pesawat
@@ -217,11 +217,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     String asalStasiun, tujuanStasiun, tglBerangkat, tglPulang;
     String asalBandara, tujuanBandara, tglBerangkatPesawatVar, tglPulangPesawatVar;
 
-//    @BindView(R.id.action_mic)
     ImageView ivActionMic,img_icon_chat;
-//    @BindView(R.id.imageViewEnter)
     ImageView ivImageViewEnter;
-//    @BindView(R.id.et_send_message)
     EditText etSendMessage;
 
     @Override

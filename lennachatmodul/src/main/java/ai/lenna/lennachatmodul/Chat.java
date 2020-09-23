@@ -80,4 +80,16 @@ public class Chat {
         Constant.ICON_BUBLE_CHAT = icon;
     }
 
+    /**
+     * set pitch text to speech **/
+    public  static  void setPitchTts(String value){
+        Constant.TTS_PITCH = value;
+    }
+
+    /**
+     * set pitch text to speech **/
+    public  static  void setSpeechRateTts(String value){
+        Constant.SPEECH_RATE = value;
+    }
+
 }

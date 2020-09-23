@@ -16,6 +16,8 @@ public class Constant {
     public static String EMAIL = "";
     public static String TOKEN = "";
     public static String GMESSAGE = "";
+    public static String TTS_PITCH =  "1.3";
+    public static String SPEECH_RATE =  "1.5";
     public static int ICON_BUBLE_CHAT = R.drawable.logo_lenna_blue;
 
 }

@@ -28,8 +28,8 @@ public class TtsUtils extends UtteranceProgressListener implements TextToSpeech.
         this.locale = locale;
         textToSpeech = new TextToSpeech(context, this, ttsEngine);
         textToSpeech.setOnUtteranceProgressListener(this);
-        textToSpeech.setPitch(Float.parseFloat("1.3"));
-        textToSpeech.setSpeechRate(Float.parseFloat("1.5"));
+        textToSpeech.setPitch(Float.parseFloat(Constant.TTS_PITCH));
+        textToSpeech.setSpeechRate(Float.parseFloat(Constant.SPEECH_RATE));
         Log.d(TAG,"tts.getDefaultEngine() : "+getDefaultEngineTts());
     }
 
