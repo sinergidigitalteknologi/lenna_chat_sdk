@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottom_sheet_rounded"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Jumlah Donasi"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/imageViewClose"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_bt_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/llKeberangkatan"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Nominal Donasi  "
+                android:textColor="@color/manatee"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Jumlah Donasi"
+                android:textColor="@color/manatee"
+                android:textSize="14sp"
+                android:inputType="numberDecimal"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_jumlah_donasi"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_edittext_login"
+                android:fontFamily="@font/quicksand"
+                android:inputType="numberDecimal"
+                android:paddingLeft="14dp"
+                android:hint="Isi Nominal"
+                android:paddingTop="10dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black_solid"
+                android:textColorHint="@color/greyForgotPassword"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_profile_upload_id_card">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_lightbulb" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:text="Minimal donasi sebesar Rp.10.000"
+                    android:textColor="@color/cerulean"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/llKepulangan"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Kepulangan"
+                android:textColor="@color/manatee"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/editTextKepulangan"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_edittext_login"
+                android:fontFamily="@font/quicksand"
+                android:textAlignment="center"
+                android:inputType="none"
+                android:focusable="false"
+                android:paddingLeft="14dp"
+                android:paddingTop="10dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black_solid"
+                android:textColorHint="@color/black_solid"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/llKeberangkatan1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Data Pemberi Donasi"
+                android:textColor="@color/manatee"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="No Ktp"
+                android:textColor="@color/manatee"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_no_ktp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_edittext_login"
+                android:fontFamily="@font/quicksand"
+                android:inputType="text"
+                android:visibility="gone"
+
+                android:paddingLeft="14dp"
+                android:paddingTop="10dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black_solid"
+                android:textColorHint="@color/black_solid"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Nama"
+                android:textColor="@color/manatee"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_nama_donasi"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_edittext_login"
+                android:fontFamily="@font/quicksand"
+                android:inputType="text"
+                android:paddingLeft="14dp"
+                android:paddingTop="10dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black_solid"
+                android:textColorHint="@color/black_solid"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Email"
+                android:textColor="@color/manatee"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_email_donasi"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_edittext_login"
+                android:fontFamily="@font/quicksand"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="14dp"
+                android:paddingTop="10dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black_solid"
+                android:textColorHint="@color/black_solid"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/llKepulangan1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Kepulangan"
+                android:textColor="@color/manatee"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/editTextKepulangan1"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_edittext_login"
+                android:fontFamily="@font/quicksand"
+                android:textAlignment="center"
+                android:inputType="none"
+                android:focusable="false"
+                android:paddingLeft="14dp"
+                android:paddingTop="10dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black_solid"
+                android:textColorHint="@color/black_solid"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+
+
+        <Button
+            android:id="@+id/button_batal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_zakat_gray_rounded"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Batal"
+            android:textColor="@color/manatee"
+
+            android:visibility="visible" />
+        <Button
+            android:id="@+id/button_kirim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+
+            android:background="@drawable/background_button_zakat_primary_rounded"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Kirim"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+
+            android:layout_weight="1"
+
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white_solid"
+            android:visibility="visible" />
+    </LinearLayout>
+
+
+</LinearLayout>
