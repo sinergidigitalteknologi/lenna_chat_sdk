@@ -99,4 +99,10 @@ public class Chat {
         Constant.KEY_FALLBACK = value;
     }
 
+    /**
+     * set request menu fallback **/
+    public  static  void setRequestMenuFAllback(String value){
+        Constant.REQUEST_MENU_FALLBACK = value;
+    }
+
 }

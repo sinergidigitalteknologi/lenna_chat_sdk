@@ -610,7 +610,7 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
     private void mainCours(){
         final ChatReq req = new ChatReq();
         req.setUserId(Prefs.getString("USER_ID",""));
-        req.setQuery(Constant.GMESSAGE);
+        req.setQuery(Constant.REQUEST_MENU_FALLBACK);
         req.setLat(String.valueOf(Constant.LAT));
         req.setLon(String.valueOf(Constant.LON));
         req.setChannel("android");
