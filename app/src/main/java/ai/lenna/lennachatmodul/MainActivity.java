@@ -13,16 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        Context context = this;
-        Chat.setAppId("NBVO0y");
-        Chat.setBotId("PdRgRe");
-        Chat.setUserName("Pengunjung");
-        Chat.setIcon(R.drawable.logo_ancol);
-        Chat.setIconBubleChat(R.drawable.logo_ancol);
-        Chat.setGreetingMessage("hai");
-        Chat.setPitchTts("1.3");
-        Chat.setSpeechRateTts("1.5");
-        Chat.start(context);
+
 
 
 
