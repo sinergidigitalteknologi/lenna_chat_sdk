@@ -16,7 +16,7 @@ This is a chat sdk from <a href="https://lenna.ai">Lenna</a> (PT Sinergi Digital
 <div class="highlight highlight-source-groovy-gradle"><pre>
 defaultConfig {
     ...
-    minSdkVersion 22
+    minSdkVersion 21
     ...
 }
 </br>
