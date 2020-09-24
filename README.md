@@ -26,7 +26,7 @@ compileOptions {
 }
 </br>
 dependencies {
-    implementation 'com.github.sinergidigitalteknologi:lenna_chat_sdk:1.0.0_beta_0'
+    implementation 'com.github.sinergidigitalteknologi:lenna_chat_sdk:1.0.0_beta_5'
 }</pre></div>
 </br>
 
@@ -47,6 +47,8 @@ Chat.setIcon(...);
 Chat.setIconBubleChat(...);
 Chat.setGreetingMessage(...);
 Chat.start(this);
+Chat.setKeyFallBack("...");
+Chat.setRequestMenuFAllback("...");
 </span></pre></div>
 
 <h2><a id="user-content-gradle-setup" class="anchor" aria-hidden="true" href="#gradle-setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path></path></svg></a> Contributors </h2>
