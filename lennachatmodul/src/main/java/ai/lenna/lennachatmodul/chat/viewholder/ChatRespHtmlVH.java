@@ -38,6 +38,8 @@ public class ChatRespHtmlVH extends BaseViewHolder {
                     Log.d("Linkk","link");
                     view.getContext().startActivity(
                             new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    webViewChat.loadData(object.getHtml(), "text/html", "UTF-8");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
