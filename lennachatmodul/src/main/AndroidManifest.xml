@@ -7,21 +7,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- Samsung -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--    <uses-permission android:name="android.permission.CAMERA" /> &lt;!&ndash; Sony &ndash;&gt;-->
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" /> <!-- HTC -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />-->
-    <!--    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />-->
-    <!--    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />-->
     <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
-
     <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
-
     <application
         android:supportsRtl="true"
         android:allowBackup="true"
