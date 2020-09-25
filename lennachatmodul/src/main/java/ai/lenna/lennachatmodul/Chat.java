@@ -22,7 +22,7 @@ public class Chat {
      @author Viky Yahya
      **/
     public static void start(Context context){
-        GenerateUserID.generate();
+        GenerateUserID.generate(context);
         RequestToken.request(context);
 
     }
