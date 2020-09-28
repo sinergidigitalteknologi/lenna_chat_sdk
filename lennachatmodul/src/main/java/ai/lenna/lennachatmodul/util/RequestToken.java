@@ -27,24 +27,6 @@ public class RequestToken implements RegisterContract.View {
     public static RegisterPresenter registerPresenter ;
 
     public static void request(Context context){
-        String password = "" ;
-        registerReq = new RegisterReq();
-        registerReq.setName(Constant.USER_NAME);
-        registerReq.setNickname(Constant.USER_NAME);
-        registerReq.setEmail(Prefs.getString("id_user","") + "@goersapp.com");
-        registerReq.setPhone("123456789");
-        registerReq.setClient("android");
-        ArrayList<String> array_item = new ArrayList<>();
-        array_item.add("goers");
-        registerReq.setInterests(array_item);
-        try {
-            String scrt_keky = AesCipher.decrypt("lennachatsdk",Constant.SECRET_KEY);
-            password = AesCipher.encrypt(scrt_keky, Prefs.getString("id_user",""));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        registerReq.setPassword(password);
-        Log.d("TOKEN=" , Prefs.getString("TOKEN",""));
         if(Prefs.getString("TOKEN","").equals("")){
             ApiService service = ApiBuilder.getClient().create(ApiService.class);
             Call<RegisterResp> call = service.reg(registerReq, Constant.APP_ID);
