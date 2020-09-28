@@ -22,52 +22,52 @@ public class RegisterModel  implements RegisterContract.Model {
 
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
 
-        Call<RegisterResp> call = service.reg(registerReq, Constant.APP_ID);
-        call.enqueue(new Callback<RegisterResp>() {
-            @Override
-            public void onResponse(Call<RegisterResp> call, Response<RegisterResp> response) {
-                if (response.isSuccessful()) {
-                    if(response.body().getStatus() == 500){
-                        GenericErrorResponseBean errorResponse = new GenericErrorResponseBean();
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(response.body().getError());
-//                            JSONObject jsonerror = jsonObject.getJSONObject("error");
-//                            errorResponse.setCode(jsonerror.getInt("code"));
-//                            errorResponse.setMessage(jsonerror.getString("message"));
-                            errorResponse.setCode(5000);
-                            errorResponse.setMessage(response.body().getError().getMessage());
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-                        onFinishedListener.onFinishedFail(errorResponse);
-                    }else {
-                        onFinishedListener.onFinishedSuccess(response.body());
-                    }
-                } else {
-                    GenericErrorResponseBean errorResponse = new GenericErrorResponseBean();
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        JSONObject jsonerror = jsonObject.getJSONObject("error");
-
-                        errorResponse.setCode(jsonerror.getInt("code"));
-                        errorResponse.setMessage(jsonerror.getString("message"));
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    onFinishedListener.onFinishedFail(errorResponse);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegisterResp> call, Throwable t) {
-                onFinishedListener.onFailure(t);
-
-            }
-        });
-
+//        Call<RegisterResp> call = service.reg(registerReq, Constant.APP_ID);
+//        call.enqueue(new Callback<RegisterResp>() {
+//            @Override
+//            public void onResponse(Call<RegisterResp> call, Response<RegisterResp> response) {
+//                if (response.isSuccessful()) {
+//                    if(response.body().getStatus() == 500){
+//                        GenericErrorResponseBean errorResponse = new GenericErrorResponseBean();
+////                        try {
+////                            JSONObject jsonObject = new JSONObject(response.body().getError());
+////                            JSONObject jsonerror = jsonObject.getJSONObject("error");
+////                            errorResponse.setCode(jsonerror.getInt("code"));
+////                            errorResponse.setMessage(jsonerror.getString("message"));
+//                            errorResponse.setCode(5000);
+//                            errorResponse.setMessage(response.body().getError().getMessage());
+////                        } catch (JSONException e) {
+////                            e.printStackTrace();
+////                        }
+//                        onFinishedListener.onFinishedFail(errorResponse);
+//                    }else {
+//                        onFinishedListener.onFinishedSuccess(response.body());
+//                    }
+//                } else {
+//                    GenericErrorResponseBean errorResponse = new GenericErrorResponseBean();
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+//                        JSONObject jsonerror = jsonObject.getJSONObject("error");
+//
+//                        errorResponse.setCode(jsonerror.getInt("code"));
+//                        errorResponse.setMessage(jsonerror.getString("message"));
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    onFinishedListener.onFinishedFail(errorResponse);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RegisterResp> call, Throwable t) {
+//                onFinishedListener.onFailure(t);
+//
+//            }
+//        });
+//
 
     }
 }

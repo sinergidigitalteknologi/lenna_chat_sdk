@@ -13,6 +13,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
+        Chat.setAppId("NBVO0y");
+        Chat.setBotId("PdRgRe");
+        Chat.setUserName("Pengunjung");
+        Chat.setIcon(R.drawable.logo_ancol);
+        Chat.setIconBubleChat(R.drawable.logo_ancol);
+        Chat.setGreetingMessage("hai");
+        Chat.setKeyFallBack("locna");
+        Chat.setRequestMenuFAllback("fallback-locna");
+        Chat.start(this);
 
     }
 }

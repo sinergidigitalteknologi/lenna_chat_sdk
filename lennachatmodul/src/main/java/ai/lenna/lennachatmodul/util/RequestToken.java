@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -21,11 +22,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RequestToken {
+public class RequestToken implements RegisterContract.View {
+    public static RegisterReq registerReq;
+    public static RegisterPresenter registerPresenter ;
 
     public static void request(Context context){
         String password = "" ;
-        RegisterReq registerReq = new RegisterReq();
+        registerReq = new RegisterReq();
         registerReq.setName(Constant.USER_NAME);
         registerReq.setNickname(Constant.USER_NAME);
         registerReq.setEmail(Prefs.getString("id_user","") + "@goersapp.com");
@@ -56,15 +59,16 @@ public class RequestToken {
                             intent.setAction(Intent.ACTION_VIEW);
                             ((Activity)context).startActivity(intent);
                         }catch (Exception e){
-
+                            Toast.makeText(context, String.valueOf(e),Toast.LENGTH_LONG).show();
                         }
                     }else{
-
+                        Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<RegisterResp> call, Throwable t) {
+                    Toast.makeText(context,String.valueOf(t),Toast.LENGTH_LONG).show();
 
                 }
             });
@@ -73,6 +77,31 @@ public class RequestToken {
             intent.setAction(Intent.ACTION_VIEW);
             ((Activity)context).startActivity(intent);
         }
+
+    }
+
+    @Override
+    public void showDialogSukses(RegisterResp registerResp) {
+
+    }
+
+    @Override
+    public void showDialogGagal(String message) {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void onResponseFailure(Throwable throwable) {
 
     }
 }
