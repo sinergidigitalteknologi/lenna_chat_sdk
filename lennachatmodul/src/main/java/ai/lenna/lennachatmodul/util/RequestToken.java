@@ -30,7 +30,17 @@ public class RequestToken implements RegisterContract.View {
         Log.d("regisrequestt" , String.valueOf( registerReq.getEmail()));
         if(Prefs.getString("TOKEN","").equals("")){
             ApiService service = ApiBuilder.getClient().create(ApiService.class);
-            Call<RegisterResp> call = service.reg(registerReq, Constant.APP_ID);
+            RegisterReq req = new RegisterReq();
+            req = new RegisterReq();
+            req.setName(Constant.USER_NAME);
+            req.setNickname(Constant.USER_NAME);
+            req.setEmail(Prefs.getString("id_user","") + "@goersapp.com");
+            req.setPhone("123456789");
+            req.setClient("android");
+            ArrayList<String> array_item = new ArrayList<>();
+            array_item.add("goers");
+            req.setInterests(array_item);
+            Call<RegisterResp> call = service.reg(req, Constant.APP_ID);
             call.enqueue(new Callback<RegisterResp>() {
                 @Override
                 public void onResponse(Call<RegisterResp> call, Response<RegisterResp> response) {
