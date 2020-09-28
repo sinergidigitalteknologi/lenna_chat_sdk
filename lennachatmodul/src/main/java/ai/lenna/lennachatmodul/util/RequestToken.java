@@ -27,6 +27,7 @@ public class RequestToken implements RegisterContract.View {
     public static RegisterPresenter registerPresenter ;
 
     public static void request(Context context){
+        Log.d("regisrequestt" , String.valueOf( registerReq.getEmail()));
         if(Prefs.getString("TOKEN","").equals("")){
             ApiService service = ApiBuilder.getClient().create(ApiService.class);
             Call<RegisterResp> call = service.reg(registerReq, Constant.APP_ID);
