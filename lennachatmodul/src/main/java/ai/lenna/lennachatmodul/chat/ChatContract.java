@@ -49,7 +49,6 @@ public interface ChatContract {
         void notifyAdapterObjectRemove(int position);
         void speakOut(String speakText);
         void inputChat(String text);
-
         void inputChatZakat(String text);
         void setTextChat(String textChat);
         void showErrorMessage();
@@ -63,10 +62,6 @@ public interface ChatContract {
         void showBottomSheetDatePickerForm(ChatOutputDatepickerForm chatOutputDatepickerForm);
         void showBottomSheetMultipleDatePicker(ChatOutputMultiDatePicker chatOutputMultiDatePicker);
         void mainCours(String text);
-
-
-
-
 
         void actionOpenApp(ChatOutputAction chatOutputAction, String subType);
         void quickButton(ChatResultBean chatResultBean);
@@ -83,10 +78,8 @@ public interface ChatContract {
 
     @Keep
     interface Presenter {
-
         void attachView(ChatContract.View view);
         void removeItem();
-
         void addLoading();
         void onEditTextActionDone(String inputText);
         void onLiveChat(String json);

@@ -71,10 +71,8 @@ import ai.lenna.lennachatmodul.util.GenericErrorResponseBean;
 @Keep
 public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model.OnFinishedListener {
 
-
     private static final String TOKEN_BARRER = "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjIyODAyIiwiZmlyc3RuYW1lIjoiQWd1bmciLCJsYXN0bmFtZSI6IlNhbnRvc28iLCJuaWNrbmFtZSI6IkFndW5nIiwiZW1haWwiOiJqb2VhZ3VuZzQ1NkBnbWFpbC5jb20iLCJwaG9uZSI6IjA4Nzg4MjE1NjIxMiIsImpvaW5kYXRlIjoiMjAxOC0wOS0xNCAyMDoxMjozNCIsInBhc3N3b3JkIjoiMjVmOWU3OTQzMjNiNDUzODg1ZjUxODFmMWI2MjRkMGIiLCJwaWN0dXJlIjpudWxsLCJzdGF0dXMiOiIyIiwidXNlcm9iamVjdCI6bnVsbCwidmVyaWZpY2F0aW9uX2tleSI6IjA1NThlNDRjNjQxNTI0M2QxMDNhYzM1ZThhYjMyNjVhIiwidmVyaWZpY2F0aW9uX2NvZGUiOm51bGwsImFwcF92ZXJzaW9uIjoiMCIsImJvdGlkIjoiMSIsInZlcmlmaWNhdGlvbl9lbWFpbCI6IjAiLCJ2ZXJpZmljYXRpb25fc21zIjoiMCIsImJpcnRoX2RhdGUiOiIxOTk3LTAzLTIxIiwiZ2VuZGVyIjoiTSJ9.91Vpz-DS4VKekFm-6mKpQrlbASPC8aIic72pkLbKijA";
     private static final String TYPE_TEXT = "text";
-
     private static final String TYPE_LOADING = "loading";
     private static final String TYPE_CROUSEL = "carousel";
     private static final String TYPE_MOVIE = "movie";
@@ -137,7 +135,6 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
         loadingResponse.setText("");
         this.chatObjects.add(loadingResponse);
         view.notifyAdapterObjectAdded(chatObjects.size() - 1);
-
         view.scrollChatDown();
     }
 
@@ -398,8 +395,6 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
             case TYPE_FORM:
                 ChatOutputForm chatOutputForm = new Gson().fromJson(json, ChatOutputForm.class);
                 view.showBottomSheetDialog(chatOutputForm);
-
-
                 break;
             case TYPE_CONFIRM:
                 ChatResponseConfirm chatResponseConfirm = new ChatResponseConfirm();
@@ -452,11 +447,8 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                 break;
 
             case TYPE_ACTION:
-
                 if (subtype.equals("openApp")) {
-
                     ChatResponseAction chatResponseAction = new ChatResponseAction();
-
                     ChatOutputAction outputOpenApp = new Gson().fromJson(json, ChatOutputAction.class);
                     chatResponseAction.setImageAction(outputOpenApp.getData().getIconUrl());
                     chatResponseAction.setTextAction(outputOpenApp.getData().getName());
@@ -476,10 +468,7 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                         view.actionOpenApp(outputOpenApp, subtype);
                     }
                 }
-
-
                 break;
-
             case TYPE_FORM_DONASI:
                 if (!sourceType.equals("history")){
                     ChatOutputDonasi chatOutputDonasi = new Gson().fromJson(json, ChatOutputDonasi.class);

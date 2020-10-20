@@ -28,9 +28,7 @@ import android.provider.CalendarContract;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -50,8 +48,6 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.karan.churi.PermissionManager.PermissionManager;
 import com.pixplicity.easyprefs.library.Prefs;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -76,7 +72,6 @@ import ai.lenna.lennachatmodul.chat.model.output.ChatOutputTrainPassengerForm;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputTrainTripDetailForm;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatDataAction;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatOutputAction;
-import ai.lenna.lennachatmodul.chat.model.station.ChatStationTrainTripDetailForm;
 import ai.lenna.lennachatmodul.room.AppDatabase;
 import ai.lenna.lennachatmodul.room.AppExecutors;
 import ai.lenna.lennachatmodul.room.entity.ChatResponseEntity;
@@ -298,14 +293,14 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
-                        chatResponseEntity.setChatHistory(message);
-                        mDb.chatResponseDao().insertAll(chatResponseEntity);
-                    }
-                });
+//                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
+//                        chatResponseEntity.setChatHistory(message);
+//                        mDb.chatResponseDao().insertAll(chatResponseEntity);
+//                    }
+//                });
 //                presenter.onEditTextActionDone(req.getQuery()); //viky
                 statusLoading = 1;
                 new Handler().postDelayed(new Runnable() {
@@ -333,14 +328,14 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
-                        chatResponseEntity.setChatHistory(text);
-                        mDb.chatResponseDao().insertAll(chatResponseEntity);
-                    }
-                });
+//                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
+//                        chatResponseEntity.setChatHistory(text);
+//                        mDb.chatResponseDao().insertAll(chatResponseEntity);
+//                    }
+//                });
 //            insertToDatabase(req.getQuery());
 //             presenter.onEditTextActionDone(req.getQuery()); //viky
                 statusLoading = 1;
@@ -459,102 +454,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     }
 
-    private void initSpinnerTujuanBandara(final ArrayList<Airport> listFormTujuanBandara) {
-        final List<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Pilih Bandara Tujuan");
-        for (int i = 0; i < listFormTujuanBandara.size(); i++) {
-            spinnerArray.add(listFormTujuanBandara.get(i).getLabel());
-        }
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(ChatActivity.this, R.layout.s_spinner, spinnerArray);
-        spinnerTujuanPesawat.setAdapter(spinnerAdapter);
-        spinnerTujuanPesawat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!spinnerTujuanPesawat.getSelectedItem().toString().equals("Pilih Bandara Tujuan")) {
-                    listFormTujuanBandara.get(position).getLabel();
-                    tujuanBandara = listFormTujuanBandara.get(position - 1).getLabel();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-    }
-
-    private void initSpinnerAsalStasiun(final ArrayList<ChatStationTrainTripDetailForm> listFormAsalStasiun) {
-        final List<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Pilih Stasiun Asal");
-        for (int i = 0; i < listFormAsalStasiun.size(); i++) {
-            spinnerArray.add(listFormAsalStasiun.get(i).getLabel());
-        }
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(ChatActivity.this, R.layout.s_spinner, spinnerArray);
-        spLokasiPerjKereta.setAdapter(spinnerAdapter);
-        spLokasiPerjKereta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                if (!spLokasiPerjKereta.getSelectedItem().toString().equals("Pilih Stasiun Asal")) {
-                    listFormAsalStasiun.get(position).getLabel();
-                    asalStasiun = listFormAsalStasiun.get(position - 1).getLabel();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
-
-    }
-
-    private void initSpinnerTujuanStasiun(final ArrayList<ChatStationTrainTripDetailForm> listFormTujuanStasiun) {
-        final List<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Pilih Stasiun Tujuan");
-        for (int i = 0; i < listFormTujuanStasiun.size(); i++) {
-            spinnerArray.add(listFormTujuanStasiun.get(i).getLabel());
-        }
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(ChatActivity.this, R.layout.s_spinner, spinnerArray);
-        spTujuanPerjKereta.setAdapter(spinnerAdapter);
-        spTujuanPerjKereta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!spTujuanPerjKereta.getSelectedItem().toString().equals("Pilih Stasiun Tujuan")) {
-                    listFormTujuanStasiun.get(position).getLabel();
-                    tujuanStasiun = listFormTujuanStasiun.get(position - 1).getLabel();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-    }
-
-    public class TextWatcherDonasi implements TextWatcher {
-        private View view;
-        private TextWatcherDonasi(View view) {
-            this.view = view;
-        }
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void afterTextChanged(Editable editable) {
-            etJumlahDonasi.removeTextChangedListener(this);
-            try {
-                String originalString = editable.toString();
-                Long longval;
-                if (originalString.contains(",")) {
-                    originalString = originalString.replaceAll(",", "");
-                }
-                longval = Long.parseLong(originalString);
-                DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-                formatter.applyPattern("#,###,###,###");
-                String formattedString = formatter.format(longval);
-                etJumlahDonasi.setText(formattedString);
-                etJumlahDonasi.setSelection(etJumlahDonasi.getText().length());
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-            etJumlahDonasi.addTextChangedListener(this);
-        }
-    }
-
-
     @Keep
     public void showInputMethod() {
         InputMethodManager imm = (InputMethodManager) ChatActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -620,23 +519,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         }
     };
 
-
-
-//    @OnClick(R.id.action_mic)
-//    public void speakToText() {
-//        if (isTouch) {
-//            isTouch = false;
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                ivActionMic.setImageDrawable(getResources().getDrawable(R.drawable.ic_bt_mic_blue_listening, getApplicationContext().getTheme()));
-//            } else {
-//                ivActionMic.setImageDrawable(getResources().getDrawable(R.drawable.ic_bt_mic_blue_listening));
-//            }
-//            speech.startListening(recognizerIntent);
-//        } else {
-//            isTouch = true;
-//            speech.stopListening();
-//        }
-//    }
 
     @Override
     public void onResume() {
