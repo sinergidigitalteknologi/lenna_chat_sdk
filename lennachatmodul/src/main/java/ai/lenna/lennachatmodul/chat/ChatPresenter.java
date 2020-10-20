@@ -64,6 +64,7 @@ import ai.lenna.lennachatmodul.chat.viewholder.ChatRespOpenAppVH;
 import ai.lenna.lennachatmodul.room.AppDatabase;
 import ai.lenna.lennachatmodul.room.AppExecutors;
 import ai.lenna.lennachatmodul.room.entity.ChatResponseEntity;
+import ai.lenna.lennachatmodul.util.AesCipher;
 import ai.lenna.lennachatmodul.util.Constant;
 import ai.lenna.lennachatmodul.util.GenericErrorResponseBean;
 
@@ -568,7 +569,7 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
             removeItem();
         }
         ChatResponse chatResponse = new ChatResponse();
-        chatResponse.setText("Maaf Lenna belum mengerti maksud kamu");
+        chatResponse.setText("Maaf sepertinya ada kesalahan");
         chatObjects.add(chatResponse);
         view.notifyAdapterObjectAdded(chatObjects.size() - 1);
         view.scrollChatDown();
@@ -621,17 +622,22 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
     @Keep
     private void mainCours(){
         final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),Constant.REQUEST_MENU_FALLBACK,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-        req.setUserId(Prefs.getString("USER_ID",""));
-        req.setQuery(Constant.REQUEST_MENU_FALLBACK);
-        req.setLat(String.valueOf(Constant.LAT));
-        req.setLon(String.valueOf(Constant.LON));
-        req.setChannel("android");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                requestDataFromServer(req);
-            }
-        }, 1000);
+        try {
+            req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID","")));
+            req.setQuery(AesCipher.encrypt(Constant.APP_KEY, Constant.REQUEST_MENU_FALLBACK));
+            req.setLat(AesCipher.encrypt(Constant.APP_KEY, String.valueOf(Constant.LAT)));
+            req.setLon(AesCipher.encrypt(Constant.APP_KEY, String.valueOf(Constant.LON)));
+            req.setChannel(AesCipher.encrypt(Constant.APP_KEY, "android"));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    requestDataFromServer(req);
+                }
+            }, 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

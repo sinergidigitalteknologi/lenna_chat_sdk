@@ -107,5 +107,16 @@ public class Chat {
     public  static  void setRequestMenuFAllback(String value){
         Constant.REQUEST_MENU_FALLBACK = value;
     }
+    /**
+     * set secret key **/
+    public  static  void setSecretKey(String secretKey){
+        Constant.SECRET_KEY = secretKey;
+    }
+
+    /**
+     * set app key **/
+    public  static  void setAppKey(String appKey){
+        Constant.APP_KEY_ = appKey;
+    }
 
 }

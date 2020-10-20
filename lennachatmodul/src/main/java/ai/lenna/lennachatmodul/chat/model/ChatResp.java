@@ -28,6 +28,8 @@ public class ChatResp implements Serializable {
     @Expose
     private String time;
 
+
+
     @Keep
     public String getResolvequery() {
         return resolvequery;

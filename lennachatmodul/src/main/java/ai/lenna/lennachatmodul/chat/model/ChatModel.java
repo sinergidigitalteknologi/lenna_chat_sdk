@@ -1,7 +1,10 @@
 package ai.lenna.lennachatmodul.chat.model;
 
+import android.util.Log;
+
 import androidx.annotation.Keep;
 
+import com.google.gson.Gson;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.json.JSONException;
@@ -12,6 +15,7 @@ import java.io.IOException;
 import ai.lenna.lennachatmodul.chat.ChatContract;
 import ai.lenna.lennachatmodul.network.ApiBuilder;
 import ai.lenna.lennachatmodul.network.ApiService;
+import ai.lenna.lennachatmodul.util.AesCipher;
 import ai.lenna.lennachatmodul.util.Constant;
 import ai.lenna.lennachatmodul.util.GenericErrorResponseBean;
 import retrofit2.Call;
@@ -26,22 +30,33 @@ public class ChatModel implements ChatContract.Model {
     public void sendChatToBot(final ChatContract.Model.OnFinishedListener onFinishedListener, ChatReq chatReq) {
 
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
-        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
+//        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
+        Call<ChatEncrypResp> call = service.submitChatEncrypt("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
 
-        call.enqueue(new Callback<ChatResp>() {
+        call.enqueue(new Callback<ChatEncrypResp>() {
             @Keep
             @Override
-            public void onResponse(Call<ChatResp> call, Response<ChatResp> response) {
+            public void onResponse(Call<ChatEncrypResp> call, Response<ChatEncrypResp> response) {
 
                 if (response.isSuccessful()) {
-                    onFinishedListener.onFinishedSuccess(response.body());
+                    try {
+                        String data = AesCipher.decrypt(Constant.APP_KEY, response.body().getEncryption());
+                        JSONObject jsonObject = new JSONObject(data);
+                        ChatResp  chatResp = new ChatResp();
+                        Gson gson = new Gson();
+                        chatResp = gson.fromJson(data,ChatResp.class);
+                        onFinishedListener.onFinishedSuccess(chatResp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+//
 
                 } else {
                     GenericErrorResponseBean errorResponse = new GenericErrorResponseBean();
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         JSONObject jsonerror = jsonObject.getJSONObject("error");
-
                         errorResponse.setCode(jsonerror.getInt("code"));
                         errorResponse.setMessage(jsonerror.getString("message"));
 
@@ -57,7 +72,7 @@ public class ChatModel implements ChatContract.Model {
 
             @Keep
             @Override
-            public void onFailure(Call<ChatResp> call, Throwable t) {
+            public void onFailure(Call<ChatEncrypResp> call, Throwable t) {
                 onFinishedListener.onFailure();
             }
         });

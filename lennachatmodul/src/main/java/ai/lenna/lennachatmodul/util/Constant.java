@@ -7,17 +7,19 @@ import ai.lenna.lennachatmodul.R;
 @Keep
 public class Constant {
 
-
-    public static final String SECRET_KEY = "h9LwY15opQGp7sA8QG5ZmElfbApYYSpzAZLxISHmVzk=";
-
     @Keep
     public Constant() {}
-
+    public static String APP_KEY_ = "";
+    public static String SECRET_KEY = "";
+    public static String APP_KEY = "";
+    public static String REG_KEY = "huj+B6yF8VOKhT+ZCuipHts6MtbO8CdN1EF0KVCRzIU=";
     public static String APP_ID = "";
     public static String BOT_ID = "";
     public static String USER_ID = "";
     public static String USER_NAME = "";
     public static String EMAIL = "";
+    public static String PASSWORD = "lenna";
+    public static final String PHONE = "0001";
     public static String TOKEN = "";
     public static String GMESSAGE = "";
     public static String TTS_PITCH =  "1.3";
@@ -27,6 +29,6 @@ public class Constant {
     public static int ICON_BUBLE_CHAT = R.drawable.logo_lenna_blue;
     public static double LAT = 0;
     public static double LON = 0;
-
+    public static final String FCM_TOKEN = "";
 
 }

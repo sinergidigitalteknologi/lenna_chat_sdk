@@ -23,8 +23,7 @@
         >
         <activity android:name=".movie.MovieDetailActivity"></activity>
         <activity android:name=".chat.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

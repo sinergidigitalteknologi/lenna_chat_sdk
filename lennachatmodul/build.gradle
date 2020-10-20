@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+//apply plugin: 'com.google.gms.google-services'  // Google Services plugin
+
 
 buildscript {
     repositories {
@@ -9,6 +11,8 @@ buildscript {
 
     dependencies {
         classpath "com.android.tools.build:gradle:3.6.4"
+        classpath 'com.google.gms:google-services:4.3.4'  // Google Services plugin
+
     }
 }
 repositories {
@@ -119,6 +123,14 @@ dependencies {
 
     //Simple Location
     implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+
+    // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
 
     //-----------
     //End Library

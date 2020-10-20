@@ -25,30 +25,30 @@ public class GenerateUserID {
                 .setPrefsName(context.getPackageName())
                 .setUseDefaultSharedPreference(true)
                 .build();
-
+        Encryp encryp  = new Encryp();
+        encryp.dc();
         String password = "" ;
         if(Prefs.getString("id_user","").equals("")){
             String uniqueID = UUID.randomUUID().toString();
             Prefs.putString("id_user",uniqueID);
-            Log.d("Chat= ",uniqueID);
         }
-        Log.d("Chat= ",Prefs.getString("id_user",""));
+        String ui = Prefs.getString("id_user","");
         registerReq = new RegisterReq();
         registerReq.setName(Constant.USER_NAME);
         registerReq.setNickname(Constant.USER_NAME);
-        registerReq.setEmail(Prefs.getString("id_user","") + "@goersapp.com");
-        registerReq.setPhone("123456789");
+        registerReq.setEmail(ui + "@"+ Constant.APP_ID +".com");
+        registerReq.setPhone(Constant.PHONE);
         registerReq.setClient("android");
+        registerReq.setFcm_token(Constant.FCM_TOKEN);
         ArrayList<String> array_item = new ArrayList<>();
         array_item.add("goers");
         registerReq.setInterests(array_item);
         try {
-            String scrt_keky = AesCipher.decrypt("lennachatsdk",Constant.SECRET_KEY);
-            password = AesCipher.encrypt(scrt_keky, Prefs.getString("id_user",""));
+            password = AesCipher.encrypt(Constant.SECRET_KEY, Constant.PASSWORD);
+            registerReq.setPassword(password);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        registerReq.setPassword(password);
 
     }
 }

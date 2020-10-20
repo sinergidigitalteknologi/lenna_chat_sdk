@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul.regist.model;
 
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -31,6 +32,10 @@ public class RegisterReq {
     @SerializedName("client")
     @Expose
     private String client;
+
+    @SerializedName("fcm_token")
+    @Expose
+    private String fcm_token;
 
     public List<String> getInterests() {
         return interests;
@@ -98,6 +103,21 @@ public class RegisterReq {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFcm_token() {
+        return fcm_token;
+    }
+
+    public void setFcm_token(String fcm_token) {
+        this.fcm_token = fcm_token;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "{" + "\"name\":" + "\""+ name +"\"," + "\"nickname\":" + "\""+ name +"\"," + "\"email\":" + "\""+ email +"\"," + "\"phone\":" + "\""+ phone +"\"," +
+                "\"password\":" + "\""+ password +"\"," + "\"interests\": [\"Keuangan\", \"Politik\"],\"fcm_token\":\"token\"}";
     }
 
 }
