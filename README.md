@@ -42,6 +42,7 @@ dependencies {
 <div class="highlight highlight-source-js"><pre><span class="pl-k"> 
 Chat.setAppId("...");
 Chat.setBotId("...");
+Chat.setAppKey("...");
 Chat.setUserName("...");
 Chat.setIcon(...);
 Chat.setIconBubleChat(...);
