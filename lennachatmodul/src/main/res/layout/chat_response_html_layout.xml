@@ -11,6 +11,7 @@
     android:clipToPadding="false"
     android:fadeScrollbars="false"
     android:scrollbarFadeDuration="0"
+    android:background="@drawable/speech_bubble_html"
     tools:ignore="WebViewLayout">
 
 <!--    <vcm.github.webkit.proview.ProWebView-->
@@ -21,6 +22,7 @@
 <!--    </vcm.github.webkit.proview.ProWebView>-->
 
     <WebView
+        android:layout_margin="5dp"
         android:id="@+id/webViewChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
