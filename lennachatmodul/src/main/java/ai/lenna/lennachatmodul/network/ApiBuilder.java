@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiBuilder {
 //    private static String IP_SERVER = "https://lenna.id/api/";
 
-    public static String BASE_URL = "https://staging.lenna.ai/";
+    public static String BASE_URL = "https://app.lenna.ai/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
