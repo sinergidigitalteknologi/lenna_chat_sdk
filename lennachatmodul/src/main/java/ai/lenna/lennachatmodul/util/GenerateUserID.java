@@ -25,6 +25,8 @@ public class GenerateUserID {
                 .setPrefsName(context.getPackageName())
                 .setUseDefaultSharedPreference(true)
                 .build();
+        Prefs.putInt("LOGO_TITLE",Constant.LOGO_TITLE);
+        Prefs.putInt("ICON_BUBLE_CHAT",Constant.ICON_BUBLE_CHAT);
         Encryp encryp  = new Encryp();
         encryp.dc();
         String password = "" ;

@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Keep;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
@@ -36,6 +38,6 @@ public class ChatRespTextVH extends BaseViewHolder {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N){
             linearLayoutResponse.setBackgroundResource(R.drawable.chat_response_background);
         }
-        this.imgBotMessage.setImageResource(Constant.ICON_BUBLE_CHAT);
+        this.imgBotMessage.setImageResource(Prefs.getInt("ICON_BUBLE_CHAT", 0));
     }
 }

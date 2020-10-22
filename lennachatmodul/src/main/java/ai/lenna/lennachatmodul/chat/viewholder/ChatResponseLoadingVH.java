@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Keep;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import java.util.ArrayList;
 
 import ai.lenna.lennachatmodul.R;
@@ -38,7 +40,7 @@ public class ChatResponseLoadingVH extends BaseViewHolder {
         indicatorImages.add((ImageView) typingIndicatorContainer.findViewById(R.id.typing_indicator_dot_1));
         indicatorImages.add((ImageView) typingIndicatorContainer.findViewById(R.id.typing_indicator_dot_2));
         indicatorImages.add((ImageView) typingIndicatorContainer.findViewById(R.id.typing_indicator_dot_3));
-        this.imgBotMessage.setImageResource(Constant.ICON_BUBLE_CHAT);
+        this.imgBotMessage.setImageResource(Prefs.getInt("ICON_BUBLE_CHAT",0));
 
         TypingIndicator indicator  = new TypingIndicator(indicatorImages, 600);
         indicator.animate();

@@ -164,7 +164,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         ivActionMic.setOnClickListener(micClicked);
         ivImageViewEnter.setOnClickListener(imgEnterClicked);
         //set logo title
-        img_icon_chat.setImageResource(LOGO_TITLE);
+        img_icon_chat.setImageResource(Prefs.getInt("LOGO_TITLE",LOGO_TITLE));
         activity = this.activity;
         showAllert = new ShowAllert();
         permission = new PermissionManager() {};

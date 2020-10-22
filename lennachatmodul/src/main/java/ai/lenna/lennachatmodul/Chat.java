@@ -60,7 +60,8 @@ public class Chat {
     }
 
     /**
-     * set token **/    public  static  void setToken(String token){
+     * set token **/
+    public  static  void setToken(String token){
         Prefs.putString("TOKEN",token);
          Constant.TOKEN = token;
     }
@@ -69,6 +70,7 @@ public class Chat {
      * set icon in header activity chat **/
     public  static  void setIcon(int icon){
         ChatActivity.LOGO_TITLE = icon;
+        Constant.LOGO_TITLE = icon;
     }
 
     /**
