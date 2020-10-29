@@ -26,7 +26,7 @@ compileOptions {
 }
 </br>
 dependencies {
-    implementation 'com.github.sinergidigitalteknologi:lenna_chat_sdk:1.0.0_beta_9'
+    implementation 'com.github.sinergidigitalteknologi:lenna_chat_sdk:1.0.0.5'
 }</pre></div>
 </br>
 
