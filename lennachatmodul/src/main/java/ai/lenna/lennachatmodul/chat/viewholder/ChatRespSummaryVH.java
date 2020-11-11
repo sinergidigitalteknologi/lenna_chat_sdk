@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul.chat.viewholder;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.adapter.ChatSummaryAdapter;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
@@ -45,8 +47,11 @@ public class ChatRespSummaryVH extends BaseViewHolder {
         if (object.getImageUrl().equals("")) {
             image_view_summary.setImageResource(R.drawable.imagenotfound);
         } else  {
-            Picasso.get().load(object.getImageUrl()).into(image_view_summary);
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Picasso.get().load(object.getImageUrl()).error(R.drawable.imagenotfound).into(image_view_summary);
+            } else {
+                ChatActivity.mPicasso.load(object.getImageUrl()).error(R.drawable.imagenotfound).into(image_view_summary);
+            }
         }
 
     }

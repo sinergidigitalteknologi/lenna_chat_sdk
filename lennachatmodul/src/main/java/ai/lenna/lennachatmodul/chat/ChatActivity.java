@@ -45,14 +45,22 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.karan.churi.PermissionManager.PermissionManager;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import javax.net.ssl.SSLContext;
+
 import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.adapter.ChatAdapter;
 import ai.lenna.lennachatmodul.chat.adapter.QuickButtonAdapter;
@@ -82,6 +90,9 @@ import ai.lenna.lennachatmodul.util.ShowAllert;
 import ai.lenna.lennachatmodul.util.SpeakToTextUtils;
 import ai.lenna.lennachatmodul.util.TtsUtils;
 import im.delight.android.location.SimpleLocation;
+import okhttp3.OkHttpClient;
+
+import static ai.lenna.lennachatmodul.network.ApiBuilder.getImageHttpClient;
 
 @Keep
 public class ChatActivity extends AppCompatActivity implements RecognitionListener, ChatContract.View, LocationListener, ChatAdapter.OnClickListener {
@@ -151,11 +162,19 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     ImageView ivImageViewEnter;
     EditText etSendMessage;
 
+    public static Picasso mPicasso;
+
     @Keep
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        OkHttpClient client = getImageHttpClient();
+        mPicasso = new Picasso.Builder(ChatActivity.this)
+                .downloader(new OkHttp3Downloader(client))
+                .build();
+
         ivActionMic = findViewById(R.id.action_mic);
         ivImageViewEnter = findViewById(R.id.imageViewEnter);
         etSendMessage = findViewById(R.id.et_send_message);
@@ -286,6 +305,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     @Keep
     private  void firtsMessage(String message){
         if (!message.equals("")){
+
             try {
                 final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),message,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
                 req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID","")));
@@ -293,6 +313,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+
 //                AppExecutors.getInstance().diskIO().execute(new Runnable() {
 //                    @Override
 //                    public void run() {
@@ -315,8 +336,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             }
 
         }
-
     }
+
     @Keep
     @Override
     public void mainCours(String text) {
@@ -366,11 +387,12 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     @Keep
     private void getLonLat() {
+//        latitude = -6.175801;
+//        longitude = 106.879632;
         latitude = locationsMap.getLatitude();
         longitude = locationsMap.getLongitude();
         Constant.LAT = latitude;
         Constant.LON = longitude;
-
     }
 
     @Keep

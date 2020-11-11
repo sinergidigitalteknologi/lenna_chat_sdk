@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul.chat.adapter;
 
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnMovie;
 import ai.lenna.lennachatmodul.movie.MovieDetailActivity;
 
@@ -38,7 +40,11 @@ public class ChatMovieAdapter extends RecyclerView.Adapter<ChatMovieAdapter.Chat
 
     @Override
     public void onBindViewHolder(@NonNull ChatMovieItemVH chatMovieItemVH, int i) {
-        Picasso.get().load(chatColumnMovie.get(i).getThumbnailImageUrl()).into(chatMovieItemVH.imageView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(chatColumnMovie.get(i).getThumbnailImageUrl()).error(R.drawable.imagenotfound).into(chatMovieItemVH.imageView);
+        } else {
+            ChatActivity.mPicasso.load(chatColumnMovie.get(i).getThumbnailImageUrl()).error(R.drawable.imagenotfound).into(chatMovieItemVH.imageView);
+        }
         chatMovieItemVH.tvTitle.setText(chatColumnMovie.get(i).getTitle());
         int sizeAction = chatColumnMovie.get(i).getActions().size();
         if (sizeAction > 0){

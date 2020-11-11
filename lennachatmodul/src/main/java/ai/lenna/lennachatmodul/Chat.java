@@ -3,13 +3,17 @@ package ai.lenna.lennachatmodul;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.Keep;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
+
+import javax.net.ssl.SSLContext;
 
 import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.network.ApiService;
@@ -27,8 +31,8 @@ public class Chat {
     public static void start(Context context){
         GenerateUserID.generate(context);
         RequestToken.request(context);
-
     }
+
     /**
      * set user ID **/
     public  static  void setUserId(String userId){

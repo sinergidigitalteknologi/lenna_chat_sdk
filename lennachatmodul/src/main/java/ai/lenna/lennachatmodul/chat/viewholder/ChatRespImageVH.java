@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul.chat.viewholder;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
 
@@ -28,7 +30,11 @@ public class ChatRespImageVH extends BaseViewHolder {
 
     @Override
     public void onBindView(ChatObject object) {
-        Picasso.get().load(object.getImage_original_url()).fit().centerCrop().into(this.imageView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(object.getImage_original_url()).fit().centerCrop().error(R.drawable.imagenotfound).into(this.imageView);
+        } else {
+            ChatActivity.mPicasso.load(object.getImage_original_url()).fit().centerCrop().error(R.drawable.imagenotfound).into(this.imageView);
+        }
         this.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +52,11 @@ public class ChatRespImageVH extends BaseViewHolder {
         nagDialog.setContentView(R.layout.dialog_image_preview);
         ImageView ivBack = (ImageView) nagDialog.findViewById(R.id.image_view_arrow_back);
         PhotoView ivPreview = (PhotoView) nagDialog.findViewById(R.id.image_view_full);
-        Picasso.get().load(object.getImage_original_url()).into(ivPreview);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(object.getImage_original_url()).error(R.drawable.imagenotfound).into(ivPreview);
+        } else {
+            ChatActivity.mPicasso.load(object.getImage_original_url()).error(R.drawable.imagenotfound).into(ivPreview);
+        }
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

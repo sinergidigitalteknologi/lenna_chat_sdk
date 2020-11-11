@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul.chat.viewholder;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.ChatContract;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.adapter.ChatListAdapter;
@@ -42,7 +45,12 @@ public class ChatRespListVH extends BaseViewHolder implements ChatContract.Adapt
 
     @Override
     public void onBindView(ChatObject object) {
-        Glide.with(context).load(object.getImageUrlGrid()).into(imageViewLogo);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(object.getImageUrlGrid()).error(R.drawable.imagenotfound).into(imageViewLogo);
+        } else {
+            ChatActivity.mPicasso.load(object.getImageUrlGrid()).error(R.drawable.imagenotfound).into(imageViewLogo);
+        }
+//        Glide.with(context).load(object.getImageUrlGrid()).into(imageViewLogo);
 //        Picasso.get().load(object.getImageUrlGrid()).into(this.imageViewLogo);
         this.textViewSubtitle.setText(object.getSubTitleGrid());
         ArrayList<ChatColumnGrid> chatColumnGridArrayList = object.getChatColumnGrids();

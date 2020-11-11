@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul.chat.viewholder;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnWeather;
@@ -96,11 +98,19 @@ public class ChatRespWeatherVH extends BaseViewHolder {
         String areaCountryCode = object.getArea() +", "+object.getCountryCode();
         this.textAreaCountryCode.setText(areaCountryCode);
         this.textlongDate.setText(columnWeathers.get(0).getLongDate());
-        Picasso.get().load(String.valueOf(columnWeathers.get(0).getDayIconUrl())).into(this.imageSiang0);
+//        Picasso.get().load(String.valueOf(columnWeathers.get(0).getDayIconUrl())).into(this.imageSiang0);
         this.textSuhu0.setText(columnWeathers.get(0).getTemperature());
-        Picasso.get().load(String.valueOf(columnWeathers.get(0).getNightIconUrl())).into(this.imageMalam0);
+//        Picasso.get().load(String.valueOf(columnWeathers.get(0).getNightIconUrl())).into(this.imageMalam0);
         this.textDayWeather.setText(columnWeathers.get(0).getDayWeather());
         this.textNightWeather.setText(columnWeathers.get(0).getNightWeather());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(String.valueOf(columnWeathers.get(0).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang0);
+            Picasso.get().load(String.valueOf(columnWeathers.get(0).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam0);
+        } else {
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(0).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang0);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(0).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam0);
+        }
 
         this.textShorDate1.setText(columnWeathers.get(1).getShortDate());
         this.textShorDate2.setText(columnWeathers.get(2).getShortDate());
@@ -108,13 +118,18 @@ public class ChatRespWeatherVH extends BaseViewHolder {
         this.textShorDate4.setText(columnWeathers.get(4).getShortDate());
         this.textShorDate5.setText(columnWeathers.get(5).getShortDate());
 
-        Picasso.get().load(String.valueOf(columnWeathers.get(1).getDayIconUrl())).into(this.imageSiang1);
-        Picasso.get().load(String.valueOf(columnWeathers.get(2).getDayIconUrl())).into(this.imageSiang2);
-        Picasso.get().load(String.valueOf(columnWeathers.get(3).getDayIconUrl())).into(this.imageSiang3);
-        Picasso.get().load(String.valueOf(columnWeathers.get(4).getDayIconUrl())).into(this.imageSiang4);
-        Picasso.get().load(String.valueOf(columnWeathers.get(5).getDayIconUrl())).into(this.imageSiang5);
-
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(String.valueOf(columnWeathers.get(1).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang1);
+            Picasso.get().load(String.valueOf(columnWeathers.get(2).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang2);
+            Picasso.get().load(String.valueOf(columnWeathers.get(3).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang3);
+            Picasso.get().load(String.valueOf(columnWeathers.get(4).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang4);
+            Picasso.get().load(String.valueOf(columnWeathers.get(5).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang5);
+        } else {
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(2).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang2);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(3).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang3);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(4).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang4);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(5).getDayIconUrl())).error(R.drawable.image_not_found).into(this.imageSiang5);
+        }
 
         String txtSiang1 = columnWeathers.get(1).getMaxTemperature()+" "+columnWeathers.get(1).getMinTemperature();
         this.textSiang1.setText(txtSiang1);
@@ -127,11 +142,19 @@ public class ChatRespWeatherVH extends BaseViewHolder {
         String txtSiang5 = columnWeathers.get(5).getMaxTemperature()+" "+columnWeathers.get(1).getMinTemperature();
         this.textSiang5.setText(txtSiang5);
 
-        Picasso.get().load(String.valueOf(columnWeathers.get(1).getNightIconUrl())).into(this.imageMalam1);
-        Picasso.get().load(String.valueOf(columnWeathers.get(2).getNightIconUrl())).into(this.imageMalam2);
-        Picasso.get().load(String.valueOf(columnWeathers.get(3).getNightIconUrl())).into(this.imageMalam3);
-        Picasso.get().load(String.valueOf(columnWeathers.get(4).getNightIconUrl())).into(this.imageMalam4);
-        Picasso.get().load(String.valueOf(columnWeathers.get(5).getNightIconUrl())).into(this.imageMalam5);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(String.valueOf(columnWeathers.get(1).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam1);
+            Picasso.get().load(String.valueOf(columnWeathers.get(2).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam2);
+            Picasso.get().load(String.valueOf(columnWeathers.get(3).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam3);
+            Picasso.get().load(String.valueOf(columnWeathers.get(4).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam4);
+            Picasso.get().load(String.valueOf(columnWeathers.get(5).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam5);
+        } else {
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(1).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam1);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(2).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam2);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(3).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam3);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(4).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam4);
+            ChatActivity.mPicasso.load(String.valueOf(columnWeathers.get(5).getNightIconUrl())).error(R.drawable.image_not_found).into(this.imageMalam5);
+        }
 
         String txtMalam1 = columnWeathers.get(1).getMaxTemperature()+" "+columnWeathers.get(1).getMinTemperature();
         this.textMalam1.setText(txtMalam1);
@@ -143,7 +166,5 @@ public class ChatRespWeatherVH extends BaseViewHolder {
         this.textMalam4.setText(txtMalam4);
         String txtMalam5 = columnWeathers.get(5).getMaxTemperature()+" "+columnWeathers.get(1).getMinTemperature();
         this.textMalam5.setText(txtMalam5);
-
-
     }
 }

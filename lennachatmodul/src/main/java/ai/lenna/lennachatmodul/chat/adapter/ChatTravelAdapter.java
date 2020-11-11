@@ -1,5 +1,6 @@
 package ai.lenna.lennachatmodul.chat.adapter;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +20,11 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnAirline;
+import okhttp3.OkHttpClient;
+
+import static ai.lenna.lennachatmodul.network.ApiBuilder.getImageHttpClient;
 
 @Keep
 public class ChatTravelAdapter extends RecyclerView.Adapter<ChatTravelAdapter.ChatCarouselItemVH> {
@@ -40,7 +46,12 @@ public class ChatTravelAdapter extends RecyclerView.Adapter<ChatTravelAdapter.Ch
 
     @Override
     public void onBindViewHolder(@NonNull ChatCarouselItemVH chatCarouselItemVH, int i) {
-        Picasso.get().load(data.get(i).getAirlineIconUrl()).into(chatCarouselItemVH.imageView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(data.get(i).getAirlineIconUrl()).error(R.drawable.imagenotfound).into(chatCarouselItemVH.imageView);
+        } else {
+            ChatActivity.mPicasso.load(data.get(i).getAirlineIconUrl()).error(R.drawable.imagenotfound).into(chatCarouselItemVH.imageView);
+        }
+
         String airline = data.get(i).getAirline() +" "+data.get(i).getFlightNumber();
         chatCarouselItemVH.textViewAirline.setText(airline);
         chatCarouselItemVH.textViewDepartTime.setText(data.get(i).getShortDepartTime());

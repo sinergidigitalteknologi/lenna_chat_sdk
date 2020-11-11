@@ -1,5 +1,6 @@
 package ai.lenna.lennachatmodul.chat.viewholder;
 
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import com.squareup.picasso.Picasso;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.ChatContract;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
@@ -35,8 +37,11 @@ public class ChatRespOpenAppVH extends BaseViewHolder {
     @Override
     public void onBindView(ChatObject object) {
 
-
-        Picasso.get().load(object.getImageAction()).into(this.imageOpenApps);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(object.getImageAction()).error(R.drawable.imagenotfound).into(this.imageOpenApps);
+        } else {
+            ChatActivity.mPicasso.load(object.getImageAction()).error(R.drawable.imagenotfound).into(this.imageOpenApps);
+        }
         cardViewOpenApss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

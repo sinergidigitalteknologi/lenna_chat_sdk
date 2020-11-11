@@ -1,5 +1,6 @@
 package ai.lenna.lennachatmodul.chat.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.Keep;

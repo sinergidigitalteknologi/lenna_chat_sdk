@@ -2,6 +2,7 @@ package ai.lenna.lennachatmodul.chat.adapter;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnNews;
 
 @Keep
@@ -38,7 +40,11 @@ public class ChatNewsAdapter extends RecyclerView.Adapter<ChatNewsAdapter.ChatCa
 
     @Override
     public void onBindViewHolder(@NonNull ChatCarouselItemVH chatCarouselItemVH, int position) {
-        Picasso.get().load(chatColumnCarousels.get(position).getThumbnailUrl()).into(chatCarouselItemVH.imageView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(chatColumnCarousels.get(position).getThumbnailUrl()).error(R.drawable.imagenotfound).into(chatCarouselItemVH.imageView);
+        } else {
+            ChatActivity.mPicasso.load(chatColumnCarousels.get(position).getThumbnailUrl()).error(R.drawable.imagenotfound).into(chatCarouselItemVH.imageView);
+        }
         chatCarouselItemVH.tvTitle.setText(chatColumnCarousels.get(position).getTitle());
         chatCarouselItemVH.tvDescription.setText(chatColumnCarousels.get(position).getTitle());
 

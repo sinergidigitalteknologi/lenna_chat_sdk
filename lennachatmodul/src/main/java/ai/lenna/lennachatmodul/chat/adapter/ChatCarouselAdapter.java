@@ -2,6 +2,7 @@ package ai.lenna.lennachatmodul.chat.adapter;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import ai.lenna.lennachatmodul.R;
+import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.model.carousel.ChatActionCarousel;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnCarousel;
 
@@ -46,7 +48,11 @@ public class ChatCarouselAdapter extends RecyclerView.Adapter<ChatCarouselAdapte
     @Override
     public void onBindViewHolder(@NonNull ChatCarouselItemVH chatCarouselItemVH, int position) {
         if (!chatColumnCarousels.get(position).getThumbnailImageUrl().equals("")){
-            Picasso.get().load(chatColumnCarousels.get(position).getThumbnailImageUrl()).into(chatCarouselItemVH.imageView);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Picasso.get().load(chatColumnCarousels.get(position).getThumbnailImageUrl()).error(R.drawable.imagenotfound).into(chatCarouselItemVH.imageView);
+            } else {
+                ChatActivity.mPicasso.load(chatColumnCarousels.get(position).getThumbnailImageUrl()).error(R.drawable.imagenotfound).into(chatCarouselItemVH.imageView);
+            }
         }
         chatCarouselItemVH.tvTitle.setText(Html.fromHtml(chatColumnCarousels.get(position).getTitle()));
         chatCarouselItemVH.tvDescription.setText(Html.fromHtml(chatColumnCarousels.get(position).getText()));
