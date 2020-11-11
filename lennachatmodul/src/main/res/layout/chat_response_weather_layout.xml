@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="8dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/colorFilm"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textAreaCountryCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:textColor="@color/white_solid"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Ciputat, ID" />
+
+            <TextView
+                android:id="@+id/textlongDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="171dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:textColor="@color/white_solid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7"
+                tools:text="Minggu, 19 Agustus 2019" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="Siang"
+                    android:textColor="@color/yelow_weather"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="Siang" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="Suhu"
+                    android:textColor="@color/yelow_weather"
+                    tools:layout_editor_absoluteX="85dp"
+                    tools:layout_editor_absoluteY="180dp"
+                    tools:text="Suhu" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="Malam"
+                    android:textColor="@color/yelow_weather"
+                    tools:layout_editor_absoluteX="263dp"
+                    tools:layout_editor_absoluteY="180dp"
+                    tools:text="Malam" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+                <ImageView
+                    android:id="@+id/imageSiang0"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="210dp"
+                    tools:srcCompat="@drawable/ic_berawan_tebal_malam" />
+
+                <TextView
+                    android:id="@+id/textSuhu0"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="18"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_solid"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteY="212dp" />
+
+                <ImageView
+                    android:id="@+id/imageMalam0"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="270dp"
+                    tools:layout_editor_absoluteY="212dp"
+                    tools:srcCompat="@drawable/ic_berawan_tebal_malam" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+
+
+                <TextView
+                    android:id="@+id/textDayWeather"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="Hujan\nPetir" />
+
+                <TextView
+                    android:id="@+id/textMinMaxTemprature"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="Min 16\nMaks 22"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="Min 16\nMaks 22" />
+
+                <TextView
+                    android:id="@+id/textNightWeather"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="Cerah\nBerawan" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/white_solid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout12" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                <TextView
+                    android:id="@+id/textShorDate1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text=" S 20/8" />
+
+                <TextView
+                    android:id="@+id/textShorDate2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text=" S 20/8" />
+
+                <TextView
+                    android:id="@+id/textShorDate3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text=" S 20/8" />
+
+                <TextView
+                    android:id="@+id/textShorDate4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text=" S 20/8" />
+
+                <TextView
+                    android:id="@+id/textShorDate5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text=" S 20/8" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textTitleSiang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Siang"
+                android:textAlignment="center"
+                android:textColor="@color/yelow_weather" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageSiang1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_hujan_lokal_siang" />
+
+                <ImageView
+                    android:id="@+id/imageSiang2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_hujan_lokal_siang" />
+
+                <ImageView
+                    android:id="@+id/imageSiang3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_hujan_lokal_siang" />
+
+                <ImageView
+                    android:id="@+id/imageSiang4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_hujan_lokal_siang" />
+
+                <ImageView
+                    android:id="@+id/imageSiang5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_hujan_lokal_siang" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textSiang1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textSiang2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textSiang3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textSiang4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textSiang5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textTitleMalam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Malam"
+                android:textAlignment="center"
+                android:textColor="@color/yelow_weather" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageMalam1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_hujan_lokal_siang"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/imageMalam2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_hujan_lokal_siang"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/imageMalam3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_hujan_lokal_siang"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/imageMalam4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_hujan_lokal_siang"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/imageMalam5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_hujan_lokal_siang"
+                    tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textMalam1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textMalam2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textMalam3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textMalam4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+                <TextView
+                    android:id="@+id/textMalam5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="22' 16'"
+                    android:textColor="@color/white_solid"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="178dp"
+                    tools:text="22' 16'" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

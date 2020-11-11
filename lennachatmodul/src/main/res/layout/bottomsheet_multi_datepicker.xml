@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_rounded"
+    app:behavior_hideable="false">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_bt_close" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Date Picker"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tanggal Sekarang"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black_solid"
+        android:textSize="18sp"/>
+    <DatePicker
+        android:id="@+id/datePickerNow"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tanggal Besok"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black_solid"
+        android:textSize="18sp"/>
+
+    <DatePicker
+        android:id="@+id/datePickerTomorrow"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"/>
+
+    <Button
+        android:id="@+id/btn_ok_multi_date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="60dp"
+        android:textAlignment="center"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/saldo_active_rounded"
+        android:fontFamily="@font/quicksand_bold"
+        android:gravity="center_vertical"
+        android:text="Pilih"
+        android:layout_marginStart="60dp"
+        android:textAllCaps="false"
+        android:textColor="@drawable/button_text_color"
+        android:textSize="17sp"/>
+
+
+</LinearLayout>
