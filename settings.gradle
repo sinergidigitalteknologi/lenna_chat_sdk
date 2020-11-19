@@ -1,0 +1,2 @@
+include ':app', ':lennachatmodul'
+rootProject.name='TestFirebase'

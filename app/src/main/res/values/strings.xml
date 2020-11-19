@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TestFirebase</string>
+    <string name="msg_token_fmt" translatable="false">%s</string>
+</resources>
