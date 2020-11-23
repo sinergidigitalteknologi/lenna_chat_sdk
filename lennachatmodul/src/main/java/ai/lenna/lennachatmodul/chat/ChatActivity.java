@@ -313,11 +313,20 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
             try {
                 final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),message,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-                req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID","")));
-                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,message));
-                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
-                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
-                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+//                Enc
+//                req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID","")));
+//                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,message));
+//                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
+//                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
+//                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+
+                req.setUserId(Prefs.getString("USER_ID",""));
+                req.setQuery(message);
+                req.setLat(String.valueOf(latitude));
+                req.setLon(String.valueOf(longitude));
+                req.setChannel("android");
+
+
 
 //                AppExecutors.getInstance().diskIO().execute(new Runnable() {
 //                    @Override
@@ -349,11 +358,21 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         if (!text.equals("")){
             try {
                 final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID","")));
-                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
-                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
-                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
-                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+//                Enc
+//                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID","")));
+//                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
+//                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
+//                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
+//                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+
+
+                req.setUserId(Prefs.getString("USER_ID",""));
+                req.setQuery(text);
+                req.setLat(String.valueOf(latitude));
+                req.setLon(String.valueOf(longitude));
+                req.setChannel("android");
+
+
 //                AppExecutors.getInstance().diskIO().execute(new Runnable() {
 //                    @Override
 //                    public void run() {
@@ -706,11 +725,17 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             }
             try {
                 ChatReq req = new ChatReq(user_id,text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,user_id));
-                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
-                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(Constant.LAT)));
-                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(Constant.LON)));
-                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+//                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,user_id));
+//                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
+//                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(Constant.LAT)));
+//                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(Constant.LON)));
+//                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+                req.setUserId(user_id);
+                req.setQuery(text);
+                req.setLat(String.valueOf(Constant.LAT));
+                req.setLon(String.valueOf(Constant.LON));
+                req.setChannel("android");
+
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -746,11 +771,17 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             }
             try {
                 final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID","")));
-                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
-                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
-                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
-                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+//                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID","")));
+//                req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
+//                req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
+//                req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
+//                req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+                req.setUserId(Prefs.getString("USER_ID",""));
+                req.setQuery(text);
+                req.setLat(String.valueOf(latitude));
+                req.setLon(String.valueOf(longitude));
+                req.setChannel("android");
+
 //              insertToDatabase(req.getQuery());
                 presenter.removeItem();
                 statusLoading = 1;
