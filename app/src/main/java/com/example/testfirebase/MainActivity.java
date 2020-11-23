@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
         r = new Runnable() {
             @Override
             public void run() {
-                Chat.setAppId("1yoD5Y");
-                Chat.setBotId("zbq2dp");
+                Chat.setAppId("NBVO0y");
+                Chat.setBotId("PdRgRe");
                 Chat.setAppKey("gm+sCaMg5ai0vPes+tB83O3G0vaS4ahwGV+81Hnzr6jCbi7g+vYbmzHHcy/vH64jHMwq9pLr8z/eWXfVWZ4gPv64p6PvmW4aHWbnIfpF9SeKSRJGy+pXyMbiqBdzpOEurDhsLixpHvA21sUqlHPq71XJxLoNg9hPhWSfCexpzCh36OlnW1hpoX7YSNGVDRUtorCBcPerj/43UQVfeKCA+Q==");
-                Chat.setUserName("Pengunjung");
+                Chat.setUserName("Pengunjungt");
                 Chat.setIcon(R.drawable.logo_ancol);
                 Chat.setIconBubleChat(R.drawable.logo_ancol);
                 Chat.setGreetingMessage("hai");

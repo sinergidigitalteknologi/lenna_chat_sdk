@@ -50,60 +50,60 @@ public class RequestToken implements RegisterContract.View {
                 String data = AesCipher.encrypt(Constant.REG_KEY, req.toString());
                 registerRedEncrypt.setData(data);
 //                Enc
-//                Call<RegisterRespEncrypt> call = service.regEncrypt(registerRedEncrypt, Constant.APP_ID);
-//                call.enqueue(new Callback<RegisterRespEncrypt>() {
-//                    @Override
-//                    public void onResponse(Call<RegisterRespEncrypt> call, Response<RegisterRespEncrypt> response) {
-//                        if (response.isSuccessful()) {
-//                            try{
-//                                String res = AesCipher.decrypt(Constant.REG_KEY,response.body().getData());
-//                                RegisterResp  chatResp = new RegisterResp();
-//                                Gson gson = new Gson();
-//                                chatResp = gson.fromJson(res,RegisterResp.class);
-//                                Chat.setToken(chatResp.getAccessToken());
-//                                Chat.setUserId(chatResp.getData().getId());
-//                                Intent intent = new Intent(context, ChatActivity.class);
-//                                intent.setAction(Intent.ACTION_VIEW);
-//                                ((Activity)context).startActivity(intent);
-//                            }catch (Exception e){
-//                                Toast.makeText(context, "Sorry somethink wrong",Toast.LENGTH_LONG).show();
-//                            }
-//                        }else{
-//                            Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<RegisterRespEncrypt> call, Throwable t) {
-//                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
-//                        Prefs.putString("TOKEN","");
-//                    }
-//                });
-
-                // Not enc
-                Call<RegisterResp> call = service.reg(req, Constant.APP_ID);
-                call.enqueue(new Callback<RegisterResp>() {
+                Call<RegisterRespEncrypt> call = service.regEncrypt(registerRedEncrypt, Constant.APP_ID);
+                call.enqueue(new Callback<RegisterRespEncrypt>() {
                     @Override
-                    public void onResponse(Call<RegisterResp> call, Response<RegisterResp> response) {
+                    public void onResponse(Call<RegisterRespEncrypt> call, Response<RegisterRespEncrypt> response) {
                         if (response.isSuccessful()) {
-
-                            Chat.setToken(response.body().getAccessToken());
-                            Chat.setUserId(response.body().getData().getId());
-                            Intent intent = new Intent(context, ChatActivity.class);
-                            intent.setAction(Intent.ACTION_VIEW);
-                            ((Activity)context).startActivity(intent);
-
+                            try{
+                                String res = AesCipher.decrypt(Constant.REG_KEY,response.body().getData());
+                                RegisterResp  chatResp = new RegisterResp();
+                                Gson gson = new Gson();
+                                chatResp = gson.fromJson(res,RegisterResp.class);
+                                Chat.setToken(chatResp.getAccessToken());
+                                Chat.setUserId(chatResp.getData().getId());
+                                Intent intent = new Intent(context, ChatActivity.class);
+                                intent.setAction(Intent.ACTION_VIEW);
+                                ((Activity)context).startActivity(intent);
+                            }catch (Exception e){
+                                Toast.makeText(context, "Sorry somethink wrong",Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<RegisterResp> call, Throwable t) {
+                    public void onFailure(Call<RegisterRespEncrypt> call, Throwable t) {
                         Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
                         Prefs.putString("TOKEN","");
                     }
                 });
+
+                // Not enc
+//                Call<RegisterResp> call = service.reg(req, Constant.APP_ID);
+//                call.enqueue(new Callback<RegisterResp>() {
+//                    @Override
+//                    public void onResponse(Call<RegisterResp> call, Response<RegisterResp> response) {
+//                        if (response.isSuccessful()) {
+//
+//                            Chat.setToken(response.body().getAccessToken());
+//                            Chat.setUserId(response.body().getData().getId());
+//                            Intent intent = new Intent(context, ChatActivity.class);
+//                            intent.setAction(Intent.ACTION_VIEW);
+//                            ((Activity)context).startActivity(intent);
+//
+//                        }else{
+//                            Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<RegisterResp> call, Throwable t) {
+//                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
+//                        Prefs.putString("TOKEN","");
+//                    }
+//                });
 
 
             } catch (Exception e) {

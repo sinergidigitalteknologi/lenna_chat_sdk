@@ -32,64 +32,26 @@ public class ChatModel implements ChatContract.Model {
 
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
 //        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
-//        Call<ChatEncrypResp> call = service.submitChatEncrypt("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
-//
-//        call.enqueue(new Callback<ChatEncrypResp>() {
-//            @Keep
-//            @Override
-//            public void onResponse(Call<ChatEncrypResp> call, Response<ChatEncrypResp> response) {
-//
-//                if (response.isSuccessful()) {
-//                    try {
-//                        String data = AesCipher.decrypt(Constant.APP_KEY, response.body().getEncryption());
-//                        JSONObject jsonObject = new JSONObject(data);
-//                        ChatResp  chatResp = new ChatResp();
-//                        Gson gson = new Gson();
-//                        chatResp = gson.fromJson(data,ChatResp.class);
-//                        onFinishedListener.onFinishedSuccess(chatResp);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//
-////
-//
-//                } else {
-//                    GenericErrorResponseBean errorResponse = new GenericErrorResponseBean();
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-//                        JSONObject jsonerror = jsonObject.getJSONObject("error");
-//                        errorResponse.setCode(jsonerror.getInt("code"));
-//                        errorResponse.setMessage(jsonerror.getString("message"));
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    onFinishedListener.onFinishedFail(errorResponse);
-//                }
-//
-//            }
-//
-//            @Keep
-//            @Override
-//            public void onFailure(Call<ChatEncrypResp> call, Throwable t) {
-//                onFinishedListener.onFailure();
-//            }
-//        });
+        Call<ChatEncrypResp> call = service.submitChatEncrypt("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
 
-
-        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
-
-        call.enqueue(new Callback<ChatResp>() {
+        call.enqueue(new Callback<ChatEncrypResp>() {
             @Keep
             @Override
-            public void onResponse(Call<ChatResp> call, Response<ChatResp> response) {
+            public void onResponse(Call<ChatEncrypResp> call, Response<ChatEncrypResp> response) {
 
                 if (response.isSuccessful()) {
+                    try {
+                        String data = AesCipher.decrypt(Constant.APP_KEY, response.body().getEncryption());
+                        JSONObject jsonObject = new JSONObject(data);
+                        ChatResp  chatResp = new ChatResp();
+                        Gson gson = new Gson();
+                        chatResp = gson.fromJson(data,ChatResp.class);
+                        onFinishedListener.onFinishedSuccess(chatResp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                    onFinishedListener.onFinishedSuccess(response.body());
-
+//
 
                 } else {
                     GenericErrorResponseBean errorResponse = new GenericErrorResponseBean();
@@ -111,7 +73,7 @@ public class ChatModel implements ChatContract.Model {
 
             @Keep
             @Override
-            public void onFailure(Call<ChatResp> call, Throwable t) {
+            public void onFailure(Call<ChatEncrypResp> call, Throwable t) {
                 onFinishedListener.onFailure();
             }
         });

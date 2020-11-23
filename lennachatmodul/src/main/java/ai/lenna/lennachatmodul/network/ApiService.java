@@ -33,8 +33,4 @@ public interface ApiService {
     @POST("backend/api/{appId}/users/register")
     Call<RegisterRespEncrypt> regEncrypt(@Body RegisterReqEncrypt registerReqEncrypt, @Path("appId") String app_id);
 
-    @POST("app/public/api/{botId}/webhook/mobile")
-    Call<ChatResp> submitChat(@Header("Authorization") String token, @Body ChatReq req, @Path("botId") String bot_id);
-
-
 }
