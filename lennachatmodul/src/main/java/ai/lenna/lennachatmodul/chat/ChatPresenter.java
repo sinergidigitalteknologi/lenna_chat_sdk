@@ -294,7 +294,6 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 //                chatResponse.setDate(chatResp.getDate());
                 chatObjects.add(chatResponse);
                 view.notifyAdapterObjectAdded(chatObjects.size() - 1);
-                view.scrollChatDown();
 
                 if (!sourceType.equals("history")){
                     speakOut(outputText.getSpeech().replace(Constant.KEY_FALLBACK,""));
