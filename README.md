@@ -50,6 +50,8 @@ Chat.setGreetingMessage(...);
 Chat.start(this);
 Chat.setKeyFallBack("...");
 Chat.setRequestMenuFAllback("...");
+Chat.start(context);
+
 </span></pre></div>
 
 <h2><a id="user-content-gradle-setup" class="anchor" aria-hidden="true" href="#gradle-setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path></path></svg></a> Contributors </h2>
