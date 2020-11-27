@@ -47,7 +47,6 @@ Chat.setUserName("...");
 Chat.setIcon(...);
 Chat.setIconBubleChat(...);
 Chat.setGreetingMessage(...);
-Chat.start(this);
 Chat.setKeyFallBack("...");
 Chat.setRequestMenuFAllback("...");
 Chat.start(context);
