@@ -3,6 +3,56 @@
 This is a chat sdk from <a href="https://lenna.ai">Lenna</a> (PT Sinergi Digital Teknologi)
 
 
+<h3><a id="user-content-gradle-setup" class="anchor" aria-hidden="true" href="#gradle-setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path></path></svg></a>Gradle Setup (Project)</h3>
+
+<div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">repositories</span> {
+    maven { url <span class="pl-s"><span class="pl-pds">'</span>https://jitpack.io<span class="pl-pds">'</span></span> }
+}
+</div>
+
+<h3><a id="user-content-gradle-setup" class="anchor" aria-hidden="true" href="#gradle-setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path></path></svg></a>Gradle Setup (Module)</h3>
+
+<div class="highdark highlight-source-groovy-gradle"><pre>
+defaultConfig {
+    ...
+    minSdkVersion 19
+    ...
+}
+</br>
+compileOptions {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+</br>
+dependencies {
+    implementation 'com.github.sinergidigitalteknologi:lenna_chat_sdk:1.0.0.7_NE'
+}</pre></div>
+</br>
+
+<h3><a id="user-content-gradle-setup" class="anchor" aria-hidden="true" href="#gradle-setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path></path></svg></a>Usage </h3>
+
+1. import ai.lenna.lennachatmodul.Chat in your activity
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> ai.lenna.lennachatmodul.Chat;
+</span></pre></div>
+
+2. Call and set some configuration on Class Chat
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k"> 
+Chat.setAppId("...");
+Chat.setBotId("...");
+Chat.setAppKey("...");
+Chat.setUserName("...");
+Chat.setIcon(...);
+Chat.setIconBubleChat(...);
+Chat.setGreetingMessage(...);
+Chat.setKeyFallBack("...");
+Chat.setRequestMenuFAllback("...");
+Chat.start(context);
+
+</span></pre></div>
+
+
 
 
 <h2><a id="user-content-gradle-setup" class="anchor" aria-hidden="true" href="#gradle-setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path></path></svg></a> Contributors </h2>
