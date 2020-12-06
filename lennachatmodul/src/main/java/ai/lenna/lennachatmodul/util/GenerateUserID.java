@@ -9,6 +9,7 @@ import androidx.annotation.Keep;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.UUID;
 
 import ai.lenna.lennachatmodul.regist.model.RegisterReq;
@@ -30,15 +31,20 @@ public class GenerateUserID {
         Encryp encryp  = new Encryp();
         encryp.dc();
         String password = "" ;
+
+
         if(Prefs.getString("id_user","").equals("")){
-            String uniqueID = UUID.randomUUID().toString();
+            Calendar calendar = Calendar.getInstance();
+            long startTime = calendar.getTimeInMillis();
+            String uniqueID = String.valueOf(startTime);
+//            String uniqueID = UUID.randomUUID().toString();
             Prefs.putString("id_user",uniqueID);
         }
         String ui = Prefs.getString("id_user","");
         registerReq = new RegisterReq();
         registerReq.setName(Constant.USER_NAME);
         registerReq.setNickname(Constant.USER_NAME);
-        registerReq.setEmail(ui + "@"+ Constant.APP_ID +".com");
+        registerReq.setEmail(Constant.USER_NAME.toLowerCase() + ui + "@"+ Constant.APP_ID +".com");
         registerReq.setPhone(Constant.PHONE);
         registerReq.setClient("android");
         registerReq.setFcm_token(Constant.FCM_TOKEN);
