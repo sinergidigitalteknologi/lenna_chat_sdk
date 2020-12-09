@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import ai.lenna.lennachatmodul.util.Constant;
 
+@Keep
 public class LennaFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "LennaFirebaseMessagingService";
 

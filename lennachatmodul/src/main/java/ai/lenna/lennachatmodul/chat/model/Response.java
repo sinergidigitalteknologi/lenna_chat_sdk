@@ -1,7 +1,10 @@
 package ai.lenna.lennachatmodul.chat.model;
 
+import androidx.annotation.Keep;
+
 import java.util.List;
 
+@Keep
 public class Response{
 	private List<Object> data;
 	private String encryption;
