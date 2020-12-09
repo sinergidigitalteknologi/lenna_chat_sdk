@@ -25,4 +25,8 @@
         <item name="behavior_peekHeight">@dimen/custom_peek_height</item>
     </style>
 
+    <style name="progressColor" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorControlActivated">#5c1b1b</item>
+    </style>
+
 </resources>

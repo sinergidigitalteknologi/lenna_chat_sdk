@@ -7,7 +7,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="220dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
@@ -34,26 +34,53 @@
                 android:id="@+id/text_view_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:maxLines="2"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/quicksand_bold"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#081F32"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserrat_regular"
                 tools:text="as" />
 
             <TextView
                 android:id="@+id/text_view_description"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
                 android:maxLines="2"
-                android:fontFamily="@font/quicksand_regular"
-                android:text=""
-                android:layout_marginBottom="14dp"
-                android:textColor="@color/tundora"
-                android:textSize="13sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="#6E798C"
+                android:textSize="14sp"
                 tools:text="Ini adalah deskripsi dari setiap carousel" />
+<!--            <TextView-->
+<!--                android:id="@+id/text_view_title"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:maxLines="2"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:fontFamily="@font/quicksand_bold"-->
+<!--                tools:text="as" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/text_view_description"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:maxLines="2"-->
+<!--                android:fontFamily="@font/quicksand_regular"-->
+<!--                android:text=""-->
+<!--                android:layout_marginBottom="14dp"-->
+<!--                android:textColor="@color/tundora"-->
+<!--                android:textSize="13sp"-->
+<!--                tools:text="Ini adalah deskripsi dari setiap carousel" />-->
 
             <LinearLayout
                 android:visibility="gone"
@@ -61,24 +88,32 @@
                 android:id="@+id/llButtonAction"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
                 android:layout_height="wrap_content">
-                <View
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/porcelain"/>
+<!--                <View-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="@color/porcelain"/>-->
                 <TextView
                     android:visibility="gone"
                     android:id="@+id/textViewButton1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:textColor="@color/colorFilm"
-                    android:fontFamily="@font/quicksand_bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/background_carousel_action"
+                    android:fontFamily="@font/montserrat_regular"
                     tools:text="Lihat lebih"/>
                 <TextView
                     android:visibility="gone"
@@ -86,10 +121,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:textColor="@color/colorFilm"
-                    android:fontFamily="@font/quicksand_bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/background_carousel_action"
+                    android:fontFamily="@font/montserrat_regular"
                     tools:text="Lihat lebih"/>
                 <TextView
                     android:visibility="gone"
@@ -97,10 +139,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:textColor="@color/colorFilm"
-                    android:fontFamily="@font/quicksand_bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/background_carousel_action"
+                    android:fontFamily="@font/montserrat_regular"
                     tools:text="Lihat lebih"/>
                 <TextView
                     android:visibility="gone"
@@ -108,10 +157,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:textColor="@color/colorFilm"
-                    android:fontFamily="@font/quicksand_bold"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/background_carousel_action"
+                    android:fontFamily="@font/montserrat_regular"
                     tools:text="Lihat lebih"/>
 
             </LinearLayout>

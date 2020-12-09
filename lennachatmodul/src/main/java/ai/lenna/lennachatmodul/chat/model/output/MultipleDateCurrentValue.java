@@ -16,7 +16,7 @@ public class MultipleDateCurrentValue implements Serializable {
     @SerializedName("to")
     @Expose
     private String to;
-
+    
     public String getFrom() {
         return from;
     }

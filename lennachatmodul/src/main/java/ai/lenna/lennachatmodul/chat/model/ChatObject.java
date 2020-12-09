@@ -13,6 +13,7 @@ import ai.lenna.lennachatmodul.chat.model.column.ChatColumnMovie;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnNews;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnSummary;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnWeather;
+import ai.lenna.lennachatmodul.chat.model.output.ChatColumnCarouselApi;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatActionButton;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatOutputAction;
 
@@ -39,6 +40,8 @@ public abstract class ChatObject {
     private String text;
     private String time;
     private String date;
+
+    private String userType;
 
     //response image
     private String image_original_url;
@@ -81,13 +84,33 @@ public abstract class ChatObject {
 
     private int chatType;
 
+    private String sourceType;
+
     private ArrayList<ChatColumnCarousel> chatColumnCarousels;
+
+    private ArrayList<ChatColumnCarouselApi> chatColumnCarouselsApi;
 
     private ArrayList<ChatColumnMovie> chatColumnMovies;
 
     private ArrayList<ChatColumnNews> chatColumnNews;
 
     private ArrayList<ChatColumnAirline> chatColumnAirlines;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
     public ArrayList<ChatActionButton> getChatActionButtons() {
         return chatActionButtons;
@@ -173,14 +196,6 @@ public abstract class ChatObject {
         this.chatColumnMovies = chatColumnMovies;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getTextTitleConfirm() {
         return textTitleConfirm;
     }
@@ -232,12 +247,28 @@ public abstract class ChatObject {
         this.time = time;
     }
 
+    public String getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
+    }
+
     public ArrayList<ChatColumnCarousel> getChatColumnCarousels() {
         return chatColumnCarousels;
     }
 
     public void setChatColumnCarousels(ArrayList<ChatColumnCarousel> chatColumnCarousels) {
         this.chatColumnCarousels = chatColumnCarousels;
+    }
+
+    public ArrayList<ChatColumnCarouselApi> getChatColumnCarouselsApi() {
+        return chatColumnCarouselsApi;
+    }
+
+    public void setChatColumnCarouselsApi(ArrayList<ChatColumnCarouselApi> chatColumnCarouselsApi) {
+        this.chatColumnCarouselsApi = chatColumnCarouselsApi;
     }
 
     public String getImageUrlGrid() {

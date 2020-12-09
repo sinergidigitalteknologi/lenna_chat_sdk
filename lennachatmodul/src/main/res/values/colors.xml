@@ -18,6 +18,7 @@
     <color name="black_solid">#000000</color>
     <color name="you_tube_red">#A20015</color>
     <color name="transparent">#00000000</color>
+    <color name="black_solid_alpha">#99000000</color>
     <color name="black_transparnt_80">#80000000</color>
 
     <!-- Palette gray -->

@@ -49,6 +49,8 @@ import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.karan.churi.PermissionManager.PermissionManager;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.OkHttp3Downloader;
@@ -56,6 +58,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -66,7 +69,9 @@ import ai.lenna.lennachatmodul.chat.adapter.ChatAdapter;
 import ai.lenna.lennachatmodul.chat.adapter.QuickButtonAdapter;
 import ai.lenna.lennachatmodul.chat.adapter.QuickButtonCallBack;
 import ai.lenna.lennachatmodul.chat.airport.Airport;
+import ai.lenna.lennachatmodul.chat.model.ChatLoadReq;
 import ai.lenna.lennachatmodul.chat.model.ChatReq;
+import ai.lenna.lennachatmodul.chat.model.ChatResp;
 import ai.lenna.lennachatmodul.chat.model.bean.ChatResultBean;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnForm;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputDatepickerForm;
@@ -80,6 +85,8 @@ import ai.lenna.lennachatmodul.chat.model.output.ChatOutputTrainPassengerForm;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputTrainTripDetailForm;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatDataAction;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatOutputAction;
+import ai.lenna.lennachatmodul.network.ApiBuilder;
+import ai.lenna.lennachatmodul.network.ApiService;
 import ai.lenna.lennachatmodul.room.AppDatabase;
 import ai.lenna.lennachatmodul.room.AppExecutors;
 import ai.lenna.lennachatmodul.room.entity.ChatResponseEntity;
@@ -91,6 +98,9 @@ import ai.lenna.lennachatmodul.util.SpeakToTextUtils;
 import ai.lenna.lennachatmodul.util.TtsUtils;
 import im.delight.android.location.SimpleLocation;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static ai.lenna.lennachatmodul.network.ApiBuilder.getImageHttpClient;
 
@@ -123,6 +133,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     ImageView imageViewCloseMultiDate, imageViewClose;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
+    int page = 1;
+
     private double lat;
     private double lng;
     private double acc;
@@ -137,10 +149,11 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     ImageView closeNoAktifGS;
     private ChatAdapter chatAdapter;
-    Button btn_batal, btn_pengaturan;
+    Button btn_batal, btn_pengaturan, btnErrorLoad;
     ConstraintLayout layout_chatbox2;
     private QuickButtonAdapter quickButtonAdapter;
     private RecyclerView rvChatList, rvQuickButton;
+    private LinearLayout llLoadChatList, llFailedLoadChatList;
 
     Spinner spinnerAsalPesawat, spinnerTujuanPesawat, spinnerDewasaPesawat, spinnerAnakPesawat, spinnerBayiPesawat;
 
@@ -163,6 +176,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     EditText etSendMessage;
 
     public static Picasso mPicasso;
+
+    ChatLoadReq chatLoadReq;
 
     @Keep
     @Override
@@ -195,6 +210,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         mDb = AppDatabase.getInstance(getApplicationContext());
         permission.checkAndRequestPermissions(ChatActivity.this);
 
+        chatLoadReq = new ChatLoadReq();
+
         if (!locationsMap.hasLocationEnabled()) {
             final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
             View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_noaktif_gps, null);
@@ -224,6 +241,22 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             bottomSheetDialog.setContentView(sheetView);
             bottomSheetDialog.show();
         }
+
+        llLoadChatList = findViewById(R.id.ll_load_chat_list);
+        llFailedLoadChatList = findViewById(R.id.ll_failed_load_chat_list);
+
+        containLoadListChat();
+
+        btnErrorLoad = (Button) findViewById(R.id.btn_error_load) ;
+        btnErrorLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llLoadChatList.setVisibility(View.VISIBLE);
+                llFailedLoadChatList.setVisibility(View.GONE);
+                llFailedLoadChatList.setVisibility(View.GONE);
+                containLoadListChat();
+            }
+        });
 
         rvChatList = (RecyclerView) findViewById(R.id.rv_chat);
         rvQuickButton = (RecyclerView) findViewById(R.id.rv_chat_quick);
@@ -278,21 +311,22 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         rvChatList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvChatList.setItemAnimator(new DefaultItemAnimator());
         getLonLat();
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<ChatResponseEntity> chatResponseEntities;
-                chatResponseEntities = mDb.chatResponseDao().getAll();
-                ChatActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < chatResponseEntities.size(); i++){
-                            presenter.loadChatHistory(chatResponseEntities.get(i).getChatHistory());
-                        }
-                    }
-                });
-            }
-        });
+//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                List<ChatResponseEntity> chatResponseEntities;
+//                chatResponseEntities = mDb.chatResponseDao().getAll();
+//                Log.d("message.getStringExtra", new Gson().toJson(chatResponseEntities));
+//                ChatActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        for (int i = 0; i < chatResponseEntities.size(); i++){
+//                            presenter.loadChatHistory(chatResponseEntities.get(i).getChatHistory());
+//                        }
+//                    }
+//                });
+//            }
+//        });
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -304,7 +338,64 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                         new IntentFilter(Constant.PUSH_NOTIFICATION));
             }
         };
-        firtsMessage(Constant.GMESSAGE);
+
+
+//        firtsMessage(Constant.GMESSAGE);
+    }
+
+    public void containLoadListChat() {
+        chatLoadReq.setUserId(Prefs.getString("USER_ID",""));
+        ChatLoadReq inChatLoadReq = new ChatLoadReq();
+        inChatLoadReq.setUserId(chatLoadReq.getUserId());
+
+        loadListChat(inChatLoadReq);
+    }
+
+    @Keep
+    private void loadListChat(ChatLoadReq chatLoadReq) {
+
+        ApiService service = ApiBuilder.getClient().create(ApiService.class);
+//        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
+//        Call<List<Chat>> call = service.getChatList(chatLoadReq, Constant.BOT_ID, "1");
+
+        Call<ArrayList<ChatResp>> call = service.getChatList(chatLoadReq, Constant.BOT_ID, String.valueOf(page));
+        call.enqueue(new Callback<ArrayList<ChatResp>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ChatResp>> call, Response<ArrayList<ChatResp>> response) {
+
+                if (response.isSuccessful()) {
+                    llLoadChatList.setVisibility(View.GONE);
+                    llFailedLoadChatList.setVisibility(View.GONE);
+                    List<ChatResp> list = response.body();
+
+                    if (list.size() > 0) {
+                        try {
+                            Collections.reverse(list);
+                            list.remove(0);
+                            Gson gson = new Gson();
+                            Log.d("List_chat", gson.toJson(list));
+                            if (list.size() != 0) {
+                                for (int i = 0; i < list.size(); i++) {
+                                    presenter.loadChatHistory(new Gson().toJson(list.get(i)));
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        firtsMessage(Constant.GMESSAGE);
+                    }
+                } else {
+                    llLoadChatList.setVisibility(View.GONE);
+                    llFailedLoadChatList.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<ChatResp>> call, Throwable t) {
+                llLoadChatList.setVisibility(View.GONE);
+                llFailedLoadChatList.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Keep
@@ -719,7 +810,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                         mDb.chatResponseDao().insertAll(chatResponseEntity);
                     }
                 });
-                presenter.onEditTextActionDone(text);
+                presenter.onEditTextActionDone(text, "");
                 String a = req.getUserId();
                 statusLoading = 1;
                 new Handler().postDelayed(new Runnable() {

@@ -16,9 +16,11 @@ import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.ChatContract;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.adapter.ChatCarouselAdapter;
+import ai.lenna.lennachatmodul.chat.adapter.ChatCarouselApiAdapter;
 import ai.lenna.lennachatmodul.chat.adapter.ChatPostCallBack;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
 import ai.lenna.lennachatmodul.chat.model.column.ChatColumnCarousel;
+import ai.lenna.lennachatmodul.chat.model.output.ChatColumnCarouselApi;
 
 @Keep
 public class ChatRespCarouselVH extends BaseViewHolder {
@@ -36,18 +38,39 @@ public class ChatRespCarouselVH extends BaseViewHolder {
 
     @Override
     public void onBindView(ChatObject object) {
-        ArrayList<ChatColumnCarousel> chatColumnCarousels = object.getChatColumnCarousels();
-        ChatCarouselAdapter adapter = new ChatCarouselAdapter(chatColumnCarousels, new ChatPostCallBack() {
-            @Override
-            public void onRowClick(String textChat) {
-                view.inputChat(textChat);
-            }
-        });
-        this.recyclerViewAdv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        this.recyclerViewAdv.setAdapter(adapter);
-        this.recyclerViewAdv.setOnFlingListener(null);
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(this.recyclerViewAdv);
+        String sourceTypeString = object.getSourceType();
+
+        if (sourceTypeString.equals("history")) {
+            ArrayList<ChatColumnCarouselApi> chatColumnCarousels = object.getChatColumnCarouselsApi();
+
+            ChatCarouselApiAdapter adapter = new ChatCarouselApiAdapter(chatColumnCarousels, new ChatPostCallBack() {
+                @Override
+                public void onRowClick(String textChat) {
+                    view.inputChat(textChat);
+                }
+            });
+            this.recyclerViewAdv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            this.recyclerViewAdv.setAdapter(adapter);
+            this.recyclerViewAdv.setOnFlingListener(null);
+            SnapHelper snapHelper = new LinearSnapHelper();
+            snapHelper.attachToRecyclerView(this.recyclerViewAdv);
+
+        } else {
+            ArrayList<ChatColumnCarousel> chatColumnCarousels = object.getChatColumnCarousels();
+
+            ChatCarouselAdapter adapter = new ChatCarouselAdapter(chatColumnCarousels, new ChatPostCallBack() {
+                @Override
+                public void onRowClick(String textChat) {
+                    view.inputChat(textChat);
+                }
+            });
+            this.recyclerViewAdv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            this.recyclerViewAdv.setAdapter(adapter);
+            this.recyclerViewAdv.setOnFlingListener(null);
+            SnapHelper snapHelper = new LinearSnapHelper();
+            snapHelper.attachToRecyclerView(this.recyclerViewAdv);
+        }
+
     }
 
 

@@ -3,7 +3,10 @@ package ai.lenna.lennachatmodul.network;
 
 import androidx.annotation.Keep;
 
+import java.util.ArrayList;
+
 import ai.lenna.lennachatmodul.chat.model.ChatEncrypResp;
+import ai.lenna.lennachatmodul.chat.model.ChatLoadReq;
 import ai.lenna.lennachatmodul.chat.model.ChatReq;
 import ai.lenna.lennachatmodul.chat.model.ChatResp;
 import ai.lenna.lennachatmodul.regist.model.RegisterReqEncrypt;
@@ -16,6 +19,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 @Keep
 public interface ApiService {
@@ -29,6 +33,9 @@ public interface ApiService {
     //encrypt
     @POST("app/public/api/{botId}/webhook/mobile")
     Call<ChatEncrypResp> submitChatEncrypt(@Header("Authorization") String token, @Body ChatReq req, @Path("botId") String bot_id);
+
+    @POST("app/public/api/{botId}/message/get-more-message-digipos")
+    Call<ArrayList<ChatResp>> getChatList(@Body ChatLoadReq chatLoadReq, @Path("botId") String bot_id, @Query("page") String page);
 
     @POST("backend/api/{appId}/users/register")
     Call<RegisterRespEncrypt> regEncrypt(@Body RegisterReqEncrypt registerReqEncrypt, @Path("appId") String app_id);

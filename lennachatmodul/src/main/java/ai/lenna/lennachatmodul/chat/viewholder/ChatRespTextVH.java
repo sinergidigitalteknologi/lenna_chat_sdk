@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul.chat.viewholder;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,8 +37,19 @@ public class ChatRespTextVH extends BaseViewHolder {
         this.tvResponseText.setText(object.getText());
         this.tvTimeTextInput.setText(object.getTime());
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N){
-            linearLayoutResponse.setBackgroundResource(R.drawable.chat_response_background);
+            linearLayoutResponse.setBackgroundResource(R.drawable.background_chat_res);
         }
-        this.imgBotMessage.setImageResource(Prefs.getInt("ICON_BUBLE_CHAT", 0));
+
+        if (object.getUserType() != null) {
+            if (object.getUserType().equals("user_platform")) {
+                this.imgBotMessage.setImageResource(R.drawable.icon_agent);
+            }
+            if (object.getUserType().equals("bot")) {
+                this.imgBotMessage.setImageResource(R.drawable.icon_bot);
+            }
+        } else {
+            this.imgBotMessage.setImageResource(R.drawable.icon_agent);
+        }
+//        this.imgBotMessage.setImageResource(Prefs.getInt("ICON_BUBLE_CHAT", 0));
     }
 }

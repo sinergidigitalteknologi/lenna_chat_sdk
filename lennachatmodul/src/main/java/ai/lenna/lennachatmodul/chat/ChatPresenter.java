@@ -8,6 +8,10 @@ import androidx.annotation.Keep;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.json.JSONArray;
@@ -17,13 +21,17 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import ai.lenna.lennachatmodul.chat.model.ChatModel;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
 import ai.lenna.lennachatmodul.chat.model.ChatReq;
 import ai.lenna.lennachatmodul.chat.model.ChatResp;
+import ai.lenna.lennachatmodul.chat.model.carousel.ChatDefaultActionCarousel;
+import ai.lenna.lennachatmodul.chat.model.column.ChatColumnCarousel;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputButton;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputCarousel;
+import ai.lenna.lennachatmodul.chat.model.output.ChatOutputCarouselApi;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputConfirm;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputDatepickerForm;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputDonasi;
@@ -147,11 +155,17 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 
     @Keep
     @Override
-    public void onEditTextActionDone(String inputText) {
+    public void onEditTextActionDone(String inputText, String time) {
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
-        String strDate = mdformat.format(calendar.getTime());
+        String strDate = "";
+
+        if (time.equals("")) {
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
+            strDate = mdformat.format(calendar.getTime());
+        } else {
+            strDate = time;
+        }
 
         // Create new input object
         ChatInput inputObject = new ChatInput();
@@ -205,14 +219,12 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
         try {
             obj = new JSONObject(json);
             output = new JSONArray(obj.getJSONObject("result").getJSONArray("output").toString());
-
-
         } catch (Throwable t) {
-            Log.e("My JSON", "Could not parse malformed JSON: \"" + json + "\"");
-            onEditTextActionDone(json);
+            onEditTextActionDone(json, "");
         }
 
         if (output != null){
+            String timeString = obj.getString("time");
             for (int i = 0; i < output.length(); i++){
                 String type = null;
                 String subtype = null;
@@ -223,9 +235,16 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                 if (type.equals("action")) {
                     subtype = object.getString("subType");
                 }
-                mapType(type, jsonObj, subtype, "history");
+
+                if (obj.getString("user_type").equals("user")) {
+                    onEditTextActionDone(object.getString("text"), timeString);
+                } else {
+                    mapType(type, jsonObj, subtype, "history", obj.getString("user_type"), timeString);
+                }
             }
         }
+
+
     }
 
     @Keep
@@ -234,13 +253,16 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 
         try {
             obj = new JSONArray(json);
-            Log.d("My JSON", obj.toString());
         } catch (Throwable t) {
             Log.e("My JSON", "Could not parse malformed JSON: \"" + json + "\"");
         }
 
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
+        String strDate = mdformat.format(calendar.getTime());
 
-        for (int i = 0; i < obj.length(); i++){
+
+        for (int i = 0; i < obj.length(); i++) {
             String type = null;
             String subtype = null;
             JSONObject object = obj.getJSONObject(i);
@@ -250,7 +272,7 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
             if (type.equals("action")) {
                 subtype = object.getString("subType");
             }
-            mapType(type, jsonObj, subtype, "live_chat");
+            mapType(type, jsonObj, subtype, "live_chat", "user_platform", strDate);
         }
     }
 
@@ -260,28 +282,21 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
         for (int i = 0; i < chatResp.getResult().getOutput().size(); i++) {
             String type = null;
             String subtype = null;
-
             type = chatResp.getResult().getOutput().get(i).get("type").getAsString();
-
             if (type.equals("action")) {
                 subtype = chatResp.getResult().getOutput().get(i).get("subType").getAsString();
             }
-
             String json = String.valueOf(chatResp.getResult().getOutput().get(i));
-
-            mapType(type, json, subtype, "api");
+            mapType(type, json, subtype, "api", "bot", chatResp.getTime());
         }
-
     }
 
     @Keep
-    private void mapType(String type, String json, String subtype, String sourceType){
+    private void mapType(String type, String json, String subtype, String sourceType, String statusHandel, String timeString){
         switch (type) {
             case TYPE_TEXT:
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
-                String strDate = mdformat.format(calendar.getTime());
                 ChatResponse chatResponse = new ChatResponse();
+
                 ChatOutputText outputText =
                         new Gson().fromJson(json,
                                 ChatOutputText.class);
@@ -289,9 +304,9 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                 String arr[] = ori_text_response.split(" ", 2);
 
                 String text_response = outputText.getText().replace(Constant.KEY_FALLBACK,"");
+                chatResponse.setTime(timeString);
                 chatResponse.setText(text_response);
-                chatResponse.setTime(strDate);
-//                chatResponse.setDate(chatResp.getDate());
+                chatResponse.setUserType(statusHandel);
                 chatObjects.add(chatResponse);
                 view.notifyAdapterObjectAdded(chatObjects.size() - 1);
 
@@ -304,16 +319,168 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 
                 break;
             case TYPE_CROUSEL:
-                ChatResponseCarousel chatResponseCarousel = new ChatResponseCarousel();
-                ChatOutputCarousel outputCarousel =
-                        new Gson().fromJson(json, ChatOutputCarousel.class);
-                chatResponseCarousel.setChatColumnCarousels(outputCarousel.getColumns());
-                chatObjects.add(chatResponseCarousel);
-                view.notifyAdapterObjectAdded(chatObjects.size() - 1);
-                view.scrollChatDown();
-                if (!sourceType.equals("history")){
+//                JSONObject jsonObject = null;
+//                JSONObject jsonObjectEdit = new JSONObject();
+//                try {
+//
+//                    if (sourceType.equals("history")) {
+//
+//                        jsonObject = new JSONObject(json);
+//                        ArrayList<JsonObject> listdata = new ArrayList<>();
+//                        JSONArray jsonArrColumn = new JSONArray(jsonObject.getJSONArray("columns").toString());
+//
+//                        for (int i=0; i<jsonArrColumn.length(); i++) {
+//                            JsonParser parser = new JsonParser();
+//                            JsonElement jsonElement = parser.parse(jsonArrColumn.getJSONObject(i).toString());
+//                            JsonObject jsonObject1 = jsonElement.getAsJsonObject();
+//
+//                            JsonObject jsonObject2 = new JsonObject();
+//                            jsonObject2.addProperty("text", jsonObject1.get("text").getAsString());
+//                            jsonObject2.addProperty("thumbnailImageUrl", jsonObject1.get("thumbnailImageUrl").getAsString());
+//                            jsonObject2.addProperty("imageBackgroundColor", jsonObject1.get("imageBackgroundColor").getAsString());
+//                            jsonObject2.addProperty("actions", jsonObject1.getAsJsonArray("actions").toString());
+//
+//                            if (jsonObject1.getAsJsonArray("defaultAction").toString().length() != 0) {
+//
+//                            }
+//
+//                            listdata.add(jsonObject2);
+//
+//
+//                        }
+//
+//                        jsonObjectEdit.put("speech", "");
+//                        jsonObjectEdit.put("columns", listdata);
+//                        jsonObjectEdit.put("type", jsonObject.getString("type"));
+//                        jsonObjectEdit.put("imageSize", jsonObject.getString("imageSize"));
+//                        jsonObjectEdit.put("imageAspectRatio", jsonObject.getString("imageAspectRatio"));
+//
+//
+//                        Log.d("listColumnLog", String.valueOf(jsonObjectEdit));
+////                        ArrayList<JSONObject> containerListColumn = new ArrayList<>();
+////                        JSONArray jsonListColumnValue = new JSONArray(jsonObject.getJSONArray("columns").toString());
+////
+////                        Log.d("jsonArray__", String.valueOf(jsonListColumnValue));
+////
+////                        for (int i = 0; i < jsonListColumnValue.length(); i++) {
+////                            JSONObject jsonItemColumnContainer = new JSONObject();
+////                            JSONObject jsonItemColumnValue = jsonListColumnValue.getJSONObject(i);
+////
+////                            jsonItemColumnContainer.put("actions", jsonItemColumnValue.getJSONArray("actions"));
+////                            if (jsonItemColumnValue.getJSONArray("actions").length() == 0)  {
+////                                JSONObject
+////                                jsonItemColumnContainer.put("defaultAction", jsonItemColumnValue.getJSONArray("actions"));
+////                            }
+////
+////
+////                            containerListColumn.add(jsonItemColumnContainer);
+////
+////                        }
+////
+////                        JSONArray jsonArray = new
+////
+////                        jsonObjectEdit.put("speech", "");
+////                        jsonObjectEdit.put("columns", containerListColumn);
+////                        jsonObjectEdit.put("type", jsonObject.getString("type"));
+////                        jsonObjectEdit.put("imageSize", jsonObject.getString("imageSize"));
+////                        jsonObjectEdit.put("imageAspectRatio", jsonObject.getString("imageAspectRatio"));
+//
+//
+////                        JsonArray jsonArrayContain = new JsonArray();
+////                        JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("columns").toString());
+////
+////                        JSONObject jsonObjectDefaultAction = new JSONObject();
+////                        for (int i = 0; i < jsonArray.length(); i++) {
+////                            JSONObject jsonObjectItemColumnsEdit = new JSONObject();
+////                            JSONObject jsonObjectItemColumns = jsonArray.getJSONObject(i);
+////
+////
+////
+////                        }
+//                    } else {
+//                        ChatOutputCarousel outputCarousel =
+//                                new Gson().fromJson(json, ChatOutputCarousel.class);
+//                        ChatResponseCarousel chatResponseCarousel = new ChatResponseCarousel();
+//                        chatResponseCarousel.setChatColumnCarousels(outputCarousel.getColumns());
+//                        chatObjects.add(chatResponseCarousel);
+//                        view.notifyAdapterObjectAdded(chatObjects.size() - 1);
+//                        view.scrollChatDown();
+//                        if (!sourceType.equals("history")){
+//                            speakOut(outputCarousel.getSpeech());
+//                        }
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    jsonObject = new JSONObject(json);
+//                    if (sourceType.equals("api")) {
+//                        ArrayList<JSONObject> listColumn = new ArrayList<>();
+//
+//
+////                        JSONArray jsonArrayEdit = new JSONArray();
+//                        JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("columns").toString());
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            ArrayList<JSONObject> listDefaultAction = new ArrayList<>();
+//
+//                            JSONObject jsonObjectActionDefaultEdit = new JSONObject();
+//                            JSONObject jsonObjectActionDefault = jsonArray.getJSONObject(i);
+//
+//                            listDefaultAction.add(jsonObjectActionDefault.getJSONObject("defaultAction"));
+//
+//                            jsonObjectActionDefaultEdit.put("actions", jsonObjectActionDefault.getJSONArray("actions"));
+//                            jsonObjectActionDefaultEdit.put("imageBackgroundColor", jsonObjectActionDefault.getString("imageBackgroundColor"));
+//                            jsonObjectActionDefaultEdit.put("text", jsonObjectActionDefault.getString("text"));
+//                            jsonObjectActionDefaultEdit.put("thumbnailImageUrl", jsonObjectActionDefault.getString("thumbnailImageUrl"));
+//                            jsonObjectActionDefaultEdit.put("title", jsonObjectActionDefault.getString("title"));
+//                            jsonObjectActionDefaultEdit.put("defaultAction", listDefaultAction);
+//
+//                            listColumn.add(jsonObjectActionDefaultEdit);
+//                        }
+//                        Log.d("listColumnLog", String.valueOf(listColumn));
+//
+//                        jsonObjectEdit.put("imageAspectRatio", jsonObject.getString("imageAspectRatio"));
+//                        jsonObjectEdit.put("imageSize", jsonObject.getString("imageSize"));
+//                        jsonObjectEdit.put("speech", jsonObject.getString("speech"));
+//                        jsonObjectEdit.put("type", jsonObject.getString("type"));
+//                        jsonObjectEdit.put("columns", listColumn);
+//
+//                    } else {
+//                        jsonObjectEdit.put("imageAspectRatio", jsonObject.getString("imageAspectRatio"));
+//                        jsonObjectEdit.put("imageSize", jsonObject.getString("imageSize"));
+//                        jsonObjectEdit.put("speech", jsonObject.getString("speech"));
+//                        jsonObjectEdit.put("type", jsonObject.getString("type"));
+//                        jsonObjectEdit.put("columns", jsonObject.getJSONArray("columns"));
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
+//                Log.d("mapType",json);
+
+                if (sourceType.equals("history")) {
+                    ChatOutputCarouselApi outputCarousel =
+                            new Gson().fromJson(json, ChatOutputCarouselApi.class);
+
+                    ChatResponseCarousel chatResponseCarousel = new ChatResponseCarousel();
+                    chatResponseCarousel.setSourceType(sourceType);
+                    chatResponseCarousel.setChatColumnCarouselsApi(outputCarousel.getColumns());
+                    chatObjects.add(chatResponseCarousel);
+                    view.notifyAdapterObjectAdded(chatObjects.size() - 1);
+                    view.scrollChatDown();
+                } else {
+                    ChatOutputCarousel outputCarousel =
+                            new Gson().fromJson(json, ChatOutputCarousel.class);
+                    ChatResponseCarousel chatResponseCarousel = new ChatResponseCarousel();
+                    chatResponseCarousel.setSourceType(sourceType);
+                    chatResponseCarousel.setChatColumnCarousels(outputCarousel.getColumns());
+                    chatObjects.add(chatResponseCarousel);
+                    view.notifyAdapterObjectAdded(chatObjects.size() - 1);
+                    view.scrollChatDown();
                     speakOut(outputCarousel.getSpeech());
                 }
+
                 break;
             case TYPE_NEWS:
                 ChatResponseNews chatResponseNews = new ChatResponseNews();
@@ -351,12 +518,24 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                     speakOut(outputImage.getSpeech());
                 }
                 break;
-
-
             case TYPE_HTML:
+                JSONObject jsonObjectHTML = null;
+                String contentHtml = "";
+                try {
+                    jsonObjectHTML = new JSONObject(json);
+                    contentHtml = jsonObjectHTML.getString("content");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 ChatResponseHtml chatResponseHtml = new ChatResponseHtml();
                 ChatOutputHtml outputHtml = new Gson().fromJson(json, ChatOutputHtml.class);
-                chatResponseHtml.setHtml(outputHtml.getHtml());
+                if (sourceType.equals("history")) {
+                    chatResponseHtml.setHtml(contentHtml);
+                } else {
+                    chatResponseHtml.setHtml(outputHtml.getHtml());
+                }
+
                 chatObjects.add(chatResponseHtml);
                 view.notifyAdapterObjectAdded(chatObjects.size() - 1);
                 view.scrollChatDown();
@@ -522,7 +701,6 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
     @Keep
     @Override
     public void onFinishedSuccess(ChatResp chatResp) {
-        Log.d("RESULT_CHAT_SAVE_DB", converterJsonToString(chatResp));
         if (view != null) {
             removeItem();
         }

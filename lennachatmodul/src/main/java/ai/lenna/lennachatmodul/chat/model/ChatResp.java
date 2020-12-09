@@ -27,8 +27,17 @@ public class ChatResp implements Serializable {
     @SerializedName("time")
     @Expose
     private String time;
+    @SerializedName("user_type")
+    @Expose
+    private String usertype;
 
+    public String getUsertype() {
+        return usertype;
+    }
 
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
 
     @Keep
     public String getResolvequery() {

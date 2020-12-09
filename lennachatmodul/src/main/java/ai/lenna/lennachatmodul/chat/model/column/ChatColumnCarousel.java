@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import ai.lenna.lennachatmodul.chat.model.carousel.ChatActionCarousel;
@@ -25,6 +26,10 @@ public class ChatColumnCarousel implements Serializable {
     @SerializedName("text")
     @Expose
     private String text;
+
+//    @SerializedName("defaultAction")
+//    @Expose
+//    private ArrayList<ChatDefaultActionCarousel> defaultAction;
     @SerializedName("defaultAction")
     @Expose
     private ChatDefaultActionCarousel defaultAction;
@@ -48,6 +53,23 @@ public class ChatColumnCarousel implements Serializable {
         this.imageBackgroundColor = imageBackgroundColor;
     }
 
+//    public ArrayList<ChatDefaultActionCarousel> getDefaultAction() {
+//        return defaultAction;
+//    }
+//
+//    public void setDefaultAction(ArrayList<ChatDefaultActionCarousel> defaultAction) {
+//        this.defaultAction = defaultAction;
+//    }
+
+
+    public ChatDefaultActionCarousel getDefaultAction() {
+        return defaultAction;
+    }
+
+    public void setDefaultAction(ChatDefaultActionCarousel defaultAction) {
+        this.defaultAction = defaultAction;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -62,14 +84,6 @@ public class ChatColumnCarousel implements Serializable {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public ChatDefaultActionCarousel getDefaultAction() {
-        return defaultAction;
-    }
-
-    public void setDefaultAction(ChatDefaultActionCarousel defaultAction) {
-        this.defaultAction = defaultAction;
     }
 
     public List<ChatActionCarousel> getActions() {
