@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginBottom="8dp"
+    android:clipToPadding="false"
+    android:fadeScrollbars="false"
+    android:scrollbarFadeDuration="0"
+    android:background="@drawable/speech_bubble_html"
+    tools:ignore="WebViewLayout">
+
+<!--    <vcm.github.webkit.proview.ProWebView-->
+<!--        android:id="@+id/webViewChat"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:nestedScrollingEnabled="true">-->
+<!--    </vcm.github.webkit.proview.ProWebView>-->
+
+    <WebView
+        android:layout_margin="5dp"
+        android:id="@+id/webViewChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </WebView>
+
+</LinearLayout>
