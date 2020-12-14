@@ -31,7 +31,7 @@ public class ChatResponseLoadingVH extends BaseViewHolder {
 
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
 
         ArrayList<ImageView> indicatorImages = new ArrayList<>();
         indicatorImages.add((ImageView) typingIndicatorContainer.findViewById(R.id.typing_indicator_dot_1));

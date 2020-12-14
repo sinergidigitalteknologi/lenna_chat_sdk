@@ -30,7 +30,7 @@ public class ChatRespMovieVH extends BaseViewHolder {
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         ArrayList<ChatColumnMovie> chatColumnMovies = object.getChatColumnMovies();
         ChatMovieAdapter adapter = new ChatMovieAdapter(chatColumnMovies);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));

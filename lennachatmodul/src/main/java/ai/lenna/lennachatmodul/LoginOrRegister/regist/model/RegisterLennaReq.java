@@ -1,4 +1,4 @@
-package ai.lenna.lennachatmodul.regist.model;
+package ai.lenna.lennachatmodul.LoginOrRegister.regist.model;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 @Keep
-public class RegisterReq {
+public class RegisterLennaReq {
     @SerializedName("app_id")
     @Expose
     private String appId;
@@ -36,6 +36,18 @@ public class RegisterReq {
     @SerializedName("fcm_token")
     @Expose
     private String fcm_token;
+
+    @SerializedName("sales_force_id")
+    @Expose
+    private String sales_force_id;
+
+    public String getSales_force_id() {
+        return sales_force_id;
+    }
+
+    public void setSales_force_id(String sales_force_id) {
+        this.sales_force_id = sales_force_id;
+    }
 
     public List<String> getInterests() {
         return interests;

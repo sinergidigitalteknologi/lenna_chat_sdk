@@ -34,7 +34,7 @@ public class ChatRespTravelVH extends BaseViewHolder {
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         ArrayList<ChatColumnAirline> chatColumnAirlines = object.getChatColumnAirlines();
         ChatTravelAdapter adapter = new ChatTravelAdapter(chatColumnAirlines, new ChatPostCallBack() {
             @Override

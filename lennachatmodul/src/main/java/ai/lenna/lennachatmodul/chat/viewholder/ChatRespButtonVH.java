@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.ChatContract;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
@@ -39,7 +41,7 @@ public class ChatRespButtonVH extends BaseViewHolder implements ChatContract.Ada
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         this.tvTitle.setText(object.getTextTitleButton());
         int sizeAction = object.getChatActionButtons().size();
         if (sizeAction > 0) {

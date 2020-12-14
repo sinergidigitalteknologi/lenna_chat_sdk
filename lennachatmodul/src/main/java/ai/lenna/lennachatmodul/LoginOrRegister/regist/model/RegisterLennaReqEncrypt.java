@@ -1,11 +1,11 @@
-package ai.lenna.lennachatmodul.regist.model;
+package ai.lenna.lennachatmodul.LoginOrRegister.regist.model;
 
 import androidx.annotation.Keep;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 @Keep
-public class RegisterRespEncrypt {
+public class RegisterLennaReqEncrypt {
     @SerializedName("data")
     @Expose
     private String data;

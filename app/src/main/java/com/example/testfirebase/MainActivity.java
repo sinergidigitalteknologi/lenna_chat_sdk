@@ -66,13 +66,15 @@ public class MainActivity extends AppCompatActivity {
 //                Chat.setAppId("NBVO0y");
 //                Chat.setBotId("PdRgRe");
                 Chat.setAppKey("gm+sCaMg5ai0vPes+tB83O3G0vaS4ahwGV+81Hnzr6jCbi7g+vYbmzHHcy/vH64jHMwq9pLr8z/eWXfVWZ4gPv64p6PvmW4aHWbnIfpF9SeKSRJGy+pXyMbiqBdzpOEurDhsLixpHvA21sUqlHPq71XJxLoNg9hPhWSfCexpzCh36OlnW1hpoX7YSNGVDRUtorCBcPerj/43UQVfeKCA+Q==");
-                Chat.setUserName("Pengunjung");
+                Chat.setUserName("ArTest11");
                 Chat.setIcon(R.drawable.icon_logo);
                 Chat.setIconBubleChat(R.drawable.icon_logo);
                 Chat.setGreetingMessage("hai");
                 Chat.setKeyFallBack("locna");
                 Chat.setRequestMenuFAllback("fallback-locna");
                 Chat.setTokenFcm(fcmToken);
+                Chat.setSaleForceId("6");
+                Chat.setEmail("ar_test11@gmail.com");
                 Chat.start(context);
             }
         };

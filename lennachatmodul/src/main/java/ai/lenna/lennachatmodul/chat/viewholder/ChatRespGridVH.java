@@ -44,7 +44,7 @@ public class ChatRespGridVH extends BaseViewHolder implements ChatContract.Adapt
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Picasso.get().load(object.getImageUrlGrid()).error(R.drawable.imagenotfound).into(imageViewLogo);
         } else {

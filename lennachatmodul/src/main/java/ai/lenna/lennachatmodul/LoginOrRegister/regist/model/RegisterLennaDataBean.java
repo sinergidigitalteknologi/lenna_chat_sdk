@@ -1,4 +1,4 @@
-package ai.lenna.lennachatmodul.regist.model;
+package ai.lenna.lennachatmodul.LoginOrRegister.regist.model;
 
 import androidx.annotation.Keep;
 
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 @Keep
-public class RegisterDataBean implements Serializable {
+public class RegisterLennaDataBean implements Serializable {
 
     @SerializedName("id")
     @Expose

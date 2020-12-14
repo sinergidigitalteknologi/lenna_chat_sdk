@@ -1,4 +1,4 @@
-package ai.lenna.lennachatmodul.regist.model;
+package ai.lenna.lennachatmodul.LoginOrRegister.regist.model;
 
 import androidx.annotation.Keep;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Keep
-public class RegisterResp {
+public class RegisterLennaResp {
 
     @SerializedName("status")
     @Expose
@@ -19,7 +19,7 @@ public class RegisterResp {
     private String type;
     @SerializedName("data")
     @Expose
-    private RegisterDataBean data;
+    private RegisterLennaDataBean data;
     @SerializedName("link")
     @Expose
     private String link;
@@ -69,11 +69,11 @@ public class RegisterResp {
         this.type = type;
     }
 
-    public RegisterDataBean getData() {
+    public RegisterLennaDataBean getData() {
         return data;
     }
 
-    public void setData(RegisterDataBean data) {
+    public void setData(RegisterLennaDataBean data) {
         this.data = data;
     }
 

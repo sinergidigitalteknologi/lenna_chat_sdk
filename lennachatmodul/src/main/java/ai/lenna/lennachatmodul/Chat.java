@@ -48,6 +48,11 @@ public class Chat {
     }
     /**
      * set user Name **/
+
+    public  static  void setSaleForceId(String salesId){
+        Constant.SALEFORCEID = salesId;
+    }
+
     public  static  void setUserName(String userName){
         Constant.USER_NAME = userName;
     }
@@ -73,7 +78,7 @@ public class Chat {
      * set token **/
     public  static  void setToken(String token){
         Prefs.putString("TOKEN",token);
-         Constant.TOKEN = token;
+        Constant.TOKEN = token;
     }
 
     /**

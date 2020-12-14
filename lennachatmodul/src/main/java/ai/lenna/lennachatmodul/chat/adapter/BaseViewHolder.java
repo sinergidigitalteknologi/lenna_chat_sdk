@@ -6,6 +6,8 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
 
 @Keep
@@ -17,6 +19,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public abstract void onBindView(ChatObject object);
+    public abstract void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position);
 
 }

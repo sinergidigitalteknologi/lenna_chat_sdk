@@ -37,7 +37,7 @@ public class ChatRespCarouselVH extends BaseViewHolder {
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         String sourceTypeString = object.getSourceType();
 
         if (sourceTypeString.equals("history")) {

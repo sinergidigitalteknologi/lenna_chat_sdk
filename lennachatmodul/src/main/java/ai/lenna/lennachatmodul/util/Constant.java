@@ -19,6 +19,7 @@ public class Constant {
     public static String USER_NAME = "";
     public static String EMAIL = "";
     public static String PASSWORD = "lenna";
+    public static String SALEFORCEID = "";
     public static final String PHONE = "0001";
     public static String TOKEN = "";
     public static String GMESSAGE = "";

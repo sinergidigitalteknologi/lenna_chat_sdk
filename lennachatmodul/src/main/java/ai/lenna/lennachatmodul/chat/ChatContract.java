@@ -81,7 +81,7 @@ public interface ChatContract {
         void attachView(ChatContract.View view);
         void removeItem();
         void addLoading();
-        void onEditTextActionDone(String inputText, String timeString);
+        void onEditTextActionDone(String inputText, String timeString, String dateString);
         void onLiveChat(String json);
         void loadChatHistory(String json);
         ArrayList<ChatObject> getChatObjects();

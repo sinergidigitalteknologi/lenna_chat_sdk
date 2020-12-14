@@ -185,8 +185,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Chat.setContext(ChatActivity.this);
-
         OkHttpClient client = getImageHttpClient();
         mPicasso = new Picasso.Builder(ChatActivity.this)
                 .downloader(new OkHttp3Downloader(client))
@@ -810,7 +808,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                         mDb.chatResponseDao().insertAll(chatResponseEntity);
                     }
                 });
-                presenter.onEditTextActionDone(text, "");
+                presenter.onEditTextActionDone(text, "", "");
                 String a = req.getUserId();
                 statusLoading = 1;
                 new Handler().postDelayed(new Runnable() {

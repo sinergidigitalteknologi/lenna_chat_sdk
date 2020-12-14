@@ -11,6 +11,8 @@ import androidx.cardview.widget.CardView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.chat.ChatContract;
@@ -35,7 +37,7 @@ public class ChatRespOpenAppVH extends BaseViewHolder {
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Picasso.get().load(object.getImageAction()).error(R.drawable.imagenotfound).into(this.imageOpenApps);

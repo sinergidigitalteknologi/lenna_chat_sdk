@@ -1,4 +1,4 @@
-package ai.lenna.lennachatmodul.regist.model;
+package ai.lenna.lennachatmodul.LoginOrRegister.regist.model;
 
 import androidx.annotation.Keep;
 

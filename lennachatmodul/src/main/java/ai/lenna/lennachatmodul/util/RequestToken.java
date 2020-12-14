@@ -4,144 +4,170 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
+
 import androidx.annotation.Keep;
 import com.google.gson.Gson;
 import com.pixplicity.easyprefs.library.Prefs;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import ai.lenna.lennachatmodul.Chat;
+import ai.lenna.lennachatmodul.LoginOrRegisterActivity;
 import ai.lenna.lennachatmodul.chat.ChatActivity;
+import ai.lenna.lennachatmodul.LoginOrRegister.lennaLogin.LoginLennaReq;
+import ai.lenna.lennachatmodul.LoginOrRegister.lennaLogin.LoginLennaResp;
 import ai.lenna.lennachatmodul.network.ApiBuilder;
 import ai.lenna.lennachatmodul.network.ApiService;
-import ai.lenna.lennachatmodul.regist.RegisterContract;
-import ai.lenna.lennachatmodul.regist.model.RegisterReqEncrypt;
-import ai.lenna.lennachatmodul.regist.model.RegisterReq;
-import ai.lenna.lennachatmodul.regist.model.RegisterResp;
-import ai.lenna.lennachatmodul.regist.model.RegisterRespEncrypt;
+import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaReqEncrypt;
+import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaReq;
+import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaResp;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 @Keep
-public class RequestToken implements RegisterContract.View {
-    public static RegisterReq registerReq;
+public class RequestToken {
+    public static RegisterLennaReq registerReq;
     @Keep
     public static void request(Context context){
         //
 
-        if(Prefs.getString("TOKEN","").equals("")){
-            ApiService service = ApiBuilder.getClient().create(ApiService.class);
-            RegisterReq req = new RegisterReq();
-            RegisterReqEncrypt registerRedEncrypt = new RegisterReqEncrypt();
-            req.setName(registerReq.getName());
-            req.setNickname(registerReq.getNickname());
-            req.setEmail(registerReq.getEmail());
-            req.setPhone(registerReq.getPhone());
-            req.setClient(registerReq.getClient());
-            ArrayList<String> array_item = new ArrayList<>();
-            array_item.add("goers");
-            req.setInterests(registerReq.getInterests());
-            req.setPassword(registerReq.getPassword());
-            req.setFcm_token(registerReq.getFcm_token());
+        Intent intent = new Intent(context, LoginOrRegisterActivity.class);
+        intent.putExtra("DATA_REQ_REGISTER", new Gson().toJson(registerReq));
+        intent.setAction(Intent.ACTION_VIEW);
+        ((Activity)context).startActivity(intent);
 
-
-            Log.d("RegisterReq_123", String.valueOf(req));
-            try {
-//                String data = AesCipher.encrypt(Constant.REG_KEY, req.toString());
-//                registerRedEncrypt.setData(data);
-////                Enc
-//                Call<RegisterRespEncrypt> call = service.regEncrypt(registerRedEncrypt, Constant.APP_ID);
-//                call.enqueue(new Callback<RegisterRespEncrypt>() {
+//        if(Prefs.getString("TOKEN","").equals("")){
+//            ApiService service = ApiBuilder.getClient().create(ApiService.class);
+//            RegisterLennaReq req = new RegisterLennaReq();
+//            RegisterLennaReqEncrypt registerRedEncrypt = new RegisterLennaReqEncrypt();
+//            req.setName(registerReq.getName());
+//            req.setNickname(registerReq.getNickname());
+//            req.setEmail(registerReq.getEmail());
+//            req.setPhone(registerReq.getPhone());
+//            req.setClient(registerReq.getClient());
+//            ArrayList<String> array_item = new ArrayList<>();
+//            array_item.add("lenna");
+//            req.setInterests(registerReq.getInterests());
+//            req.setPassword(registerReq.getPassword());
+//            req.setFcm_token(registerReq.getFcm_token());
+//            req.setSales_force_id((registerReq.getSales_force_id()));
+//
+//
+//            Log.d("RegisterReq_123", String.valueOf(req));
+//            try {
+////                String data = AesCipher.encrypt(Constant.REG_KEY, req.toString());
+////                registerRedEncrypt.setData(data);
+//////                Enc
+////                Call<RegisterLennaRespEncrypt> call = service.regEncrypt(registerRedEncrypt, Constant.APP_ID);
+////                call.enqueue(new Callback<RegisterLennaRespEncrypt>() {
+////                    @Override
+////                    public void onResponse(Call<RegisterLennaRespEncrypt> call, Response<RegisterLennaRespEncrypt> response) {
+////                        if (response.isSuccessful()) {
+////                            try{
+////                                String res = AesCipher.decrypt(Constant.REG_KEY,response.body().getData());
+////                                RegisterLennaResp  chatResp = new RegisterLennaResp();
+////                                Gson gson = new Gson();
+////                                chatResp = gson.fromJson(res,RegisterLennaResp.class);
+////                                Chat.setToken(chatResp.getAccessToken());
+////                                Chat.setUserId(chatResp.getData().getId());
+////                                Intent intent = new Intent(context, ChatActivity.class);
+////                                intent.setAction(Intent.ACTION_VIEW);
+////                                ((Activity)context).startActivity(intent);
+////                            }catch (Exception e){
+////                                Toast.makeText(context, "Sorry somethink wrong",Toast.LENGTH_LONG).show();
+////                            }
+////                        }else{
+////                            Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
+////                        }
+////                    }
+////
+////                    @Override
+////                    public void onFailure(Call<RegisterLennaRespEncrypt> call, Throwable t) {
+////                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
+////                        Prefs.putString("TOKEN","");
+////                    }
+////                });
+//
+//                // Not enc
+//                Call<RegisterLennaResp> call = service.reg(req, Constant.APP_ID);
+//                call.enqueue(new Callback<RegisterLennaResp>() {
 //                    @Override
-//                    public void onResponse(Call<RegisterRespEncrypt> call, Response<RegisterRespEncrypt> response) {
+//                    public void onResponse(Call<RegisterLennaResp> call, Response<RegisterLennaResp> response) {
+//                        Log.d("hai_hai", new Gson().toJson(response.body()));
 //                        if (response.isSuccessful()) {
-//                            try{
-//                                String res = AesCipher.decrypt(Constant.REG_KEY,response.body().getData());
-//                                RegisterResp  chatResp = new RegisterResp();
-//                                Gson gson = new Gson();
-//                                chatResp = gson.fromJson(res,RegisterResp.class);
-//                                Chat.setToken(chatResp.getAccessToken());
-//                                Chat.setUserId(chatResp.getData().getId());
+//
+//                            if (response.body().getSuccess()) {
+//                                Chat.setToken(response.body().getAccessToken());
+//                                Chat.setUserId(response.body().getData().getId());
 //                                Intent intent = new Intent(context, ChatActivity.class);
 //                                intent.setAction(Intent.ACTION_VIEW);
 //                                ((Activity)context).startActivity(intent);
-//                            }catch (Exception e){
-//                                Toast.makeText(context, "Sorry somethink wrong",Toast.LENGTH_LONG).show();
+//                            } else {
+//                                if (response.body().getError().getCode() == 5000) {
+//                                    loginLenna(context);
+//                                    Log.d("jsonResp", response.body().getError().getMessage());
+//                                } else {
+//                                    Prefs.putString("TOKEN","");
+//                                    request(context);
+//                                }
 //                            }
-//                        }else{
-//                            Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Prefs.putString("TOKEN","");
+//                            request(context);
 //                        }
 //                    }
-//
 //                    @Override
-//                    public void onFailure(Call<RegisterRespEncrypt> call, Throwable t) {
-//                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
+//                    public void onFailure(Call<RegisterLennaResp> call, Throwable t) {
+////                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
 //                        Prefs.putString("TOKEN","");
+//                        request(context);
 //                    }
 //                });
-
-                // Not enc
-                Call<RegisterResp> call = service.reg(req, Constant.APP_ID);
-                call.enqueue(new Callback<RegisterResp>() {
-                    @Override
-                    public void onResponse(Call<RegisterResp> call, Response<RegisterResp> response) {
-                        if (response.isSuccessful()) {
-
-                            Chat.setToken(response.body().getAccessToken());
-                            Chat.setUserId(response.body().getData().getId());
-                            Log.d("user_id__", response.body().getData().getId());
-                            Intent intent = new Intent(context, ChatActivity.class);
-                            intent.setAction(Intent.ACTION_VIEW);
-                            ((Activity)context).startActivity(intent);
-
-                        }else{
-                            Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<RegisterResp> call, Throwable t) {
-                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
-                        Prefs.putString("TOKEN","");
-                    }
-                });
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-        }else{
-            Intent intent = new Intent(context, ChatActivity.class);
-            intent.setAction(Intent.ACTION_VIEW);
-            ((Activity)context).startActivity(intent);
-        }
-
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }else{
+//            Intent intent = new Intent(context, ChatActivity.class);
+//            intent.setAction(Intent.ACTION_VIEW);
+//            ((Activity)context).startActivity(intent);
+//        }
     }
 
-    @Override
-    public void showDialogSukses(RegisterResp registerResp) {
-
-    }
-
-    @Override
-    public void showDialogGagal(String message) {
-
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void onResponseFailure(Throwable throwable) {
-
-    }
+//    private static void loginLenna(Context context) {
+//        LoginLennaReq loginReq = new LoginLennaReq();
+//
+//        loginReq.setClient("android");
+//        loginReq.setEmail(registerReq.getEmail());
+//        loginReq.setFcmToken(registerReq.getFcm_token());
+//        loginReq.setPassword(registerReq.getPassword());
+//
+//        ApiService service = ApiBuilder.getClient().create(ApiService.class);
+//        Call<LoginLennaResp> callLogin = service.loginLenna(loginReq, Constant.APP_ID);
+//        callLogin.enqueue(new Callback<LoginLennaResp>() {
+//            @Override
+//            public void onResponse(Call<LoginLennaResp> callLogin, Response<LoginLennaResp> response) {
+//                if (response.isSuccessful()) {
+//                    if (response.body().getSuccess()) {
+//                        Chat.setToken(response.body().getAccessToken());
+//                        Chat.setUserId(response.body().getData().getId());
+//                        Intent intent = new Intent(context, ChatActivity.class);
+//                        intent.setAction(Intent.ACTION_VIEW);
+//                        ((Activity)context).startActivity(intent);
+//                    } else {
+//                        Prefs.putString("TOKEN","");
+//                        request(context);
+//                    }
+//                } else {
+//                    Prefs.putString("TOKEN","");
+//                    request(context);
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<LoginLennaResp> callLogin, Throwable t) {
+//                Prefs.putString("TOKEN","");
+//                request(context);
+//            }
+//        });
+//    }
 }

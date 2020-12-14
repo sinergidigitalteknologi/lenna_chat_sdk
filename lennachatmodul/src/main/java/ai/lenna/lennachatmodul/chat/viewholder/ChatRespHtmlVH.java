@@ -12,6 +12,8 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 
+import java.util.ArrayList;
+
 import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
@@ -30,7 +32,7 @@ public class ChatRespHtmlVH extends BaseViewHolder {
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         webViewChat.loadData(object.getHtml(), "text/html", "UTF-8");
 //        webViewChat.loadHtml(object.getHtml());
         webViewChat.setWebViewClient(new WebViewClient(){

@@ -158,24 +158,25 @@
         android:id="@+id/ll_load_chat_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="@android:color/white">
+        android:background="@android:color/transparent">
 
         <ProgressBar
             android:id="@+id/progressBar_cyclic"
             android:layout_width="52dp"
             android:layout_height="52dp"
+            android:layout_marginTop="200dp"
             android:theme="@style/progressColor"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Please Wait . . ." />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:fontFamily="@font/montserrat_regular"-->
+<!--            android:text="Please Wait . . ." />-->
 
     </LinearLayout>
 
@@ -191,36 +192,43 @@
         android:background="#573434">
 
         <ImageView
-            android:layout_width="242dp"
-            android:layout_height="242dp"
+            android:layout_width="236dp"
+            android:layout_height="220dp"
             android:src="@drawable/ic_report_problem_black_50dp"/>
 
         <TextView
-            android:id="@+id/tv_error_load_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ooops!"
             android:fontFamily="@font/montserrat_regular"
             android:textStyle="bold"
-            android:textSize="42sp"
+            android:textSize="36sp"
             android:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/tv_error_load_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Terjadi kendala! Harap coba kembali"
-            android:layout_marginTop="4dp"
+            android:text="Terjadi kendala teknis !"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_regular"
-            android:textSize="24sp"
+            android:textSize="18sp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Harap coba kembali dan pastikan sudah terhubung dengan koneksi internet"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="18sp"
             android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_error_load"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="74dp"
+            android:layout_marginTop="42dp"
             android:paddingTop="16dp"
             android:paddingLeft="32dp"
             android:paddingBottom="16dp"

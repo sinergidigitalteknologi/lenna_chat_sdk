@@ -39,7 +39,7 @@ public class ChatRespSummaryVH extends BaseViewHolder {
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         ArrayList<ChatColumnSummary> chatColumnSummaries = object.getChatColumnSummaries();
         ChatSummaryAdapter adapter = new ChatSummaryAdapter(chatColumnSummaries);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));

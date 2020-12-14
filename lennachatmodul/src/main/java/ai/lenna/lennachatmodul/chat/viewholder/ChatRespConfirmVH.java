@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.ChatContract;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
@@ -34,7 +36,7 @@ public class ChatRespConfirmVH extends BaseViewHolder implements ChatContract.Ad
     }
 
     @Override
-    public void onBindView(ChatObject object) {
+    public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         this.textViewTitleConfirm.setText(object.getTextTitleConfirm());
 
         this.textViewYa.setOnClickListener(new View.OnClickListener() {
