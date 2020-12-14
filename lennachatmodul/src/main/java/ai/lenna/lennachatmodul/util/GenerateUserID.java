@@ -45,7 +45,7 @@ public class GenerateUserID {
         registerReq.setEmail(Constant.EMAIL);
         registerReq.setPhone(Constant.PHONE);
         registerReq.setClient("android");
-        registerReq.setFcm_token(Constant.FCM_TOKEN);
+        registerReq.setFcm_token(Constant.FCM_TOKEN_LOGIN);
         ArrayList<String> array_item = new ArrayList<>();
         array_item.add("lenna");
         registerReq.setInterests(array_item);

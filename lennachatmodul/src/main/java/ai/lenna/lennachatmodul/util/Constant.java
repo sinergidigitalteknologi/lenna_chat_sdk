@@ -21,7 +21,7 @@ public class Constant {
     public static String PASSWORD = "lenna";
     public static String SALEFORCEID = "";
     public static final String PHONE = "0001";
-    public static String TOKEN = "";
+    public static String TOKEN_LOGIN = "";
     public static String GMESSAGE = "";
     public static String TTS_PITCH =  "1.3";
     public static String SPEECH_RATE =  "1.5";
@@ -31,7 +31,7 @@ public class Constant {
     public static int LOGO_TITLE = R.drawable.logo_lenna_blue;
     public static double LAT = 0;
     public static double LON = 0;
-    public static String FCM_TOKEN = "";
+    public static String FCM_TOKEN_LOGIN = "";
     public static final String PUSH_NOTIFICATION = "pushNotification";
 
 }

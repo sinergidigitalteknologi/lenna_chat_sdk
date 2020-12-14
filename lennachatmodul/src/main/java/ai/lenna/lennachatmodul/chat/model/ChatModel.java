@@ -37,7 +37,7 @@ public class ChatModel implements ChatContract.Model {
 
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
 //        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
-        Call<ChatEncrypResp> call = service.submitChatEncrypt("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
+        Call<ChatEncrypResp> call = service.submitChatEncrypt("Bearer " + Prefs.getString("TOKEN_LOGIN",""), chatReq,Constant.BOT_ID);
 
         call.enqueue(new Callback<ChatEncrypResp>() {
             @Keep

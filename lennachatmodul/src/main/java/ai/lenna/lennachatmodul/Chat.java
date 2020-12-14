@@ -37,7 +37,7 @@ public class Chat {
     }
 
     public  static  void setTokenFcm(String token){
-        Constant.FCM_TOKEN = token;
+        Constant.FCM_TOKEN_LOGIN = token;
     }
 
     /**
@@ -77,8 +77,14 @@ public class Chat {
     /**
      * set token **/
     public  static  void setToken(String token){
-        Prefs.putString("TOKEN",token);
-        Constant.TOKEN = token;
+        Prefs.putString("TOKEN_LOGIN",token);
+        Constant.TOKEN_LOGIN = token;
+    }
+
+    public  static  void removeTokenLogin(){
+        Prefs.putString("TOKEN_LOGIN", "");
+        Constant.TOKEN_LOGIN = "";
+        Constant.FCM_TOKEN_LOGIN = "";
     }
 
     /**

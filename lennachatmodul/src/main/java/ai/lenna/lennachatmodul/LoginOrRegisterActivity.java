@@ -79,7 +79,8 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
                                        RegisterLennaReq registerLennaReq,
                                        LinearLayout llLoadRegisterOrLogin,
                                        LinearLayout llFailedRegisterOrLogin) {
-        if(Prefs.getString("TOKEN","").equals("")){
+
+        if(Prefs.getString("TOKEN_LOGIN","").equals("")){
             ApiService service = ApiBuilder.getClient().create(ApiService.class);
             RegisterLennaReq req = new RegisterLennaReq();
             RegisterLennaReqEncrypt registerRedEncrypt = new RegisterLennaReqEncrypt();
@@ -150,13 +151,13 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
                                     loginLenna(context, registerLennaReq,
                                             llLoadRegisterOrLogin, llFailedRegisterOrLogin);
                                 } else {
-                                    Prefs.putString("TOKEN","");
+                                    Prefs.putString("TOKEN_LOGIN","");
                                     requstRegister(context, registerLennaReq,
                                             llLoadRegisterOrLogin, llFailedRegisterOrLogin);
                                 }
                             }
                         } else {
-                            Prefs.putString("TOKEN","");
+                            Prefs.putString("TOKEN_LOGIN","");
                             llFailedRegisterOrLogin.setVisibility(View.VISIBLE);
                             llLoadRegisterOrLogin.setVisibility(View.GONE);
                         }
@@ -164,7 +165,7 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<RegisterLennaResp> call, Throwable t) {
 //                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
-                        Prefs.putString("TOKEN","");
+                        Prefs.putString("TOKEN_LOGIN","");
                         llFailedRegisterOrLogin.setVisibility(View.VISIBLE);
                         llLoadRegisterOrLogin.setVisibility(View.GONE);
                     }
@@ -204,19 +205,19 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
                         intent.setAction(Intent.ACTION_VIEW);
                         ((Activity)context).startActivity(intent);
                     } else {
-                        Prefs.putString("TOKEN","");
+                        Prefs.putString("TOKEN_LOGIN","");
                         llFailedRegisterOrLogin.setVisibility(View.VISIBLE);
                         llLoadRegisterOrLogin.setVisibility(View.GONE);
                     }
                 } else {
-                    Prefs.putString("TOKEN","");
+                    Prefs.putString("TOKEN_LOGIN","");
                     llFailedRegisterOrLogin.setVisibility(View.VISIBLE);
                     llLoadRegisterOrLogin.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onFailure(Call<LoginLennaResp> callLogin, Throwable t) {
-                Prefs.putString("TOKEN","");
+                Prefs.putString("TOKEN_LOGIN","");
                 llFailedRegisterOrLogin.setVisibility(View.VISIBLE);
                 llLoadRegisterOrLogin.setVisibility(View.GONE);
             }
