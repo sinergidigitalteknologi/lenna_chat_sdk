@@ -145,6 +145,7 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
                                 Intent intent = new Intent(context, ChatActivity.class);
                                 intent.setAction(Intent.ACTION_VIEW);
                                 ((Activity)context).startActivity(intent);
+                                ((Activity)context).finish();
                             } else {
                                 int codeError = response.body().getError().getCode();
                                 if (codeError == 5000) {
@@ -204,6 +205,7 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
                         Intent intent = new Intent(context, ChatActivity.class);
                         intent.setAction(Intent.ACTION_VIEW);
                         ((Activity)context).startActivity(intent);
+                        ((Activity)context).finish();
                     } else {
                         Prefs.putString("TOKEN_LOGIN","");
                         llFailedRegisterOrLogin.setVisibility(View.VISIBLE);

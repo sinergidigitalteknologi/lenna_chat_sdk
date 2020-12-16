@@ -310,7 +310,6 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
             String cusDateRes = dateRes.substring(0, 6) + dateRes.substring(dateRes.length()-5);
             Log.d("dateRes", cusDateRes);
 
-
             mapType(type, json, subtype, "api",
                     "bot", chatResp.getTime(), cusDateRes);
         }
@@ -614,7 +613,7 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                 public void run() {
                     ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
                     chatResponseEntity.setChatHistory(converterJsonToString((chatResp)));
-                    mDb.chatResponseDao().insertAll(chatResponseEntity);
+//                    mDb.chatResponseDao().insertAll(chatResponseEntity);
                 }
             });
 
