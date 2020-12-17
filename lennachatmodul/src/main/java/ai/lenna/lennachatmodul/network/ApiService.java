@@ -41,7 +41,7 @@ public interface ApiService {
     Call<ChatEncrypResp> submitChatEncrypt(@Header("Authorization") String token, @Body ChatReq req, @Path("botId") String bot_id);
 
     @POST("app/public/api/{botId}/message/get-more-message-digipos")
-    Call<ArrayList<ChatResp>> getChatList(@Body ChatLoadReq chatLoadReq, @Path("botId") String bot_id, @Query("page") String page);
+    Call<ArrayList<ChatResp>> getChatList(@Body ChatLoadReq chatLoadReq, @Path("botId") String bot_id, @Query("page") String page, @Query("per_page") String per_page);
 
     @POST("backend/api/{appId}/users/register")
     Call<RegisterLennaRespEncrypt> regEncrypt(@Body RegisterLennaReqEncrypt registerReqEncrypt, @Path("appId") String app_id);

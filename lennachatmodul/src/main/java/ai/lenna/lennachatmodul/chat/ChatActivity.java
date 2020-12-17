@@ -356,7 +356,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 //        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
 //        Call<List<Chat>> call = service.getChatList(chatLoadReq, Constant.BOT_ID, "1");
 
-        Call<ArrayList<ChatResp>> call = service.getChatList(chatLoadReq, Constant.BOT_ID, String.valueOf(page));
+        Call<ArrayList<ChatResp>> call = service.getChatList(chatLoadReq, Constant.BOT_ID, String.valueOf(page), "1000");
         call.enqueue(new Callback<ArrayList<ChatResp>>() {
             @Override
             public void onResponse(Call<ArrayList<ChatResp>> call, Response<ArrayList<ChatResp>> response) {

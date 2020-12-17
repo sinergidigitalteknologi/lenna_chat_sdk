@@ -21,7 +21,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/logo_ancol" />
+            android:resource="@drawable/icon_logo" />
         <service android:name=".service.OurFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
