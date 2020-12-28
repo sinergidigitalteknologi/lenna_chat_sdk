@@ -27,6 +27,7 @@ public class Constant {
     public static String SPEECH_RATE =  "1.5";
     public static String KEY_FALLBACK =  "locna";
     public static String REQUEST_MENU_FALLBACK =  "fallback-locna";
+    public static boolean IS_CHAT_LENNA_ACTIVE = false;
     public static int ICON_BUBLE_CHAT = R.drawable.logo_lenna_blue;
     public static int LOGO_TITLE = R.drawable.logo_lenna_blue;
     public static double LAT = 0;

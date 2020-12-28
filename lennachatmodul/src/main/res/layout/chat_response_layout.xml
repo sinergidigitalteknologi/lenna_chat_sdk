@@ -48,28 +48,34 @@
             android:src="@drawable/img_not_available" />
 
         <LinearLayout
-            android:id="@+id/linearResponse"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="16dp"
-            android:background="@drawable/background_chat_res">
+            android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tv_response_text"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/linearResponse"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="16sp"
-                android:fontFamily="@font/montserrat_regular"
-                tools:text="test"
-                android:textColor="#000"/>
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="16dp"
+                android:background="@drawable/background_chat_res">
+
+                <TextView
+                    android:id="@+id/tv_response_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    tools:text="test"
+                    android:textColor="#000"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

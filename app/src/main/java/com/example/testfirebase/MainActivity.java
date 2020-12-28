@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 //                Chat.setAppId("NBVO0y");
 //                Chat.setBotId("PdRgRe");
                 Chat.setAppKey("gm+sCaMg5ai0vPes+tB83O3G0vaS4ahwGV+81Hnzr6jCbi7g+vYbmzHHcy/vH64jHMwq9pLr8z/eWXfVWZ4gPv64p6PvmW4aHWbnIfpF9SeKSRJGy+pXyMbiqBdzpOEurDhsLixpHvA21sUqlHPq71XJxLoNg9hPhWSfCexpzCh36OlnW1hpoX7YSNGVDRUtorCBcPerj/43UQVfeKCA+Q==");
-                Chat.setUserName("agus_test");
+                Chat.setUserName("ar_test55");
                 Chat.setIcon(R.drawable.icon_logo);
                 Chat.setIconBubleChat(R.drawable.icon_logo);
                 Chat.setGreetingMessage("hai");
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 Chat.setRequestMenuFAllback("fallback-locna");
                 Chat.setTokenFcm(fcmToken);
                 Chat.setSaleForceId("6");
-                Chat.setEmail("agus_test@gmail.com");
+                Chat.setEmail("ar_test55@gmail.com");
                 Chat.start(context);
             }
         };

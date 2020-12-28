@@ -40,26 +40,33 @@
         android:paddingStart="42dp">
 
         <LinearLayout
-            android:id="@+id/linearInput"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="16dp"
-            android:layout_gravity="end"
-            android:background="@drawable/background_chat_req">
+            android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tv_input_text"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/linearInput"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="16sp"
-                android:fontFamily="@font/montserrat_regular"
-                tools:text="test"
-                android:textColor="#000"/>
+                android:paddingTop="12dp"
+                android:paddingBottom="16dp"
+                android:layout_gravity="end"
+                android:background="@drawable/background_chat_req">
+
+                <TextView
+                    android:id="@+id/tv_input_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    tools:text="tesasdast asdasd asdasdasd asdasdasd asdasdsad asdsad "
+                    android:textColor="#000"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

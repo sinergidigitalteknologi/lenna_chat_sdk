@@ -141,6 +141,18 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 
     @Keep
     @Override
+    public void removeAllItem() {
+        int size = chatObjects.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                chatObjects.remove(0);
+            }
+            view.notifyAdapterRemove(0, size);
+        }
+    }
+
+    @Keep
+    @Override
     public void addLoading() {
         ChatLoadingResponse loadingResponse = new ChatLoadingResponse();
         loadingResponse.setText("");

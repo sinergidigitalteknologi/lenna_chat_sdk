@@ -134,6 +134,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     int page = 1;
+    boolean isOnPause = false;
 
     private double lat;
     private double lng;
@@ -184,6 +185,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        Constant.IS_CHAT_LENNA_ACTIVE = true;
 
         OkHttpClient client = getImageHttpClient();
         mPicasso = new Picasso.Builder(ChatActivity.this)
@@ -351,6 +354,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     @Keep
     private void loadListChat(ChatLoadReq chatLoadReq) {
+
+        presenter.removeAllItem();
 
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
 //        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
@@ -651,10 +656,17 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             installTTSApplication();
         }
 
+        if (isOnPause) {
+            containLoadListChat();
+        }
+
         // register new push message receiver
         // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(ChatActivity.this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Constant.PUSH_NOTIFICATION));
+        if (Constant.IS_CHAT_LENNA_ACTIVE) {
+            LocalBroadcastManager.getInstance(ChatActivity.this).registerReceiver(mRegistrationBroadcastReceiver,
+                    new IntentFilter(Constant.PUSH_NOTIFICATION));
+        }
+
     }
 
     @Override
@@ -766,6 +778,12 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        isOnPause = true;
+    }
+
+    @Override
     public void scrollChatDown() {
         this.rvChatList.scrollToPosition(presenter.getChatObjects().size() - 1);
     }
@@ -773,6 +791,11 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void notifyAdapterObjectRemove(int position) {
         this.chatAdapter.notifyItemRemoved(position);
+    }
+
+    @Override
+    public void notifyAdapterRemove(int pos, int size) {
+        this.chatAdapter.notifyItemRangeRemoved(0, size);
     }
 
     @Override
@@ -1084,6 +1107,12 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             rvQuickButton.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.HORIZONTAL, false));
             rvQuickButton.setAdapter(this.quickButtonAdapter);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Constant.IS_CHAT_LENNA_ACTIVE = false;
     }
 
     @Override

@@ -1,7 +1,11 @@
 package ai.lenna.lennachatmodul.service;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.Keep;
@@ -11,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.List;
 import java.util.Map;
 
 import ai.lenna.lennachatmodul.util.Constant;
@@ -53,13 +58,16 @@ public class LennaFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void handleDataMessage(Map<String, String> dataMap){
-        String categoryNotif = dataMap.get("category");
-        if (categoryNotif.equals("chat")){
-            Intent pushNotification = new Intent(Constant.PUSH_NOTIFICATION);
-            pushNotification.putExtra("message", dataMap.get("message"));
-            LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+        if (Constant.IS_CHAT_LENNA_ACTIVE) {
+            String categoryNotif = dataMap.get("category");
+            if (categoryNotif.equals("chat")){
+                Intent pushNotification = new Intent(Constant.PUSH_NOTIFICATION);
+                pushNotification.putExtra("message", dataMap.get("message"));
+                LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+            }
         }
     }
+
 
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.

@@ -47,6 +47,7 @@ public interface ChatContract {
         void notifyAdapterObjectAdded(int position);
         void scrollChatDown();
         void notifyAdapterObjectRemove(int position);
+        void notifyAdapterRemove(int pos, int size);
         void speakOut(String speakText);
         void inputChat(String text);
         void inputChatZakat(String text);
@@ -79,6 +80,7 @@ public interface ChatContract {
     @Keep
     interface Presenter {
         void attachView(ChatContract.View view);
+        void removeAllItem();
         void removeItem();
         void addLoading();
         void onEditTextActionDone(String inputText, String timeString, String dateString);
