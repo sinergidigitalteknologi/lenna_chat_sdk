@@ -186,7 +186,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Constant.IS_CHAT_LENNA_ACTIVE = true;
+        Log.d("TOKEN_LOGIN", Constant.TOKEN_LOGIN);
+        isOnPause = false;
 
         OkHttpClient client = getImageHttpClient();
         mPicasso = new Picasso.Builder(ChatActivity.this)
@@ -367,10 +368,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             public void onResponse(Call<ArrayList<ChatResp>> call, Response<ArrayList<ChatResp>> response) {
 
                 if (response.isSuccessful()) {
-                    llLoadChatList.setVisibility(View.GONE);
-                    llFailedLoadChatList.setVisibility(View.GONE);
                     List<ChatResp> list = response.body();
-
                     if (list.size() > 0) {
                         try {
                             Collections.reverse(list);
@@ -388,6 +386,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                     } else {
                         firtsMessage(Constant.GMESSAGE);
                     }
+                    llLoadChatList.setVisibility(View.GONE);
+                    llFailedLoadChatList.setVisibility(View.GONE);
                 } else {
                     llLoadChatList.setVisibility(View.GONE);
                     llFailedLoadChatList.setVisibility(View.VISIBLE);
@@ -656,16 +656,14 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             installTTSApplication();
         }
 
+        Chat.setIsChatLennaActive(true);
+
         if (isOnPause) {
             containLoadListChat();
         }
 
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        if (Constant.IS_CHAT_LENNA_ACTIVE) {
-            LocalBroadcastManager.getInstance(ChatActivity.this).registerReceiver(mRegistrationBroadcastReceiver,
-                    new IntentFilter(Constant.PUSH_NOTIFICATION));
-        }
+        LocalBroadcastManager.getInstance(ChatActivity.this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constant.PUSH_NOTIFICATION));
 
     }
 
@@ -1112,7 +1110,14 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Constant.IS_CHAT_LENNA_ACTIVE = false;
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("onStopChat", "onStopChat");
+        Chat.setIsChatLennaActive(false);
     }
 
     @Override

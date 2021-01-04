@@ -81,6 +81,10 @@ public class Chat {
         Constant.TOKEN_LOGIN = token;
     }
 
+    public static void setIsChatLennaActive(boolean isActive) {
+        Constant.IS_CHAT_LENNA_ACTIVE = isActive;
+    }
+
     public  static  void removeTokenLogin(){
         Prefs.putString("TOKEN_LOGIN", "");
         Constant.TOKEN_LOGIN = "";

@@ -28,31 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        onHandler(this);
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "getInstanceId failed", task.getException());
-                            handler.removeCallbacks(r);
-                            return;
-                        }
-
-                        // Get new Instance ID tokenn
-                        String token = task.getResult().getToken();
-                        String msg = getString(R.string.msg_token_fmt, token);
-
-                        fcmToken = msg;
-                        handler.postDelayed(r, 0);
-//                        if (!fcmToken.equals("")) {
-//                            handler.postDelayed(r, 0);
-//                        } else {
-//                            handler.removeCallbacks(r);
-//                        }
-                    }
-                });
     }
 
     public void onHandler(Context context) {

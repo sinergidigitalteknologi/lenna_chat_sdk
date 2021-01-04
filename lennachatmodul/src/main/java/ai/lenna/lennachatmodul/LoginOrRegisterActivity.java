@@ -38,7 +38,6 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
     Button btnErrorRegisterOrLogin;
     LinearLayout llFailedRegisterOrLogin, llLoadRegisterOrLogin;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,12 +171,19 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
                     }
                 });
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                Prefs.putString("TOKEN_LOGIN","");
+                llFailedRegisterOrLogin.setVisibility(View.VISIBLE);
+                llLoadRegisterOrLogin.setVisibility(View.GONE);
             }
         }else{
+            Log.d("Login_token : ", (Prefs.getString("TOKEN_LOGIN", "")));
+            Chat.setToken(Prefs.getString("TOKEN_LOGIN", ""));
+            Chat.setUserId(Prefs.getString("USER_ID", ""));
             Intent intent = new Intent(context, ChatActivity.class);
             intent.setAction(Intent.ACTION_VIEW);
             ((Activity)context).startActivity(intent);
+            ((Activity)context).finish();
         }
     }
 
@@ -200,6 +206,7 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
             public void onResponse(Call<LoginLennaResp> callLogin, Response<LoginLennaResp> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess()) {
+                        Log.d("getAccessToken", new Gson().toJson(response.body()));
                         Chat.setToken(response.body().getAccessToken());
                         Chat.setUserId(response.body().getData().getId());
                         Intent intent = new Intent(context, ChatActivity.class);
