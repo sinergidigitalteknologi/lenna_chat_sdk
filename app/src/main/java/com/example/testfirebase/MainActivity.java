@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 Chat.setUserName("ar_test55");
                 Chat.setIcon(R.drawable.icon_logo);
                 Chat.setIconBubleChat(R.drawable.icon_logo);
-                Chat.setGreetingMessage("hai");
+                Chat.setGreetingMessage();
                 Chat.setKeyFallBack("locna");
                 Chat.setRequestMenuFAllback("fallback-locna");
                 Chat.setTokenFcm(fcmToken);

@@ -24,13 +24,6 @@ public class Chat {
 
     private static Context context;
 
-    /**
-     This is a funtion to move chat activity
-     @author Viky Yahya
-     **/
-
-
-
     public static void start(Context context){
         GenerateUserID.generate(context);
         RequestToken.request(context);
@@ -100,9 +93,18 @@ public class Chat {
 
     /**
      * set greeting message **/
-    public  static  void setGreetingMessage(String greetingMessage){
-        Constant.GMESSAGE = greetingMessage;
+//    public  static  void setGreetingMessage(String greetingMessage){
+//        Constant.GMESSAGE = greetingMessage;
+//    }
+
+    public static void setGreetingMessage() {
+        Constant.GMESSAGE = "hai";
     }
+
+    public static void setLiveMessage() {
+        Constant.GMESSAGE = "live";
+    }
+
 
     /**
      * set icon in header activity chat **/

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/transparent"
+    tools:context=".chatRoom.ChatRoomActivity">
+
+    <LinearLayout
+        android:id="@+id/ly_msg_bot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="24dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_img_bot"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:src="@drawable/img_not_available" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name_bot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name Bot"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tv_last_msg_bot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Message"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time_bot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="10:10"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_msg_agent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="24dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_img_agent"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:src="@drawable/img_not_available" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name_agent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name Agent"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tv_last_msg_agent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Message"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time_agent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="10:10"/>
+
+    </LinearLayout>
+
+</LinearLayout>

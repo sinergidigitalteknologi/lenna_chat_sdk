@@ -342,6 +342,9 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         };
 
 
+        if (Constant.GMESSAGE.equals("live")) {
+            firtsMessage(Constant.GMESSAGE);
+        }
 //        firtsMessage(Constant.GMESSAGE);
     }
 
