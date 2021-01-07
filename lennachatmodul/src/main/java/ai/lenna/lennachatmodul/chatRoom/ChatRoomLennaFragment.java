@@ -1,9 +1,6 @@
 package ai.lenna.lennachatmodul.chatRoom;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 
 import androidx.annotation.Keep;
@@ -21,21 +18,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.pixplicity.easyprefs.library.Prefs;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Stream;
 
 import ai.lenna.lennachatmodul.Chat;
 import ai.lenna.lennachatmodul.LoginOrRegister.lennaLogin.LoginLennaReq;
