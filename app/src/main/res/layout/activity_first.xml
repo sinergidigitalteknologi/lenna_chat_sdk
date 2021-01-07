@@ -14,15 +14,6 @@
         android:layout_height="wrap_content"
         android:padding="24dp"
         android:textSize="18sp"
-        android:text="Ngomong sama bot" />
-
-    <Button
-        android:id="@+id/btn_click_agent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:padding="24dp"
-        android:textSize="18sp"
-        android:text="Ngomong sama agent" />
+        android:text="Go To Chat" />
 
 </LinearLayout>

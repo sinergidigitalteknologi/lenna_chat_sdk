@@ -9,24 +9,12 @@ import com.pixplicity.easyprefs.library.Prefs;
 import ai.lenna.lennachatmodul.chat.ChatActivity;
 import ai.lenna.lennachatmodul.util.Constant;
 import ai.lenna.lennachatmodul.util.GenerateUserID;
-import ai.lenna.lennachatmodul.util.RequestToken;
 
 @Keep
 public class Chat {
 
-    public static Context getContext() {
-        return context;
-    }
-
-    public static void setContext(Context context) {
-        Chat.context = context;
-    }
-
-    private static Context context;
-
     public static void start(Context context){
         GenerateUserID.generate(context);
-        RequestToken.request(context);
     }
 
     public  static  void setTokenFcm(String token){
@@ -84,6 +72,14 @@ public class Chat {
         Constant.FCM_TOKEN_LOGIN = "";
     }
 
+    public  static  void setNameBot(String bot){
+        Constant.NAME_BOT_MSG = bot;
+    }
+
+    public  static  void setNameAgent(String agent){
+        Constant.NAME_AGENT_MSG = agent;
+    }
+
     /**
      * set icon in header activity chat **/
     public  static  void setIcon(int icon){
@@ -91,20 +87,20 @@ public class Chat {
         Constant.LOGO_TITLE = icon;
     }
 
+    public  static  void setIconAgent(int icon){
+        Constant.ICON_AGENT_LENNA = icon;
+    }
+
+    public  static  void setIconBot(int icon){
+        Constant.ICON_BOT_LENNA = icon;
+    }
+
+
     /**
      * set greeting message **/
-//    public  static  void setGreetingMessage(String greetingMessage){
-//        Constant.GMESSAGE = greetingMessage;
-//    }
-
-    public static void setGreetingMessage() {
-        Constant.GMESSAGE = "hai";
+    public  static  void setGreetingMessage(String greetingMessage){
+        Constant.GMESSAGE = greetingMessage;
     }
-
-    public static void setLiveMessage() {
-        Constant.GMESSAGE = "live";
-    }
-
 
     /**
      * set icon in header activity chat **/
@@ -123,7 +119,6 @@ public class Chat {
     public  static  void setSpeechRateTts(String value){
         Constant.SPEECH_RATE = value;
     }
-
 
     /**
      * set key fallback **/

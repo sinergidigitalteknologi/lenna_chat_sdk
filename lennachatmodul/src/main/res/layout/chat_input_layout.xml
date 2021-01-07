@@ -51,20 +51,40 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="12dp"
                 android:paddingBottom="16dp"
+                android:orientation="vertical"
+                android:gravity="right"
                 android:background="@drawable/background_chat_req">
 
                 <TextView
                     android:id="@+id/tv_input_text"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
                     android:textSize="14sp"
-                    android:fontFamily="@font/montserrat_regular"
+                    android:gravity="right"
+                    android:textStyle="normal"
+                    android:fontFamily="@font/montserrat_light"
                     tools:text="Text"
-                    android:textColor="#000"/>
+                    android:textColor="#25282b"/>
+
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/tv_time_text_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10:10"
+                    android:gravity="right"
+                    android:textStyle="normal"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:textColor="#5a6872"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
 
             </LinearLayout>
 
@@ -76,25 +96,13 @@
             android:layout_height="32dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="2dp"
             android:src="@drawable/img_not_available" />
-
 
     </LinearLayout>
 
-    <TextView
-        android:visibility="visible"
-        android:id="@+id/tv_time_text_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10:10"
-        android:layout_marginEnd="56dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="@color/black_solid_alpha"
-        android:textSize="12sp"/>
-
     <Space
         android:layout_width="match_parent"
-        android:layout_height="6dp" />
+        android:layout_height="2dp" />
 
 </LinearLayout>

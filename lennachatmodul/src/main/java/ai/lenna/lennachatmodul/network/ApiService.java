@@ -15,6 +15,7 @@ import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaReqEncr
 import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaReq;
 import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaResp;
 import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaRespEncrypt;
+import ai.lenna.lennachatmodul.chatRoom.model.RoomResolveResp;
 import ai.lenna.lennachatmodul.util.Constant;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -32,13 +33,15 @@ public interface ApiService {
     @POST("backend/api/{appId}/users/register")
     Call<RegisterLennaResp> reg(@Body RegisterLennaReq registerReq, @Path("appId") String app_id);
 
-//    @POST("backend/api/{appId}/users/login")
     @POST("backend/api/{appId}/auth/login")
     Call<LoginLennaResp> loginLenna(@Body LoginLennaReq loginReq, @Path("appId") String app_id);
 
     //encrypt
     @POST("app/public/api/{botId}/webhook/mobile")
     Call<ChatEncrypResp> submitChatEncrypt(@Header("Authorization") String token, @Body ChatReq req, @Path("botId") String bot_id);
+
+    @POST("app/public/api/webhook/digipos/resolve-livechat")
+    Call<RoomResolveResp> funResolveChat(@Header("userId") String userId);
 
     @POST("app/public/api/{botId}/message/get-more-message-digipos")
     Call<ArrayList<ChatResp>> getChatList(@Body ChatLoadReq chatLoadReq, @Path("botId") String bot_id, @Query("page") String page, @Query("per_page") String per_page);

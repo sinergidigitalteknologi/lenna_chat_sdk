@@ -85,6 +85,7 @@ import ai.lenna.lennachatmodul.chat.model.output.ChatOutputTrainPassengerForm;
 import ai.lenna.lennachatmodul.chat.model.output.ChatOutputTrainTripDetailForm;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatDataAction;
 import ai.lenna.lennachatmodul.chat.model.output.action.ChatOutputAction;
+import ai.lenna.lennachatmodul.chatRoom.model.RoomResolveResp;
 import ai.lenna.lennachatmodul.network.ApiBuilder;
 import ai.lenna.lennachatmodul.network.ApiService;
 import ai.lenna.lennachatmodul.room.AppDatabase;
@@ -134,7 +135,9 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     int page = 1;
-    boolean isOnPause = false;
+
+    private boolean isPause;
+    private int statusLoading = 0;
 
     private double lat;
     private double lng;
@@ -154,25 +157,16 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     ConstraintLayout layout_chatbox2;
     private QuickButtonAdapter quickButtonAdapter;
     private RecyclerView rvChatList, rvQuickButton;
-    private LinearLayout llLoadChatList, llFailedLoadChatList;
+    private LinearLayout llContainChat, llLoadChatList,
+            llFailedLoadChatList;
 
-    Spinner spinnerAsalPesawat, spinnerTujuanPesawat, spinnerDewasaPesawat, spinnerAnakPesawat, spinnerBayiPesawat;
+    Spinner spinnerAsalPesawat;
 
-    EditText etJumlahDonasi, etNamaDonasi, etEmailDonasi, etNoKtp;
-
-    //detil form penumpang kereta
-    DatePickerDialog.OnDateSetListener mDataSetListenerKepulangan;Spinner spLokasiPerjKereta, spTujuanPerjKereta, spLokasiDewasaPerjkereta, spLokasiAnakPerjkereta, spLokasiBayiPerjkereta;
-
-    private String current = "";
-    String choose = "Uang & Emas";
-    private int statusLoading = 0;
-    String choosePlaneTitle = "Tuan";
     boolean clickBottomNavigationChat = true;
 
-    String asalStasiun, tujuanStasiun, tglBerangkat, tglPulang;
-    String asalBandara, tujuanBandara, tglBerangkatPesawatVar, tglPulangPesawatVar;
+    String asalBandara;
 
-    ImageView ivActionMic,img_icon_chat;
+    ImageView ivActionMic;
     ImageView ivImageViewEnter;
     EditText etSendMessage;
 
@@ -186,8 +180,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        isPause = false;
         Log.d("TOKEN_LOGIN", Constant.TOKEN_LOGIN);
-        isOnPause = false;
 
         OkHttpClient client = getImageHttpClient();
         mPicasso = new Picasso.Builder(ChatActivity.this)
@@ -197,12 +191,10 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         ivActionMic = findViewById(R.id.action_mic);
         ivImageViewEnter = findViewById(R.id.imageViewEnter);
         etSendMessage = findViewById(R.id.et_send_message);
-        img_icon_chat = findViewById(R.id.img_icon_chat);
         // click listener
         ivActionMic.setOnClickListener(micClicked);
         ivImageViewEnter.setOnClickListener(imgEnterClicked);
         //set logo title
-        img_icon_chat.setImageResource(Prefs.getInt("LOGO_TITLE",LOGO_TITLE));
         activity = this.activity;
         showAllert = new ShowAllert();
         permission = new PermissionManager() {};
@@ -244,19 +236,20 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             bottomSheetDialog.show();
         }
 
+        llContainChat = findViewById(R.id.ll_contain_chat);
         llLoadChatList = findViewById(R.id.ll_load_chat_list);
         llFailedLoadChatList = findViewById(R.id.ll_failed_load_chat_list);
 
-        containLoadListChat();
+        containLoadListChat(true);
 
         btnErrorLoad = (Button) findViewById(R.id.btn_error_load) ;
         btnErrorLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                llContainChat.setVisibility(View.VISIBLE);
                 llLoadChatList.setVisibility(View.VISIBLE);
                 llFailedLoadChatList.setVisibility(View.GONE);
-                llFailedLoadChatList.setVisibility(View.GONE);
-                containLoadListChat();
+                containLoadListChat(true);
             }
         });
 
@@ -313,22 +306,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         rvChatList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvChatList.setItemAnimator(new DefaultItemAnimator());
         getLonLat();
-//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                List<ChatResponseEntity> chatResponseEntities;
-//                chatResponseEntities = mDb.chatResponseDao().getAll();
-//                Log.d("message.getStringExtra", new Gson().toJson(chatResponseEntities));
-//                ChatActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        for (int i = 0; i < chatResponseEntities.size(); i++){
-//                            presenter.loadChatHistory(chatResponseEntities.get(i).getChatHistory());
-//                        }
-//                    }
-//                });
-//            }
-//        });
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -340,31 +317,22 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                         new IntentFilter(Constant.PUSH_NOTIFICATION));
             }
         };
-
-
-        if (Constant.GMESSAGE.equals("live")) {
-            firtsMessage(Constant.GMESSAGE);
-        }
-//        firtsMessage(Constant.GMESSAGE);
     }
 
-    public void containLoadListChat() {
+    public void containLoadListChat(Boolean isCreate) {
         chatLoadReq.setUserId(Prefs.getString("USER_ID",""));
         ChatLoadReq inChatLoadReq = new ChatLoadReq();
         inChatLoadReq.setUserId(chatLoadReq.getUserId());
 
-        loadListChat(inChatLoadReq);
+        loadListChat(inChatLoadReq, isCreate);
     }
 
     @Keep
-    private void loadListChat(ChatLoadReq chatLoadReq) {
+    private void loadListChat(ChatLoadReq chatLoadReq, Boolean isCreate) {
 
         presenter.removeAllItem();
 
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
-//        Call<ChatResp> call = service.submitChat("Bearer " + Prefs.getString("TOKEN",""), chatReq,Constant.BOT_ID);
-//        Call<List<Chat>> call = service.getChatList(chatLoadReq, Constant.BOT_ID, "1");
-
         Call<ArrayList<ChatResp>> call = service.getChatList(chatLoadReq, Constant.BOT_ID, String.valueOf(page), "1000");
         call.enqueue(new Callback<ArrayList<ChatResp>>() {
             @Override
@@ -383,6 +351,14 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                                     presenter.loadChatHistory(new Gson().toJson(list.get(i)));
                                 }
                             }
+                            if (isCreate) {
+                                if (Constant.GMESSAGE.equals("live")) {
+                                    firtsMessage(Constant.GMESSAGE);
+                                }
+                                if (!Constant.GMESSAGE.equals("live")) {
+                                    funAutoResolve();
+                                }
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -390,18 +366,38 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                         firtsMessage(Constant.GMESSAGE);
                     }
                     llLoadChatList.setVisibility(View.GONE);
+                    llContainChat.setVisibility(View.VISIBLE);
                     llFailedLoadChatList.setVisibility(View.GONE);
                 } else {
+                    llContainChat.setVisibility(View.GONE);
                     llLoadChatList.setVisibility(View.GONE);
                     llFailedLoadChatList.setVisibility(View.VISIBLE);
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<ChatResp>> call, Throwable t) {
+                llContainChat.setVisibility(View.GONE);
                 llLoadChatList.setVisibility(View.GONE);
                 llFailedLoadChatList.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @Keep
+    private void funAutoResolve() {
+        ApiService service = ApiBuilder.getClient().create(ApiService.class);
+        Call<RoomResolveResp> call = service.funResolveChat(Prefs.getString("USER_ID",""));
+        call.enqueue(new Callback<RoomResolveResp>() {
+            @Override
+            public void onResponse(Call<RoomResolveResp> call, Response<RoomResolveResp> response) {
+                Log.d("response_resolve_room", "true");
+            }
+            @Override
+            public void onFailure(Call<RoomResolveResp> call, Throwable t) {
+                Log.d("response_resolve_room", "false");
+            }
+        });
+
     }
 
     @Keep
@@ -415,16 +411,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
-
-//                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
-//                        chatResponseEntity.setChatHistory(message);
-//                        mDb.chatResponseDao().insertAll(chatResponseEntity);
-//                    }
-//                });
-//                presenter.onEditTextActionDone(req.getQuery()); //viky
                 statusLoading = 1;
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -451,16 +437,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
-//                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ChatResponseEntity chatResponseEntity = new ChatResponseEntity();
-//                        chatResponseEntity.setChatHistory(text);
-//                        mDb.chatResponseDao().insertAll(chatResponseEntity);
-//                    }
-//                });
-//            insertToDatabase(req.getQuery());
-//             presenter.onEditTextActionDone(req.getQuery()); //viky
                 statusLoading = 1;
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -489,8 +465,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     @Keep
     private void getLonLat() {
-//        latitude = -6.175801;
-//        longitude = 106.879632;
         latitude = locationsMap.getLatitude();
         longitude = locationsMap.getLongitude();
         Constant.LAT = latitude;
@@ -643,6 +617,11 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         }
     };
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isPause = true;
+    }
 
     @Override
     public void onResume() {
@@ -659,11 +638,11 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             installTTSApplication();
         }
 
-        Chat.setIsChatLennaActive(true);
-
-        if (isOnPause) {
-            containLoadListChat();
+        if (isPause) {
+            containLoadListChat(false);
         }
+
+        Chat.setIsChatLennaActive(true);
 
         LocalBroadcastManager.getInstance(ChatActivity.this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(Constant.PUSH_NOTIFICATION));
@@ -776,12 +755,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     public void notifyAdapterObjectAdded(int position) {
         this.chatAdapter.notifyItemInserted(position);
         scrollChatDown();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isOnPause = true;
     }
 
     @Override
@@ -1130,9 +1103,5 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     @Override
     public void onCarouselClick(String buttonName, String payload) {
-    }
-
-    public void setImageLogo(int resource){
-        img_icon_chat.setImageResource(resource);
     }
 }
