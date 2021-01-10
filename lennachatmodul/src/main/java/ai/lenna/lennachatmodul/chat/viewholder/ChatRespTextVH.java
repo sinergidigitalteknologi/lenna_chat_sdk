@@ -87,13 +87,16 @@ public class ChatRespTextVH extends BaseViewHolder {
 
         if (object.getUserType() != null) {
             if (object.getUserType().equals("user_platform")) {
-                this.imgBotMessage.setImageResource(R.drawable.icon_agent);
+//                this.imgBotMessage.setImageResource(R.drawable.icon_agent);
+                this.imgBotMessage.setImageBitmap(Constant.ICON_AGENT_LENNA_BITMAP);
             }
             if (object.getUserType().equals("bot")) {
-                this.imgBotMessage.setImageResource(R.drawable.icon_bot);
+                this.imgBotMessage.setImageBitmap(Constant.ICON_AGENT_LENNA_BITMAP);
+//                this.imgBotMessage.setImageResource(R.drawable.icon_bot);
             }
         } else {
-            this.imgBotMessage.setImageResource(R.drawable.icon_agent);
+            this.imgBotMessage.setImageBitmap(Constant.ICON_AGENT_LENNA_BITMAP);
+//            this.imgBotMessage.setImageResource(R.drawable.icon_agent);
         }
 //        this.imgBotMessage.setImageResource(Prefs.getInt("ICON_BUBLE_CHAT", 0));
     }

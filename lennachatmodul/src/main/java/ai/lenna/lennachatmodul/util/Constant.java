@@ -1,5 +1,7 @@
 package ai.lenna.lennachatmodul.util;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.Keep;
 
 import ai.lenna.lennachatmodul.R;
@@ -32,6 +34,11 @@ public class Constant {
     public static boolean IS_CHAT_LENNA_ACTIVE = false;
     public static int ICON_BUBLE_CHAT = R.drawable.logo_lenna_blue;
     public static int LOGO_TITLE = R.drawable.logo_lenna_blue;
+
+    public static Bitmap LOGO_TITLE_BITMAP = null;
+    public static Bitmap ICON_BUBLE_CHAT_BITMAP = null;
+    public static Bitmap ICON_BOT_LENNA_BITMAP = null;
+    public static Bitmap ICON_AGENT_LENNA_BITMAP = null;
     public static int ICON_BOT_LENNA = R.drawable.logo_lenna_blue;
     public static int ICON_AGENT_LENNA = R.drawable.logo_lenna_blue;
     public static double LAT = 0;

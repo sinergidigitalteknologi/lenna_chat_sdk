@@ -20,6 +20,7 @@ import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.ChatContract;
 import ai.lenna.lennachatmodul.chat.adapter.BaseViewHolder;
 import ai.lenna.lennachatmodul.chat.model.ChatObject;
+import ai.lenna.lennachatmodul.util.Constant;
 
 @Keep
 public class ChatInputVH extends BaseViewHolder {
@@ -95,6 +96,7 @@ public class ChatInputVH extends BaseViewHolder {
                 view.setTextChat(object.getText());
             }
         });
-        this.ivUserMessage.setImageResource(Prefs.getInt("ICON_BUBLE_CHAT", 0));
+//        this.ivUserMessage.setImageResource(Prefs.getInt("ICON_BUBLE_CHAT", 0));
+        this.ivUserMessage.setImageBitmap(Constant.ICON_BUBLE_CHAT_BITMAP);
     }
 }

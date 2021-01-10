@@ -113,7 +113,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     private static final String[] LOCATION_PERMS = {Manifest.permission.ACCESS_FINE_LOCATION};
 
     public static final String TAG = "ChatActivity";
-    public static int LOGO_TITLE = R.drawable.logo_lenna_blue;
 
     LinearLayout llForm;
     ShowAllert showAllert;

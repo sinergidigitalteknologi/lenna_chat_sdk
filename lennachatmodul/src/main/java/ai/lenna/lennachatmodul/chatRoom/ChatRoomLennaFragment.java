@@ -228,8 +228,10 @@ public class ChatRoomLennaFragment extends Fragment {
 
                     tvNameMsgBot.setText(Constant.NAME_BOT_MSG);
                     tvNameMsgAgent.setText(Constant.NAME_AGENT_MSG);
-                    ivImgMsgBot.setImageResource(Prefs.getInt("ICON_BOT_LENNA", 0));
-                    ivImgMsgAgent.setImageResource(Prefs.getInt("ICON_AGENT_LENNA", 0));
+                    ivImgMsgBot.setImageBitmap(Constant.ICON_BOT_LENNA_BITMAP);
+                    ivImgMsgAgent.setImageBitmap(Constant.ICON_AGENT_LENNA_BITMAP);
+//                    ivImgMsgBot.setImageResource(Prefs.getInt("ICON_BOT_LENNA", 0));
+//                    ivImgMsgAgent.setImageResource(Prefs.getInt("ICON_AGENT_LENNA", 0));
                     setVisibilityInbox(View.VISIBLE, View.GONE, View.GONE);
                 } else {
                     setVisibilityInbox(View.GONE, View.VISIBLE, View.GONE);

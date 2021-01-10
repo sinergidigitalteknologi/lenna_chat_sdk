@@ -1,6 +1,7 @@
 package ai.lenna.lennachatmodul;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import androidx.annotation.Keep;
 
@@ -83,16 +84,27 @@ public class Chat {
     /**
      * set icon in header activity chat **/
     public  static  void setIcon(int icon){
-        ChatActivity.LOGO_TITLE = icon;
         Constant.LOGO_TITLE = icon;
     }
 
-    public  static  void setIconAgent(int icon){
+    public  static  void setIconBitmap(Bitmap iconBBitmap){
+        Constant.LOGO_TITLE_BITMAP = iconBBitmap;
+    }
+
+    public static void setIconAgent(int icon){
         Constant.ICON_AGENT_LENNA = icon;
+    }
+
+    public static void setIconAgentBitmap(Bitmap agentBitmap){
+        Constant.ICON_AGENT_LENNA_BITMAP = agentBitmap;
     }
 
     public  static  void setIconBot(int icon){
         Constant.ICON_BOT_LENNA = icon;
+    }
+
+    public  static  void setIconBotBitmap(Bitmap botBitmap){
+        Constant.ICON_BOT_LENNA_BITMAP = botBitmap;
     }
 
 
@@ -106,6 +118,10 @@ public class Chat {
      * set icon in header activity chat **/
     public  static  void setIconBubleChat(int icon){
         Constant.ICON_BUBLE_CHAT = icon;
+    }
+
+    public  static  void setIconBubleChatBitmap(Bitmap iconBubleChatBitmap){
+        Constant.ICON_BUBLE_CHAT_BITMAP = iconBubleChatBitmap;
     }
 
     /**

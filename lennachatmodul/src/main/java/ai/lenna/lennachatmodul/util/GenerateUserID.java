@@ -17,10 +17,10 @@ public class GenerateUserID {
                 .setPrefsName(context.getPackageName())
                 .setUseDefaultSharedPreference(true)
                 .build();
-        Prefs.putInt("LOGO_TITLE",Constant.LOGO_TITLE);
-        Prefs.putInt("ICON_BUBLE_CHAT",Constant.ICON_BUBLE_CHAT);
-        Prefs.putInt("ICON_BOT_LENNA", Constant.ICON_BOT_LENNA);
-        Prefs.putInt("ICON_AGENT_LENNA", Constant.ICON_AGENT_LENNA);
+//        Prefs.putInt("LOGO_TITLE",Constant.LOGO_TITLE);
+//        Prefs.putInt("ICON_BUBLE_CHAT",Constant.ICON_BUBLE_CHAT);
+//        Prefs.putInt("ICON_BOT_LENNA", Constant.ICON_BOT_LENNA);
+//        Prefs.putInt("ICON_AGENT_LENNA", Constant.ICON_AGENT_LENNA);
 
     }
 }

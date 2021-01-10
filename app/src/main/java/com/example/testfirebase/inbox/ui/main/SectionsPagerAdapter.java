@@ -1,6 +1,10 @@
 package com.example.testfirebase.inbox.ui.main;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -36,20 +40,33 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
+                Bitmap botRoom = BitmapFactory.decodeResource(mContext.getResources(),
+                        R.drawable.icon_bot_room);
+
+                Bitmap agentRoom = BitmapFactory.decodeResource(mContext.getResources(),
+                        R.drawable.icon_agent_room);
+
+                Bitmap iconLogo = BitmapFactory.decodeResource(mContext.getResources(),
+                        R.drawable.icon_logo);
+
                 Chat.setAppId("1yoD5Y");
                 Chat.setBotId("zbq2dp");
                 Chat.setAppKey("gm+sCaMg5ai0vPes+tB83O3G0vaS4ahwGV+81Hnzr6jCbi7g+vYbmzHHcy/vH64jHMwq9pLr8z/eWXfVWZ4gPv64p6PvmW4aHWbnIfpF9SeKSRJGy+pXyMbiqBdzpOEurDhsLixpHvA21sUqlHPq71XJxLoNg9hPhWSfCexpzCh36OlnW1hpoX7YSNGVDRUtorCBcPerj/43UQVfeKCA+Q==");
-                Chat.setUserName("ar_dev2");
-                Chat.setIcon(R.drawable.icon_logo);
-                Chat.setIconBubleChat(R.drawable.icon_logo);
+                Chat.setUserName("ar_dev");
+//                Chat.setIcon(R.drawable.icon_logo);
+//                Chat.setIconBubleChat(R.drawable.icon_logo);
                 Chat.setKeyFallBack("locna");
                 Chat.setRequestMenuFAllback("fallback-locna");
                 Chat.setSaleForceId("6");
-                Chat.setEmail("ar_dev2@gmail.com");
+                Chat.setEmail("ar_dev@gmail.com");
                 Chat.setNameBot("BOT-Lenna");
                 Chat.setNameAgent("SFTEST-QH");
-                Chat.setIconBot(R.drawable.icon_bot_room);
-                Chat.setIconAgent(R.drawable.icon_agent_room);
+//                Chat.setIconBot(R.drawable.icon_bot_room);
+//                Chat.setIconAgent(R.drawable.icon_agent_room);
+                Chat.setIconBitmap(iconLogo);
+                Chat.setIconBubleChatBitmap(iconLogo);
+                Chat.setIconBotBitmap(botRoom);
+                Chat.setIconAgentBitmap(agentRoom);
                 Chat.start(mContext);
 
                 fragment = new ChatRoomLennaFragment();
