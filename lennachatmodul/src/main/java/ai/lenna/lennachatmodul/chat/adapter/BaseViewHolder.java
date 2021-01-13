@@ -18,7 +18,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-
     public abstract void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position);
 
 }

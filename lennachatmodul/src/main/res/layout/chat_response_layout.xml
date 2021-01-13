@@ -44,7 +44,7 @@
             android:layout_height="32dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="8dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginEnd="3dp"
             android:src="@drawable/img_not_available" />
 
         <LinearLayout
@@ -56,10 +56,10 @@
                 android:id="@+id/linearResponse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="10dp"
                 android:orientation="vertical"
                 android:background="@drawable/background_chat_res">
 
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="6dp"
                     android:textSize="14sp"
                     android:textStyle="normal"
                     android:fontFamily="@font/montserrat_light"
@@ -95,6 +95,6 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="2dp" />
+        android:layout_height="6dp" />
 
 </LinearLayout>

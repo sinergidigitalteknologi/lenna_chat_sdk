@@ -5,10 +5,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
 
             <solid android:color="#00DEE3E7" />
 
@@ -21,10 +21,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
 
             <solid android:color="#10DEE3E7" />
 
@@ -37,10 +37,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
 
             <solid android:color="#20DEE3E7" />
 
@@ -53,10 +53,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
 
             <solid android:color="#30DEE3E7" />
 
@@ -69,10 +69,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
 
             <solid android:color="#50DEE3E7" />
 

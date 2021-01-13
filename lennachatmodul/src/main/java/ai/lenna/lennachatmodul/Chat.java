@@ -25,7 +25,7 @@ public class Chat {
     /**
      * set user ID **/
     public  static  void setUserId(String userId){
-        Prefs.putString("USER_ID",userId);
+        Prefs.putString("USER_ID", userId);
         Constant.USER_ID = userId;
     }
     /**
@@ -67,8 +67,10 @@ public class Chat {
         Constant.IS_CHAT_LENNA_ACTIVE = isActive;
     }
 
-    public  static  void removeTokenLogin(){
+    public  static  void removeTokenLogin() {
         Prefs.putString("TOKEN_LOGIN", "");
+        Prefs.putString("USER_ID", "");
+        Constant.USER_ID = "";
         Constant.TOKEN_LOGIN = "";
         Constant.FCM_TOKEN_LOGIN = "";
     }

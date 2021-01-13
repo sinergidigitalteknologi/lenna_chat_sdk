@@ -199,7 +199,6 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 
         // Also scroll down if we aren't at the bottom already
         view.scrollChatDown();
-
     }
 
     @Keep
@@ -324,6 +323,7 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 
             mapType(type, json, subtype, "api",
                     "bot", chatResp.getTime(), cusDateRes);
+
         }
     }
 
@@ -374,6 +374,7 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
                             new Gson().fromJson(json, ChatOutputCarousel.class);
                     ChatResponseCarousel chatResponseCarousel = new ChatResponseCarousel();
                     chatResponseCarousel.setSourceType(sourceType);
+                    chatResponseCarousel.setDate(dateString);
                     chatResponseCarousel.setChatColumnCarousels(outputCarousel.getColumns());
                     chatObjects.add(chatResponseCarousel);
                     view.notifyAdapterObjectAdded(chatObjects.size() - 1);

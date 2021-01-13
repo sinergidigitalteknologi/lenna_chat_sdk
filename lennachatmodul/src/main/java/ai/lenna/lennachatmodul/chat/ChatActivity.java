@@ -70,6 +70,7 @@ import ai.lenna.lennachatmodul.chat.adapter.QuickButtonAdapter;
 import ai.lenna.lennachatmodul.chat.adapter.QuickButtonCallBack;
 import ai.lenna.lennachatmodul.chat.airport.Airport;
 import ai.lenna.lennachatmodul.chat.model.ChatLoadReq;
+import ai.lenna.lennachatmodul.chat.model.ChatObject;
 import ai.lenna.lennachatmodul.chat.model.ChatReq;
 import ai.lenna.lennachatmodul.chat.model.ChatResp;
 import ai.lenna.lennachatmodul.chat.model.bean.ChatResultBean;
@@ -344,7 +345,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                             Collections.reverse(list);
                             list.remove(0);
                             Gson gson = new Gson();
-                            Log.d("List_chat", gson.toJson(list));
+                            Log.d("List_chat", gson.toJson(list.size()));
                             if (list.size() != 0) {
                                 for (int i = 0; i < list.size(); i++) {
                                     presenter.loadChatHistory(new Gson().toJson(list.get(i)));
@@ -615,12 +616,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             }
         }
     };
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isPause = true;
-    }
 
     @Override
     public void onResume() {
@@ -1092,6 +1087,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     protected void onStop() {
         super.onStop();
         Log.d("onStopChat", "onStopChat");
+        isPause = true;
         Chat.setIsChatLennaActive(false);
     }
 

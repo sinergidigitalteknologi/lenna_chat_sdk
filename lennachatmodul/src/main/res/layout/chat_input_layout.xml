@@ -49,8 +49,10 @@
                 android:id="@+id/linearInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="12dp"
-                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="10dp"
                 android:orientation="vertical"
                 android:gravity="right"
                 android:background="@drawable/background_chat_req">
@@ -59,10 +61,8 @@
                     android:id="@+id/tv_input_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="4dp"
                     android:textSize="14sp"
                     android:gravity="right"
                     android:textStyle="normal"
@@ -78,8 +78,6 @@
                     android:text="10:10"
                     android:gravity="right"
                     android:textStyle="normal"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/montserrat_light"
                     android:textColor="#5a6872"
@@ -96,13 +94,13 @@
             android:layout_height="32dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="3dp"
             android:src="@drawable/img_not_available" />
 
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="2dp" />
+        android:layout_height="6dp" />
 
 </LinearLayout>

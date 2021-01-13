@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Keep;
 
+import com.google.gson.Gson;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.SimpleDateFormat;
@@ -70,9 +71,6 @@ public class ChatInputVH extends BaseViewHolder {
     public void onBindView(ChatObject object, ArrayList<ChatObject> listObject, int position) {
         this.tvInputText.setText(object.getText());
         this.tvTimeTextInput.setText(object.getTime());
-
-        Log.d("getDateYesterday", getDateYesterday());
-        Log.d("getDateNow", getDateNow());
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
             linearLayoutInput.setBackgroundResource(R.drawable.background_chat_req);
