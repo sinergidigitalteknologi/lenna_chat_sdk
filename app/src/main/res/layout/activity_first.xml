@@ -5,15 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:padding="24dp"
     android:orientation="vertical"
     tools:context=".FirstActivity">
 
-    <Button
-        android:id="@+id/btn_click_bot"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll_first_main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:textSize="18sp"
-        android:text="Go To Chat" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_email_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:hint="Email"
+            android:layout_marginBottom="18dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_username_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:hint="Username"
+            android:layout_marginBottom="18dp"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_email_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:textSize="18sp"
+            android:text="Go To Chat" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_second_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_click_bot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Go To Chat" />
+
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

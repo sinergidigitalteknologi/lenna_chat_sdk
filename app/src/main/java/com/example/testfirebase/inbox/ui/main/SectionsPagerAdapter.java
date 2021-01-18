@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.testfirebase.NotifFragment;
 import com.example.testfirebase.R;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import ai.lenna.lennachatmodul.Chat;
 import ai.lenna.lennachatmodul.chatRoom.ChatRoomLennaFragment;
@@ -52,11 +53,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 Chat.setAppId("1yoD5Y");
                 Chat.setBotId("zbq2dp");
                 Chat.setAppKey("gm+sCaMg5ai0vPes+tB83O3G0vaS4ahwGV+81Hnzr6jCbi7g+vYbmzHHcy/vH64jHMwq9pLr8z/eWXfVWZ4gPv64p6PvmW4aHWbnIfpF9SeKSRJGy+pXyMbiqBdzpOEurDhsLixpHvA21sUqlHPq71XJxLoNg9hPhWSfCexpzCh36OlnW1hpoX7YSNGVDRUtorCBcPerj/43UQVfeKCA+Q==");
-                Chat.setUserName("ArTest88");
+                Chat.setUserName(Prefs.getString("editUsernameIn",""));
                 Chat.setKeyFallBack("locna");
                 Chat.setRequestMenuFAllback("fallback-locna");
                 Chat.setSaleForceId("6");
-                Chat.setEmail("ar_test88@gmail.com");
+                Chat.setEmail(Prefs.getString("editEmailIn",""));
                 Chat.setNameBot("BOT-Lenna");
                 Chat.setNameAgent("SFTEST-QH");
                 Chat.setIconBitmap(iconLogo);
