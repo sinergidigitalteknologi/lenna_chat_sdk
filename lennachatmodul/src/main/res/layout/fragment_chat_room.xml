@@ -12,6 +12,7 @@
         android:id="@+id/contain_inbox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <LinearLayout
@@ -137,7 +138,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="gone"
         android:orientation="vertical"
         android:background="#f6f7fb">
 

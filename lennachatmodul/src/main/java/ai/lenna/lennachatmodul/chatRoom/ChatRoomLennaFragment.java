@@ -126,21 +126,17 @@ public class ChatRoomLennaFragment extends Fragment {
         funAuthenticationLenna();
     }
 
+
+
     @Override
     public void onResume() {
         super.onResume();
-        setVisibilityInbox(View.GONE, View.GONE, View.VISIBLE);
-        funListChatHistory();
+        funAuthenticationLenna();
     }
 
     public void funListChatHistory() {
-        String dataUserId = Prefs.getString("USER_ID","");
-        Log.d("dataUserId", dataUserId);
-        if (!dataUserId.equals("")) {
-            chatLoadReq.setUserId(dataUserId);
-            loadListChat();
-        }
-
+        chatLoadReq.setUserId(Prefs.getString("USER_ID_LENNA",""));
+        loadListChat();
     }
 
     @Keep
@@ -328,31 +324,35 @@ public class ChatRoomLennaFragment extends Fragment {
                                 if (codeError == 5000) {
                                     loginLenna();
                                 } else {
-                                    Prefs.putString("TOKEN_LOGIN","");
+                                    Prefs.remove("TOKEN_LOGIN");
+                                    Prefs.remove("USER_ID_LENNA");
                                     requstRegister();
                                 }
                             }
                         } else {
-                            Prefs.putString("TOKEN_LOGIN","");
+                            Prefs.remove("TOKEN_LOGIN");
+                            Prefs.remove("USER_ID_LENNA");
                             setVisibilityInbox(View.GONE, View.VISIBLE, View.GONE);
                         }
                     }
                     @Override
                     public void onFailure(Call<RegisterLennaResp> call, Throwable t) {
 //                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
-                        Prefs.putString("TOKEN_LOGIN","");
+                        Prefs.remove("TOKEN_LOGIN");
+                        Prefs.remove("USER_ID_LENNA");
                         setVisibilityInbox(View.GONE, View.VISIBLE, View.GONE);
                     }
                 });
             } catch (Exception e) {
 //                e.printStackTrace();
-                Prefs.putString("TOKEN_LOGIN","");
+                Prefs.remove("TOKEN_LOGIN");
+                Prefs.remove("USER_ID_LENNA");
                 setVisibilityInbox(View.GONE, View.VISIBLE, View.GONE);
             }
         }else{
             Log.d("Login_token : ", (Prefs.getString("TOKEN_LOGIN", "")));
             Chat.setToken(Prefs.getString("TOKEN_LOGIN", ""));
-            Chat.setUserId(Prefs.getString("USER_ID", ""));
+            Chat.setUserId(Prefs.getString("USER_ID_LENNA", ""));
             funListChatHistory();
         }
     }
@@ -378,17 +378,20 @@ public class ChatRoomLennaFragment extends Fragment {
                         Chat.setUserId(response.body().getData().getId());
                         funListChatHistory();
                     } else {
-                        Prefs.putString("TOKEN_LOGIN","");
+                        Prefs.remove("TOKEN_LOGIN");
+                        Prefs.remove("USER_ID_LENNA");
                         setVisibilityInbox(View.GONE, View.VISIBLE, View.GONE);
                     }
                 } else {
-                    Prefs.putString("TOKEN_LOGIN","");
+                    Prefs.remove("TOKEN_LOGIN");
+                    Prefs.remove("USER_ID_LENNA");
                     setVisibilityInbox(View.GONE, View.VISIBLE, View.GONE);
                 }
             }
             @Override
             public void onFailure(Call<LoginLennaResp> callLogin, Throwable t) {
-                Prefs.putString("TOKEN_LOGIN","");
+                Prefs.remove("TOKEN_LOGIN");
+                Prefs.remove("USER_ID_LENNA");
                 setVisibilityInbox(View.GONE, View.VISIBLE, View.GONE);
             }
         });

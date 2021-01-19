@@ -64,6 +64,10 @@ import java.util.Locale;
 import java.util.Objects;
 
 import ai.lenna.lennachatmodul.Chat;
+import ai.lenna.lennachatmodul.LoginOrRegister.lennaLogin.LoginLennaReq;
+import ai.lenna.lennachatmodul.LoginOrRegister.lennaLogin.LoginLennaResp;
+import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaReq;
+import ai.lenna.lennachatmodul.LoginOrRegister.regist.model.RegisterLennaResp;
 import ai.lenna.lennachatmodul.R;
 import ai.lenna.lennachatmodul.chat.adapter.ChatAdapter;
 import ai.lenna.lennachatmodul.chat.adapter.QuickButtonAdapter;
@@ -95,6 +99,7 @@ import ai.lenna.lennachatmodul.room.entity.ChatResponseEntity;
 import ai.lenna.lennachatmodul.util.AesCipher;
 import ai.lenna.lennachatmodul.util.Constant;
 import ai.lenna.lennachatmodul.util.DialogUtils;
+import ai.lenna.lennachatmodul.util.Encryp;
 import ai.lenna.lennachatmodul.util.ShowAllert;
 import ai.lenna.lennachatmodul.util.SpeakToTextUtils;
 import ai.lenna.lennachatmodul.util.TtsUtils;
@@ -173,6 +178,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     public static Picasso mPicasso;
 
     ChatLoadReq chatLoadReq;
+    RegisterLennaReq registerLennaReq;
 
     @Keep
     @Override
@@ -181,7 +187,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         setContentView(R.layout.activity_chat);
 
         isPause = false;
-        Log.d("TOKEN_LOGIN", Constant.TOKEN_LOGIN);
 
         OkHttpClient client = getImageHttpClient();
         mPicasso = new Picasso.Builder(ChatActivity.this)
@@ -240,7 +245,11 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         llLoadChatList = findViewById(R.id.ll_load_chat_list);
         llFailedLoadChatList = findViewById(R.id.ll_failed_load_chat_list);
 
-        containLoadListChat(true);
+        Prefs.remove("TOKEN_LOGIN");
+        Prefs.remove("USER_ID_LENNA");
+        registerLennaReq = new RegisterLennaReq();
+
+        funAuthenticationLenna(true);
 
         btnErrorLoad = (Button) findViewById(R.id.btn_error_load) ;
         btnErrorLoad.setOnClickListener(new View.OnClickListener() {
@@ -249,7 +258,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 llContainChat.setVisibility(View.VISIBLE);
                 llLoadChatList.setVisibility(View.VISIBLE);
                 llFailedLoadChatList.setVisibility(View.GONE);
-                containLoadListChat(true);
+                funAuthenticationLenna(true);
             }
         });
 
@@ -258,7 +267,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         layout_chatbox2 = (ConstraintLayout) findViewById(R.id.layout_chatbox);
 
         rvQuickButton.setVisibility(View.GONE);
-
 
         speech = SpeechRecognizer.createSpeechRecognizer(ChatActivity.this);
         speech.setRecognitionListener(this);
@@ -319,8 +327,182 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         };
     }
 
+    public void funAuthenticationLenna(Boolean isCreate) {
+
+        Encryp encryp  = new Encryp();
+        encryp.dc();
+        String password = "" ;
+
+        registerLennaReq.setName(Constant.USER_NAME);
+        registerLennaReq.setSales_force_id(Constant.SALEFORCEID);
+        registerLennaReq.setNickname(Constant.USER_NAME);
+        registerLennaReq.setEmail(Constant.EMAIL);
+        registerLennaReq.setPhone(Constant.PHONE);
+        registerLennaReq.setClient("android");
+        registerLennaReq.setFcm_token(Constant.FCM_TOKEN_LOGIN);
+        ArrayList<String> array_item = new ArrayList<>();
+        array_item.add("lenna");
+        registerLennaReq.setInterests(array_item);
+
+        try {
+            password = AesCipher.encrypt(Constant.SECRET_KEY, Constant.EMAIL);
+            registerLennaReq.setPassword(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        requstRegister(isCreate);
+    }
+
+    private void requstRegister(Boolean isCreate) {
+
+        if(Prefs.getString("TOKEN_LOGIN","").equals("")){
+
+            ApiService service = ApiBuilder.getClient().create(ApiService.class);
+
+            Log.d("Login_token : ", "Token - " + (Prefs.getString("TOKEN_LOGIN", "")));
+            Log.d("User_id_lenna : ", "User - " + (Prefs.getString("USER_ID_LENNA", "")));
+            try {
+//                String data = AesCipher.encrypt(Constant.REG_KEY, req.toString());
+//                registerRedEncrypt.setData(data);
+////                Enc
+//                Call<RegisterLennaRespEncrypt> call = service.regEncrypt(registerRedEncrypt, Constant.APP_ID);
+//                call.enqueue(new Callback<RegisterLennaRespEncrypt>() {
+//                    @Override
+//                    public void onResponse(Call<RegisterLennaRespEncrypt> call, Response<RegisterLennaRespEncrypt> response) {
+//                        if (response.isSuccessful()) {
+//                            try{
+//                                String res = AesCipher.decrypt(Constant.REG_KEY,response.body().getData());
+//                                RegisterLennaResp  chatResp = new RegisterLennaResp();
+//                                Gson gson = new Gson();
+//                                chatResp = gson.fromJson(res,RegisterLennaResp.class);
+//                                Chat.setToken(chatResp.getAccessToken());
+//                                Chat.setUserId(chatResp.getData().getId());
+//                                Intent intent = new Intent(context, ChatActivity.class);
+//                                intent.setAction(Intent.ACTION_VIEW);
+//                                ((Activity)context).startActivity(intent);
+//                            }catch (Exception e){
+//                                Toast.makeText(context, "Sorry somethink wrong",Toast.LENGTH_LONG).show();
+//                            }
+//                        }else{
+//                            Toast.makeText(context,String.valueOf(response),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<RegisterLennaRespEncrypt> call, Throwable t) {
+//                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
+//                        Prefs.putString("TOKEN","");
+//                    }
+//                });
+
+                // Not enc
+                Call<RegisterLennaResp> call = service.reg(registerLennaReq, Constant.APP_ID);
+                call.enqueue(new Callback<RegisterLennaResp>() {
+                    @Override
+                    public void onResponse(Call<RegisterLennaResp> call, Response<RegisterLennaResp> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getSuccess()) {
+                                Log.d("account_register", new Gson().toJson(response.body()));
+                                Chat.setToken(response.body().getAccessToken());
+                                Chat.setUserId(response.body().getData().getId());
+                                containLoadListChat(isCreate);
+//                                setVisibilityInbox(View.VISIBLE, View.GONE, View.GONE);
+                            } else {
+                                int codeError = response.body().getError().getCode();
+                                if (codeError == 5000) {
+                                    loginLenna(isCreate);
+                                } else {
+                                    Prefs.remove("TOKEN_LOGIN");
+                                    Prefs.remove("USER_ID_LENNA");
+                                    requstRegister(isCreate);
+                                }
+                            }
+                        } else {
+                            Prefs.remove("TOKEN_LOGIN");
+                            Prefs.remove("USER_ID_LENNA");
+                            llContainChat.setVisibility(View.GONE);
+                            llLoadChatList.setVisibility(View.GONE);
+                            llFailedLoadChatList.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<RegisterLennaResp> call, Throwable t) {
+//                        Toast.makeText(context,t.toString(),Toast.LENGTH_LONG).show();
+                        Prefs.remove("TOKEN_LOGIN");
+                        Prefs.remove("USER_ID_LENNA");
+                        llContainChat.setVisibility(View.GONE);
+                        llLoadChatList.setVisibility(View.GONE);
+                        llFailedLoadChatList.setVisibility(View.VISIBLE);
+                    }
+                });
+            } catch (Exception e) {
+//                e.printStackTrace();
+                Prefs.remove("TOKEN_LOGIN");
+                Prefs.remove("USER_ID_LENNA");
+                llContainChat.setVisibility(View.GONE);
+                llLoadChatList.setVisibility(View.GONE);
+                llFailedLoadChatList.setVisibility(View.VISIBLE);
+            }
+        }else{
+            Chat.setToken(Prefs.getString("TOKEN_LOGIN", ""));
+            Chat.setUserId(Prefs.getString("USER_ID_LENNA", ""));
+            containLoadListChat(isCreate);
+        }
+    }
+
+    private void loginLenna(Boolean isCreate) {
+
+        LoginLennaReq loginReq = new LoginLennaReq();
+
+        loginReq.setClient("android");
+        loginReq.setEmail(registerLennaReq.getEmail());
+        loginReq.setFcmToken(registerLennaReq.getFcm_token());
+        loginReq.setPassword(registerLennaReq.getPassword());
+
+        ApiService serviceLogin = ApiBuilder.getClient().create(ApiService.class);
+        Call<LoginLennaResp> callLogin = serviceLogin.loginLenna(loginReq, Constant.APP_ID);
+        callLogin.enqueue(new Callback<LoginLennaResp>() {
+            @Override
+            public void onResponse(Call<LoginLennaResp> callLogin, Response<LoginLennaResp> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getSuccess()) {
+                        Log.d("account_login", new Gson().toJson(response.body()));
+                        Chat.setToken(response.body().getAccessToken());
+                        Chat.setUserId(response.body().getData().getId());
+                        containLoadListChat(isCreate);
+                    } else {
+                        Prefs.remove("TOKEN_LOGIN");
+                        Prefs.remove("USER_ID_LENNA");
+                        llContainChat.setVisibility(View.GONE);
+                        llLoadChatList.setVisibility(View.GONE);
+                        llFailedLoadChatList.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Prefs.remove("TOKEN_LOGIN");
+                    Prefs.remove("USER_ID_LENNA");
+                    llContainChat.setVisibility(View.GONE);
+                    llLoadChatList.setVisibility(View.GONE);
+                    llFailedLoadChatList.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onFailure(Call<LoginLennaResp> callLogin, Throwable t) {
+                Prefs.remove("TOKEN_LOGIN");
+                Prefs.remove("USER_ID_LENNA");
+                llContainChat.setVisibility(View.GONE);
+                llLoadChatList.setVisibility(View.GONE);
+                llFailedLoadChatList.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
     public void containLoadListChat(Boolean isCreate) {
-        chatLoadReq.setUserId(Prefs.getString("USER_ID",""));
+
+        Log.d("Login_token2 : ", "Token - " + (Prefs.getString("TOKEN_LOGIN", "")));
+        Log.d("User_id_lenna2 : ", "User - " + (Prefs.getString("USER_ID_LENNA", "")));
+
+        chatLoadReq.setUserId(Prefs.getString("USER_ID_LENNA",""));
         ChatLoadReq inChatLoadReq = new ChatLoadReq();
         inChatLoadReq.setUserId(chatLoadReq.getUserId());
 
@@ -386,7 +568,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     @Keep
     private void funAutoResolve() {
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
-        Call<RoomResolveResp> call = service.funResolveChat(Prefs.getString("USER_ID",""));
+        Call<RoomResolveResp> call = service.funResolveChat(Prefs.getString("USER_ID_LENNA",""));
         call.enqueue(new Callback<RoomResolveResp>() {
             @Override
             public void onResponse(Call<RoomResolveResp> call, Response<RoomResolveResp> response) {
@@ -405,8 +587,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         if (!message.equals("")){
 
             try {
-                final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),message,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-                req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID","")));
+                final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),message,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+                req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID_LENNA","")));
                 req.setQuery(AesCipher.encrypt(Constant.APP_KEY,message));
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
@@ -431,8 +613,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     public void mainCours(String text) {
         if (!text.equals("")){
             try {
-                final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID","")));
+                final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID_LENNA","")));
                 req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
@@ -633,7 +815,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         }
 
         if (isPause) {
-            containLoadListChat(false);
+            funAuthenticationLenna(false);
         }
 
         Chat.setIsChatLennaActive(true);
@@ -777,8 +959,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void inputChat(String text) {
         rvQuickButton.setVisibility(View.GONE);
-        String user_id = Prefs.getString("USER_ID","");
-        Log.d("D/OK", "ini user id "+ Prefs.getString("USER_ID",""));
+        String user_id = Prefs.getString("USER_ID_LENNA","");
 
         if (!TextUtils.isEmpty(text)) {
             if (statusLoading == 1) {
@@ -825,8 +1006,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 presenter.removeItem();
             }
             try {
-                final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
-                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID","")));
+                final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+                req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID_LENNA","")));
                 req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));

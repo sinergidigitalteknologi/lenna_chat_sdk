@@ -720,9 +720,9 @@ public class ChatPresenter implements ChatContract.Presenter, ChatContract.Model
 
     @Keep
     private void mainCours(){
-        final ChatReq req = new ChatReq(Prefs.getString("USER_ID",""),Constant.REQUEST_MENU_FALLBACK,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+        final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),Constant.REQUEST_MENU_FALLBACK,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
         try {
-            req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID","")));
+            req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID_LENNA","")));
             req.setQuery(AesCipher.encrypt(Constant.APP_KEY, Constant.REQUEST_MENU_FALLBACK));
             req.setLat(AesCipher.encrypt(Constant.APP_KEY, String.valueOf(Constant.LAT)));
             req.setLon(AesCipher.encrypt(Constant.APP_KEY, String.valueOf(Constant.LON)));

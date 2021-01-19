@@ -25,8 +25,8 @@ public class Chat {
     /**
      * set user ID **/
     public  static  void setUserId(String userId){
-        Prefs.putString("USER_ID", userId);
-        Constant.USER_ID = userId;
+        Prefs.putString("USER_ID_LENNA", userId);
+        Constant.USER_ID_LENNA = userId;
     }
     /**
      * set user Name **/
@@ -68,9 +68,9 @@ public class Chat {
     }
 
     public  static  void removeTokenLogin() {
-        Prefs.putString("TOKEN_LOGIN", "");
-        Prefs.putString("USER_ID", "");
-        Constant.USER_ID = "";
+        Prefs.remove("TOKEN_LOGIN");
+        Prefs.remove("USER_ID_LENNA");
+        Constant.USER_ID_LENNA = "";
         Constant.TOKEN_LOGIN = "";
         Constant.FCM_TOKEN_LOGIN = "";
     }

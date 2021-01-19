@@ -17,7 +17,7 @@ public class Constant {
     public static String REG_KEY = "huj+B6yF8VOKhT+ZCuipHts6MtbO8CdN1EF0KVCRzIU=";
     public static String APP_ID = "";
     public static String BOT_ID = "";
-    public static String USER_ID = "";
+    public static String USER_ID_LENNA = "";
     public static String USER_NAME = "";
     public static String EMAIL = "";
     public static String PASSWORD = "lenna";
