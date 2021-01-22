@@ -333,10 +333,13 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         encryp.dc();
         String password = "" ;
 
+        int index_ =  Constant.EMAIL.lastIndexOf("@");
+        String emailNew = Constant.EMAIL.substring(0, index_)+ "_" + Constant.OUTLET_ID + Constant.EMAIL.substring(index_);
+
         registerLennaReq.setName(Constant.USER_NAME);
         registerLennaReq.setSales_force_id(Constant.SALEFORCEID);
         registerLennaReq.setNickname(Constant.USER_NAME);
-        registerLennaReq.setEmail(Constant.EMAIL);
+        registerLennaReq.setEmail(emailNew);
         registerLennaReq.setPhone(Constant.PHONE);
         registerLennaReq.setClient("android");
         registerLennaReq.setFcm_token(Constant.FCM_TOKEN_LOGIN);
@@ -345,7 +348,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         registerLennaReq.setInterests(array_item);
 
         try {
-            password = AesCipher.encrypt(Constant.SECRET_KEY, Constant.EMAIL);
+            password = AesCipher.encrypt(Constant.SECRET_KEY, emailNew);
             registerLennaReq.setPassword(password);
         } catch (Exception e) {
             e.printStackTrace();

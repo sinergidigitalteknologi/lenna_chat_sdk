@@ -22,19 +22,24 @@ public class Chat {
         Constant.FCM_TOKEN_LOGIN = token;
     }
 
+    public static void setOutletId(String outletId) {
+        Constant.OUTLET_ID = outletId;
+    }
     /**
      * set user ID **/
     public  static  void setUserId(String userId){
         Prefs.putString("USER_ID_LENNA", userId);
         Constant.USER_ID_LENNA = userId;
     }
-    /**
-     * set user Name **/
 
+    /**
+     * set user SalesForceId **/
     public  static  void setSaleForceId(String salesId){
         Constant.SALEFORCEID = salesId;
     }
 
+    /**
+     * set user Name **/
     public  static  void setUserName(String userName){
         Constant.USER_NAME = userName;
     }
@@ -63,18 +68,25 @@ public class Chat {
         Constant.TOKEN_LOGIN = token;
     }
 
+    /**
+     * set user ChatActive **/
     public static void setIsChatLennaActive(boolean isActive) {
         Constant.IS_CHAT_LENNA_ACTIVE = isActive;
     }
 
+    /**
+     * set user Token Login **/
     public  static  void removeTokenLogin() {
         Prefs.remove("TOKEN_LOGIN");
         Prefs.remove("USER_ID_LENNA");
         Constant.USER_ID_LENNA = "";
         Constant.TOKEN_LOGIN = "";
         Constant.FCM_TOKEN_LOGIN = "";
+        Constant.OUTLET_ID = "";
     }
 
+    /**
+     * set user Bot Name **/
     public  static  void setNameBot(String bot){
         Constant.NAME_BOT_MSG = bot;
     }

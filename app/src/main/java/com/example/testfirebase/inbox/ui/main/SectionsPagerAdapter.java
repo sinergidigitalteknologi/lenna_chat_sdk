@@ -64,6 +64,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 Chat.setIconBubleChatBitmap(iconLogo);
                 Chat.setIconBotBitmap(botRoom);
                 Chat.setIconAgentBitmap(agentRoom);
+                Chat.setOutletId(Prefs.getString("editOutletIdIn",""));
                 Chat.start(mContext);
 
                 fragment = new ChatRoomLennaFragment();

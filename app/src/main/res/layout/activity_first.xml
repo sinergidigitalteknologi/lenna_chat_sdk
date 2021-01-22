@@ -34,6 +34,15 @@
             android:layout_marginBottom="18dp"
             android:textSize="14sp" />
 
+        <EditText
+            android:id="@+id/et_outlet_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:hint="Outlet Id"
+            android:layout_marginBottom="18dp"
+            android:textSize="14sp" />
+
         <Button
             android:id="@+id/btn_email_in"
             android:layout_width="match_parent"

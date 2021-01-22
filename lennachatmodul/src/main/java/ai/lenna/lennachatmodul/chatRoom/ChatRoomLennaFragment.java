@@ -59,6 +59,8 @@ public class ChatRoomLennaFragment extends Fragment {
             tvLastMsgBot, tvLastMsgAgent,
             tvTimeMsgBot, tvTimeMsgAgent;
 
+    private boolean isPause;
+
     public ChatLoadReq chatLoadReq;
     RegisterLennaReq registerLennaReq;
 
@@ -85,6 +87,8 @@ public class ChatRoomLennaFragment extends Fragment {
         llRegisterOrLoginErr = mView.findViewById(R.id.ll_register_or_login_err);
         btnRegisterOrLoginTry = mView.findViewById(R.id.btn_register_or_login_try);
         llRegisterOrLoginLoading = mView.findViewById(R.id.ll_register_or_login_loading);
+
+        isPause = false;
 
         chatLoadReq = new ChatLoadReq();
         registerLennaReq = new RegisterLennaReq();
@@ -126,12 +130,18 @@ public class ChatRoomLennaFragment extends Fragment {
         funAuthenticationLenna();
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
-        funAuthenticationLenna();
+        if (isPause) {
+            funAuthenticationLenna();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isPause = true;
     }
 
     public void funListChatHistory() {
@@ -245,10 +255,17 @@ public class ChatRoomLennaFragment extends Fragment {
         encryp.dc();
         String password = "" ;
 
+        int index_ =  Constant.EMAIL.lastIndexOf("@");
+        String emailNew = Constant.EMAIL.substring(0, index_)+ "_" + Constant.OUTLET_ID + Constant.EMAIL.substring(index_);
+
+        Log.d("index_@", String.valueOf(index_));
+        Log.d("old_email_", Constant.EMAIL);
+        Log.d("new_email_", Constant.EMAIL.substring(0, index_)+ "_" + Constant.OUTLET_ID + Constant.EMAIL.substring(index_));
+
         registerLennaReq.setName(Constant.USER_NAME);
         registerLennaReq.setSales_force_id(Constant.SALEFORCEID);
         registerLennaReq.setNickname(Constant.USER_NAME);
-        registerLennaReq.setEmail(Constant.EMAIL);
+        registerLennaReq.setEmail(emailNew);
         registerLennaReq.setPhone(Constant.PHONE);
         registerLennaReq.setClient("android");
         registerLennaReq.setFcm_token(Constant.FCM_TOKEN_LOGIN);
@@ -257,12 +274,13 @@ public class ChatRoomLennaFragment extends Fragment {
         registerLennaReq.setInterests(array_item);
 
         try {
-            password = AesCipher.encrypt(Constant.SECRET_KEY, Constant.EMAIL);
+            password = AesCipher.encrypt(Constant.SECRET_KEY, emailNew);
             registerLennaReq.setPassword(password);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        Log.d("registerLennaReq", new Gson().toJson(registerLennaReq));
         requstRegister();
     }
 

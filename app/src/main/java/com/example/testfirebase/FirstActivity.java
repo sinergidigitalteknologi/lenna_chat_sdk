@@ -29,7 +29,7 @@ public class FirstActivity extends AppCompatActivity {
 
     TextView mTvLogout;
     Button buttonBot, buttonEmailIn;
-    EditText editEmailIn, editUsrnameIn;
+    EditText editEmailIn, editUsrnameIn, editOutletIn;
     LinearLayout layoutEmailIn, layoutWasLogin;
 
     private static String TAG = "MyFirebaseInstanceId";
@@ -42,6 +42,7 @@ public class FirstActivity extends AppCompatActivity {
         mTvLogout = findViewById(R.id.tv_logout);
         buttonBot = findViewById(R.id.btn_click_bot);
         editEmailIn = findViewById(R.id.et_email_in);
+        editOutletIn = findViewById(R.id.et_outlet_id);
         buttonEmailIn = findViewById(R.id.btn_email_in);
         layoutEmailIn = findViewById(R.id.ll_first_main);
         editUsrnameIn = findViewById(R.id.et_username_in);
@@ -72,7 +73,8 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Prefs.putString("editEmailIn", "");
-                Prefs.putString("editUsernmaeIn", "");
+                Prefs.putString("editUsernameIn", "");
+                Prefs.putString("editOutletIdIn", "");
                 Chat.removeTokenLogin();
                 finish();
             }
@@ -89,9 +91,12 @@ public class FirstActivity extends AppCompatActivity {
         buttonEmailIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!editEmailIn.getText().toString().equals("") && !editUsrnameIn.getText().toString().equals("")) {
+                if (!editEmailIn.getText().toString().equals("") &&
+                        !editUsrnameIn.getText().toString().equals("") &&
+                        !editOutletIn.getText().toString().equals("")) {
                     Prefs.putString("editEmailIn", editEmailIn.getText().toString());
-                    Prefs.putString("editUsernmaeIn", editUsrnameIn.getText().toString());
+                    Prefs.putString("editUsernameIn", editUsrnameIn.getText().toString());
+                    Prefs.putString("editOutletIdIn", editOutletIn.getText().toString());
                     Intent intent = new Intent(FirstActivity.this, InboxActivity.class);
                     startActivity(intent);
                 } else {
@@ -111,7 +116,8 @@ public class FirstActivity extends AppCompatActivity {
 
     public void getEmailIn() {
         if (Prefs.getString("editEmailIn","").equals("")
-                && Prefs.getString("editUsernameIn","").equals("")) {
+                && Prefs.getString("editUsernameIn","").equals("")
+                && Prefs.getString("editOutletIdIn","").equals("")) {
             layoutWasLogin.setVisibility(View.GONE);
             layoutEmailIn.setVisibility(View.VISIBLE);
         } else {

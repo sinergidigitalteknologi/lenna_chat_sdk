@@ -45,5 +45,5 @@ public class Constant {
     public static double LON = 0;
     public static String FCM_TOKEN_LOGIN = "";
     public static final String PUSH_NOTIFICATION = "pushNotification";
-
+    public static String OUTLET_ID = "";
 }
