@@ -68,6 +68,8 @@ public class ChatRespTextVH extends BaseViewHolder {
         this.tvResponseText.setText(object.getText());
         this.tvTimeTextInput.setText(object.getTime());
 
+        Log.d("getUserType", object.getUserType());
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N){
             linearLayoutResponse.setBackgroundResource(R.drawable.background_chat_res);
         }
@@ -88,7 +90,7 @@ public class ChatRespTextVH extends BaseViewHolder {
                 this.imgBotMessage.setImageBitmap(Constant.ICON_AGENT_LENNA_BITMAP);
             }
             if (object.getUserType().equals("bot")) {
-                this.imgBotMessage.setImageBitmap(Constant.ICON_AGENT_LENNA_BITMAP);
+                this.imgBotMessage.setImageBitmap(Constant.ICON_BOT_LENNA_BITMAP);
 //                this.imgBotMessage.setImageResource(R.drawable.icon_bot);
             }
         } else {

@@ -35,7 +35,6 @@ public class Constant {
     public static int ICON_BUBLE_CHAT = R.drawable.logo_lenna_blue;
     public static int LOGO_TITLE = R.drawable.logo_lenna_blue;
 
-    public static Bitmap LOGO_TITLE_BITMAP = null;
     public static Bitmap ICON_BUBLE_CHAT_BITMAP = null;
     public static Bitmap ICON_BOT_LENNA_BITMAP = null;
     public static Bitmap ICON_AGENT_LENNA_BITMAP = null;
@@ -45,5 +44,5 @@ public class Constant {
     public static double LON = 0;
     public static String FCM_TOKEN_LOGIN = "";
     public static final String PUSH_NOTIFICATION = "pushNotification";
-    public static String OUTLET_ID = "";
+    public static String USER_ID_DIGIPOS = "";
 }

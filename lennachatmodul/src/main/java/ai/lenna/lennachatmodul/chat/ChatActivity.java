@@ -334,7 +334,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         String password = "" ;
 
         int index_ =  Constant.EMAIL.lastIndexOf("@");
-        String emailNew = Constant.EMAIL.substring(0, index_)+ "_" + Constant.OUTLET_ID + Constant.EMAIL.substring(index_);
+        String emailNew = Constant.EMAIL.substring(0, index_)+ "_" + Constant.USER_ID_DIGIPOS + Constant.EMAIL.substring(index_);
 
         registerLennaReq.setName(Constant.USER_NAME);
         registerLennaReq.setSales_force_id(Constant.SALEFORCEID);

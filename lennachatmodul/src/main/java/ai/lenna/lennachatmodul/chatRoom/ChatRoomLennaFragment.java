@@ -256,11 +256,11 @@ public class ChatRoomLennaFragment extends Fragment {
         String password = "" ;
 
         int index_ =  Constant.EMAIL.lastIndexOf("@");
-        String emailNew = Constant.EMAIL.substring(0, index_)+ "_" + Constant.OUTLET_ID + Constant.EMAIL.substring(index_);
+        String emailNew = Constant.EMAIL.substring(0, index_)+ "_" + Constant.USER_ID_DIGIPOS + Constant.EMAIL.substring(index_);
 
         Log.d("index_@", String.valueOf(index_));
         Log.d("old_email_", Constant.EMAIL);
-        Log.d("new_email_", Constant.EMAIL.substring(0, index_)+ "_" + Constant.OUTLET_ID + Constant.EMAIL.substring(index_));
+        Log.d("new_email_", Constant.EMAIL.substring(0, index_)+ "_" + Constant.USER_ID_DIGIPOS + Constant.EMAIL.substring(index_));
 
         registerLennaReq.setName(Constant.USER_NAME);
         registerLennaReq.setSales_force_id(Constant.SALEFORCEID);
@@ -290,7 +290,7 @@ public class ChatRoomLennaFragment extends Fragment {
             ApiService service = ApiBuilder.getClient().create(ApiService.class);
 
 
-            Log.d("RegisterReq_123", String.valueOf(registerLennaReq));
+            Log.d("RegisterReq_123", new Gson().toJson(registerLennaReq));
             try {
 //                String data = AesCipher.encrypt(Constant.REG_KEY, req.toString());
 //                registerRedEncrypt.setData(data);

@@ -56,15 +56,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 Chat.setUserName(Prefs.getString("editUsernameIn",""));
                 Chat.setKeyFallBack("locna");
                 Chat.setRequestMenuFAllback("fallback-locna");
-                Chat.setSaleForceId("6");
+                Chat.setSaleForceId("");
                 Chat.setEmail(Prefs.getString("editEmailIn",""));
                 Chat.setNameBot("BOT-Lenna");
                 Chat.setNameAgent("SFTEST-QH");
-                Chat.setIconBitmap(iconLogo);
                 Chat.setIconBubleChatBitmap(iconLogo);
                 Chat.setIconBotBitmap(botRoom);
                 Chat.setIconAgentBitmap(agentRoom);
-                Chat.setOutletId(Prefs.getString("editOutletIdIn",""));
+                Chat.setUserIdDigipos(Prefs.getString("editOutletIdIn",""));
                 Chat.start(mContext);
 
                 fragment = new ChatRoomLennaFragment();

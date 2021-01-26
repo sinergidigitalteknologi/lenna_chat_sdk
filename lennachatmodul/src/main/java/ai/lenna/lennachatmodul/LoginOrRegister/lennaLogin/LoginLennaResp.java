@@ -34,6 +34,17 @@ public class LoginLennaResp {
     @SerializedName("expires_at")
     @Expose
     private String expiresAt;
+    @SerializedName("sales_force_id")
+    @Expose
+    private String sales_force_id;
+
+    public String getSales_force_id() {
+        return sales_force_id;
+    }
+
+    public void setSales_force_id(String sales_force_id) {
+        this.sales_force_id = sales_force_id;
+    }
 
     public Integer getStatus() {
         return status;
