@@ -56,6 +56,8 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -247,6 +249,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
         Prefs.remove("TOKEN_LOGIN");
         Prefs.remove("USER_ID_LENNA");
+
         registerLennaReq = new RegisterLennaReq();
 
         funAuthenticationLenna(true);
@@ -512,6 +515,17 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         loadListChat(inChatLoadReq, isCreate);
     }
 
+    public boolean isMessageLive(ChatResp itemList) {
+        boolean isLive = false;
+        if (itemList.getResult().getOutput().get(0).get("type").getAsString().equals("text")) {
+            if (itemList.getResult().getOutput().get(0).get("text").getAsString().equals("live")) {
+                isLive = true;
+            }
+        }
+        return isLive;
+    }
+
+
     @Keep
     private void loadListChat(ChatLoadReq chatLoadReq, Boolean isCreate) {
 
@@ -530,17 +544,20 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                             Collections.reverse(list);
                             list.remove(0);
                             Gson gson = new Gson();
-                            Log.d("List_chat", gson.toJson(list.size()));
+                            Log.d("List_chat", gson.toJson(list));
                             if (list.size() != 0) {
                                 for (int i = 0; i < list.size(); i++) {
-                                    presenter.loadChatHistory(new Gson().toJson(list.get(i)));
+                                    if (isMessageLive(list.get(i))) {
+                                        list.remove(i);
+                                    } else {
+                                        presenter.loadChatHistory(new Gson().toJson(list.get(i)));
+                                    }
                                 }
                             }
                             if (isCreate) {
                                 if (Constant.GMESSAGE.equals("live")) {
                                     firtsMessage(Constant.GMESSAGE);
-                                }
-                                if (!Constant.GMESSAGE.equals("live")) {
+                                } else {
                                     funAutoResolve();
                                 }
                             }
@@ -570,12 +587,17 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     @Keep
     private void funAutoResolve() {
+        Log.d("USER_ID_LENNA123", Prefs.getString("USER_ID_LENNA",""));
         ApiService service = ApiBuilder.getClient().create(ApiService.class);
         Call<RoomResolveResp> call = service.funResolveChat(Prefs.getString("USER_ID_LENNA",""));
         call.enqueue(new Callback<RoomResolveResp>() {
             @Override
             public void onResponse(Call<RoomResolveResp> call, Response<RoomResolveResp> response) {
-                Log.d("response_resolve_room", "true");
+                if (response.isSuccessful()) {
+                    Log.d("response_resolve_room", "true");
+                } else {
+                    Log.d("response_resolve_room", "false2");
+                }
             }
             @Override
             public void onFailure(Call<RoomResolveResp> call, Throwable t) {
@@ -588,7 +610,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     @Keep
     private  void firtsMessage(String message){
         if (!message.equals("")){
-
             try {
                 final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),message,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
                 req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID_LENNA","")));

@@ -149,6 +149,16 @@ public class ChatRoomLennaFragment extends Fragment {
         loadListChat();
     }
 
+    public boolean isMessageLive(ChatResp itemList) {
+        boolean isLive = false;
+        if (itemList.getResult().getOutput().get(0).get("type").getAsString().equals("text")) {
+            if (itemList.getResult().getOutput().get(0).get("text").getAsString().equals("live")) {
+                isLive = true;
+            }
+        }
+        return isLive;
+    }
+
     @Keep
     private void loadListChat() {
 
@@ -171,12 +181,16 @@ public class ChatRoomLennaFragment extends Fragment {
                         SimpleDateFormat sdfDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
                         String strDate = sdfDateFormat.format(calendar.getTime());
 
+                        Log.d("list_history_chat", new Gson().toJson(list));
+
                         for (ChatResp item : list) {
-                            if (item.getUsertype().equals("bot")) {
-                                filteredListBot.add(item);
-                            }
-                            if (item.getUsertype().equals("user_platform")) {
-                                filteredListAgent.add(item);
+                            if (!isMessageLive(item)) {
+                                if (item.getUsertype().equals("bot")) {
+                                    filteredListBot.add(item);
+                                }
+                                if (item.getUsertype().equals("user_platform")) {
+                                    filteredListAgent.add(item);
+                                }
                             }
                         }
 
