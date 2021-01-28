@@ -92,8 +92,7 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!editEmailIn.getText().toString().equals("") &&
-                        !editUsrnameIn.getText().toString().equals("") &&
-                        !editOutletIn.getText().toString().equals("")) {
+                        !editUsrnameIn.getText().toString().equals("")) {
                     Prefs.putString("editEmailIn", editEmailIn.getText().toString());
                     Prefs.putString("editUsernameIn", editUsrnameIn.getText().toString());
                     Prefs.putString("editOutletIdIn", editOutletIn.getText().toString());
@@ -116,8 +115,7 @@ public class FirstActivity extends AppCompatActivity {
 
     public void getEmailIn() {
         if (Prefs.getString("editEmailIn","").equals("")
-                && Prefs.getString("editUsernameIn","").equals("")
-                && Prefs.getString("editOutletIdIn","").equals("")) {
+                && Prefs.getString("editUsernameIn","").equals("")) {
             layoutWasLogin.setVisibility(View.GONE);
             layoutEmailIn.setVisibility(View.VISIBLE);
         } else {

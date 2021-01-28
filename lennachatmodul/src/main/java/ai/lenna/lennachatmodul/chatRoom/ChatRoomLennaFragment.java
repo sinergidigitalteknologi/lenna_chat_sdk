@@ -397,6 +397,7 @@ public class ChatRoomLennaFragment extends Fragment {
         loginReq.setEmail(registerLennaReq.getEmail());
         loginReq.setFcmToken(registerLennaReq.getFcm_token());
         loginReq.setPassword(registerLennaReq.getPassword());
+        loginReq.setSales_force_id(registerLennaReq.getSales_force_id());
 
         ApiService serviceLogin = ApiBuilder.getClient().create(ApiService.class);
         Call<LoginLennaResp> callLogin = serviceLogin.loginLenna(loginReq, Constant.APP_ID);

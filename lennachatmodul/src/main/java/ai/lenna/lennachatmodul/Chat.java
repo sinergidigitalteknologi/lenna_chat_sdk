@@ -83,6 +83,7 @@ public class Chat {
         Constant.TOKEN_LOGIN = "";
         Constant.FCM_TOKEN_LOGIN = "";
         Constant.USER_ID_DIGIPOS = "";
+        Constant.SALEFORCEID = "";
     }
 
     /**
