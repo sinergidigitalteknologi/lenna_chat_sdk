@@ -24,13 +24,17 @@ public class ChatReq implements Serializable {
     @SerializedName("channel")
     @Expose
     private String channel;
+    @SerializedName("type")
+    @Expose
+    private String type;
 
-    public ChatReq(String userId, String query, String lat, String lon, String channel) {
+    public ChatReq(String userId, String query, String lat, String lon, String channel, String type) {
         this.userId = userId;
         this.query = query;
         this.lat = lat;
         this.lon = lon;
         this.channel = channel;
+        this.type = type;
     }
 
     public String getLat() {
@@ -73,4 +77,11 @@ public class ChatReq implements Serializable {
         this.query = query;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

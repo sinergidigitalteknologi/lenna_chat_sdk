@@ -30,7 +30,9 @@ import android.provider.CalendarContract;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -182,6 +184,9 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     ChatLoadReq chatLoadReq;
     RegisterLennaReq registerLennaReq;
 
+    public static String dataType = "";
+    String dataEtSendMsg = "";
+
     @Keep
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,6 +312,39 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             }
         });
 
+        etSendMessage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!etSendMessage.getText().toString().equals("")) {
+                    ivActionMic.setVisibility(View.GONE);
+                    ivImageViewEnter.setVisibility(View.VISIBLE);
+                } else {
+                    ivActionMic.setVisibility(View.VISIBLE);
+                    ivImageViewEnter.setVisibility(View.GONE);
+                }
+//                else {
+//                    ivActionMic.setVisibility(View.GONE);
+//                    ivImageViewEnter.setVisibility(View.VISIBLE);
+//                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!etSendMessage.getText().toString().equals("")) {
+                    ivActionMic.setVisibility(View.GONE);
+                    ivImageViewEnter.setVisibility(View.VISIBLE);
+                } else {
+                    ivActionMic.setVisibility(View.VISIBLE);
+                    ivImageViewEnter.setVisibility(View.GONE);
+                }
+            }
+        });
+
         this.chatActivity = new ChatActivity();
 
         presenter.attachView(this);
@@ -355,6 +393,12 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             registerLennaReq.setPassword(password);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (Constant.GMESSAGE.equals("live")) {
+            dataType = "agent";
+        } else {
+            dataType =  "bot";
         }
 
         requstRegister(isCreate);
@@ -506,9 +550,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
 
     public void containLoadListChat(Boolean isCreate) {
 
-        Log.d("Login_token2 : ", "Token - " + (Prefs.getString("TOKEN_LOGIN", "")));
-        Log.d("User_id_lenna2 : ", "User - " + (Prefs.getString("USER_ID_LENNA", "")));
-
         chatLoadReq.setUserId(Prefs.getString("USER_ID_LENNA",""));
         ChatLoadReq inChatLoadReq = new ChatLoadReq();
         inChatLoadReq.setUserId(chatLoadReq.getUserId());
@@ -526,6 +567,47 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         return isLive;
     }
 
+    public void getDataListChat(List<ChatResp> list, Boolean isCreate) {
+        if (list.size() > 0) {
+            try {
+                Collections.reverse(list);
+                list.remove(0);
+                Gson gson = new Gson();
+                if (list.size() != 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        Log.d("List_chat", gson.toJson(list.get(i)));
+                        if (isMessageLive(list.get(i))) {
+                            list.remove(i);
+                        } else {
+                            if (list.get(i).getUsertype().equals("user") && !list.get(i).getType().equals("all")) {
+                                if ((list.get(i).getType().equals("agent") && Constant.GMESSAGE.equals("live")) ||
+                                        (list.get(i).getType().equals("bot") && Constant.GMESSAGE.equals("hai"))) {
+                                    presenter.loadChatHistory(new Gson().toJson(list.get(i)));
+                                }
+                            }
+                            if (list.get(i).getUsertype().equals("user_platform") && Constant.GMESSAGE.equals("live")) {
+                                presenter.loadChatHistory(new Gson().toJson(list.get(i)));
+                            }
+                            if (list.get(i).getUsertype().equals("bot") && Constant.GMESSAGE.equals("hai")) {
+                                presenter.loadChatHistory(new Gson().toJson(list.get(i)));
+                            }
+                        }
+                    }
+                }
+                if (isCreate) {
+                    if (Constant.GMESSAGE.equals("live")) {
+                        firtsMessage(Constant.GMESSAGE);
+                    } else {
+                        funAutoResolve();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            firtsMessage(Constant.GMESSAGE);
+        }
+    }
 
     @Keep
     private void loadListChat(ChatLoadReq chatLoadReq, Boolean isCreate) {
@@ -539,35 +621,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             public void onResponse(Call<ArrayList<ChatResp>> call, Response<ArrayList<ChatResp>> response) {
 
                 if (response.isSuccessful()) {
-                    List<ChatResp> list = response.body();
-                    if (list.size() > 0) {
-                        try {
-                            Collections.reverse(list);
-                            list.remove(0);
-                            Gson gson = new Gson();
-                            Log.d("List_chat", gson.toJson(list));
-                            if (list.size() != 0) {
-                                for (int i = 0; i < list.size(); i++) {
-                                    if (isMessageLive(list.get(i))) {
-                                        list.remove(i);
-                                    } else {
-                                        presenter.loadChatHistory(new Gson().toJson(list.get(i)));
-                                    }
-                                }
-                            }
-                            if (isCreate) {
-                                if (Constant.GMESSAGE.equals("live")) {
-                                    firtsMessage(Constant.GMESSAGE);
-                                } else {
-                                    funAutoResolve();
-                                }
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        firtsMessage(Constant.GMESSAGE);
-                    }
+                    getDataListChat(response.body(), isCreate);
                     llLoadChatList.setVisibility(View.GONE);
                     llContainChat.setVisibility(View.VISIBLE);
                     llFailedLoadChatList.setVisibility(View.GONE);
@@ -612,12 +666,19 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     private  void firtsMessage(String message){
         if (!message.equals("")){
             try {
-                final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),message,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+                final ChatReq req = new ChatReq(
+                        Prefs.getString("USER_ID_LENNA",""),
+                        message,String.valueOf(Constant.LAT),
+                        String.valueOf(Constant.LON),
+                        "android",
+                        dataType
+                );
                 req.setUserId(AesCipher.encrypt(Constant.APP_KEY, Prefs.getString("USER_ID_LENNA","")));
                 req.setQuery(AesCipher.encrypt(Constant.APP_KEY,message));
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+                req.setType(AesCipher.encrypt(Constant.APP_KEY, dataType));
                 statusLoading = 1;
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -629,7 +690,6 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -638,12 +698,19 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     public void mainCours(String text) {
         if (!text.equals("")){
             try {
-                final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+                final ChatReq req = new ChatReq(
+                        Prefs.getString("USER_ID_LENNA",""),
+                        text,String.valueOf(Constant.LAT),
+                        String.valueOf(Constant.LON),
+                        "android",
+                        dataType
+                );
                 req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID_LENNA","")));
                 req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+                req.setType(AesCipher.encrypt(Constant.APP_KEY, dataType));
                 statusLoading = 1;
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -803,10 +870,14 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 } else {
                     ivActionMic.setImageDrawable(getResources().getDrawable(R.drawable.ic_bt_mic_blue_listening));
                 }
+                etSendMessage.setHint("Listening");
                 speech.startListening(recognizerIntent);
             } else {
                 isTouch = true;
                 speech.stopListening();
+                if (etSendMessage.getText().toString().equals("")) {
+                    etSendMessage.setHint("Klik untuk mengetik");
+                }
             }
         }
     };
@@ -879,6 +950,7 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
     public void onReadyForSpeech(Bundle bundle) {
         Log.i(TAG, "onReadyForSpeech");
         speakOut("");
+        etSendMessage.setHint("Listening");
     }
 
     @Override
@@ -910,28 +982,36 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ivActionMic.setImageDrawable(getResources().getDrawable(R.drawable.ic_bt_mic_blue_active, getApplicationContext().getTheme()));
-            etSendMessage.setText("");
         } else {
             ivActionMic.setImageDrawable(getResources().getDrawable(R.drawable.ic_bt_mic_blue_active));
-            etSendMessage.setText("");
         }
+        etSendMessage.setText("");
+        etSendMessage.setHint("Klik untuk mengetik");
+        dataEtSendMsg = "";
     }
 
     @Override
     public void onResults(Bundle results) {
         Log.i(TAG, "onResults");
-        isTouch = true;
+        if (!dataEtSendMsg.equals("")) {
+            etSendMessage.setText(dataEtSendMsg);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isTouch = true;
+                    inputChat(dataEtSendMsg);
+                    etSendMessage.setText("");
+                    dataEtSendMsg = "";
+                    etSendMessage.setHint("Klik untuk mengetik");
+                }
+            }, 1000);
+        } else {
+            isTouch = true;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (!TextUtils.isEmpty(etSendMessage.getText())) {
-                inputChat(etSendMessage.getText().toString());
-                etSendMessage.setText("");
-            }
             ivActionMic.setImageDrawable(getResources().getDrawable(R.drawable.ic_bt_mic_blue_active, getApplicationContext().getTheme()));
         } else {
-            if (!TextUtils.isEmpty(etSendMessage.getText())) {
-                inputChat(etSendMessage.getText().toString());
-                etSendMessage.setText("");
-            }
             ivActionMic.setImageDrawable(getResources().getDrawable(R.drawable.ic_bt_mic_blue_active));
         }
     }
@@ -944,7 +1024,8 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
         StringBuilder text = new StringBuilder();
         for (String result : matches)
             text.append(result);
-        etSendMessage.setText(text.toString());
+        dataEtSendMsg = text.toString();
+//        etSendMessage.setText(text.toString());
     }
 
     @Override
@@ -991,12 +1072,22 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 presenter.removeItem();
             }
             try {
-                ChatReq req = new ChatReq(user_id,text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+                ChatReq req = new ChatReq(
+                        user_id,
+                        text,
+                        String.valueOf(Constant.LAT),
+                        String.valueOf(Constant.LON),
+                        "android",
+                        dataType
+                );
                 req.setUserId(AesCipher.encrypt(Constant.APP_KEY,user_id));
                 req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(Constant.LAT)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(Constant.LON)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+                req.setType(AesCipher.encrypt(Constant.APP_KEY, dataType));
+
+                Log.d("SendChatReq", new Gson().toJson(req));
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -1031,12 +1122,19 @@ public class ChatActivity extends AppCompatActivity implements RecognitionListen
                 presenter.removeItem();
             }
             try {
-                final ChatReq req = new ChatReq(Prefs.getString("USER_ID_LENNA",""),text,String.valueOf(Constant.LAT),String.valueOf(Constant.LON),"android");
+                final ChatReq req = new ChatReq(
+                        Prefs.getString("USER_ID_LENNA",""),
+                        text,String.valueOf(Constant.LAT),
+                        String.valueOf(Constant.LON),
+                        "android",
+                        dataType
+                );
                 req.setUserId(AesCipher.encrypt(Constant.APP_KEY,Prefs.getString("USER_ID_LENNA","")));
                 req.setQuery(AesCipher.encrypt(Constant.APP_KEY,text));
                 req.setLat(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(latitude)));
                 req.setLon(AesCipher.encrypt(Constant.APP_KEY,String.valueOf(longitude)));
                 req.setChannel(AesCipher.encrypt(Constant.APP_KEY,"android"));
+                req.setType(AesCipher.encrypt(Constant.APP_KEY, dataType));
 //              insertToDatabase(req.getQuery());
                 presenter.removeItem();
                 statusLoading = 1;
